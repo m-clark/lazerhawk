@@ -14,7 +14,7 @@ devtools::install_github('mclark--/lazerhawk')
 
 ## Functions
 ### corrheat
-A copy of [d3heatmap](https://github.com/rstudio/d3heatmap) specifically for correlation matrices, with a measurement focus.
+A copy of [d3heatmap](https://github.com/rstudio/d3heatmap) specifically for correlation matrices, with a measurement focus.  Currently requires d3heatmap.
 
 ### createCorr
 A function to create a correlation matrix. Useful, for example, in setting up simulations.
