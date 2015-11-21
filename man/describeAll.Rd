@@ -19,22 +19,28 @@ describeAll(data, binlogasFactor = TRUE, charIgnore = TRUE, digits = 3)
 Describe data sets with multiple variable types effectively.
 }
 \details{
-This function comes out of my frustrations from various data set summaries either being inadequate for my needs, too 'busy' or unable to deal well with mixed data types. Numeric data is treated entirely separately, and provides the sample size available for the variable in question, mean, standard deviation, median, min, and max.  Categorical variables are summarized via tables.  Options are available for some types that could go either way (e.g. binary variables).
+This function comes out of my frustrations from various data set
+  summaries either being inadequate for my needs, too 'busy' or unable to
+  deal well with mixed data types. Numeric data is treated entirely
+  separately, and provides the sample size available for the variable in
+  question, mean, standard deviation, median, min, and max.  Categorical
+  variables are summarized via tables.  Options are available for some types
+  that could go either way (e.g. binary variables).
 }
 \examples{
-library(lazerhawk)
+library(lazerhawk); library(dplyr)
 X = data.frame(f1 =gl(2, 1, 20, labels=c('A', 'B')), f2=gl(2, 2, 20, labels=c('X', 'Q')))
-X$bin1 = rbinom(20, 1, p=.5)
-X$logic1 = sample(c(TRUE, FALSE), 20, replace = TRUE)
-X$num1 = rnorm(20)
-X$num2 = rpois(20, 5)
-X$char1 = sample(letters, 20, replace = TRUE)
+X = X \%>\% mutate(bin1 = rbinom(20, 1, p=.5),
+                 logic1 = sample(c(TRUE, FALSE), 20, replace = TRUE),
+                 num1 = rnorm(20),
+                 num2 = rpois(20, 5),
+                 char1 = sample(letters, 20, replace = TRUE))
 describeAll(X)
 describeAll(X, binlogasFactor = FALSE, charIgnore = FALSE)
 
 # test missing
 Xmiss = X
-Xmiss[sample(1:20, 2), sample(1:ncol(X), 2, replace=TRUE)] = NA
+Xmiss[sample(1:20, 5), sample(1:ncol(X), 3)] = NA
 describeAll(Xmiss)
 
 }

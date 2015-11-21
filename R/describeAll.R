@@ -21,19 +21,19 @@
 #' @seealso \code{\link[base]{summary}}
 #'
 #' @examples
-#' library(lazerhawk)
+#' library(lazerhawk); library(dplyr)
 #' X = data.frame(f1 =gl(2, 1, 20, labels=c('A', 'B')), f2=gl(2, 2, 20, labels=c('X', 'Q')))
-#' X$bin1 = rbinom(20, 1, p=.5)
-#' X$logic1 = sample(c(TRUE, FALSE), 20, replace = TRUE)
-#' X$num1 = rnorm(20)
-#' X$num2 = rpois(20, 5)
-#' X$char1 = sample(letters, 20, replace = TRUE)
+#' X = X %>% mutate(bin1 = rbinom(20, 1, p=.5),
+#'                  logic1 = sample(c(TRUE, FALSE), 20, replace = TRUE),
+#'                  num1 = rnorm(20),
+#'                  num2 = rpois(20, 5),
+#'                  char1 = sample(letters, 20, replace = TRUE))
 #' describeAll(X)
 #' describeAll(X, binlogasFactor = FALSE, charIgnore = FALSE)
 #'
 #' # test missing
 #' Xmiss = X
-#' Xmiss[sample(1:20, 2), sample(1:ncol(X), 2, replace=TRUE)] = NA
+#' Xmiss[sample(1:20, 5), sample(1:ncol(X), 3)] = NA
 #' describeAll(Xmiss)
 #'
 #' @export
@@ -64,23 +64,26 @@ describeAll <- function(data, binlogasFactor=TRUE, charIgnore=TRUE, digits=3) {
       binsFactor = sapply(data[, bins, drop=FALSE], as.factor)
       factorData = cbind(factorData, binsFactor)
     }
-    tabls = lapply(factorData, table)
+    tabls = lapply(factorData, function(x) cbind(table(x), round(prop.table(table(x))*100, 2)))
+    tabls = lapply(tabls, function(x) {colnames(x) <- c('Freq', 'Perc'); x})
   }
 
 
   # numeric
   if (length(nums) > 0) {
     numsData = data[,nums]
-    numStats = matrix(NA, ncol = 6, nrow=ncol(numsData))
-    rownames(numStats) = colnames(numsData)
-    numStats[, 1] <- sapply(numsData, function(x) sum(!is.na(x)))
-    numStats[, 2] <- sapply(numsData, mean, na.rm = TRUE)   # colMeans doesn't like logicals, which is illogical
-    numStats[, 3] <- sapply(numsData, sd, na.rm = TRUE)
-    numStats[, 4] <- sapply(numsData, median, na.rm=TRUE)
-    numStats[, 5] <- sapply(numsData, min, na.rm=TRUE)
-    numStats[, 6] <- sapply(numsData, max, na.rm=TRUE)
+    numStats = numsData %>%
+      summarize_each(funs(sum(!is.na(.)),
+                          mean(., na.rm=TRUE),
+                          sd(., na.rm=TRUE),
+                          median(., na.rm=TRUE),
+                          min(., na.rm=TRUE),
+                          max(., na.rm=TRUE))) %>%
+      unlist
+    dim(numStats) = c(ncol(numsData), 6)
 
     colnames(numStats) = c('N', 'mean', 'sd', 'median', 'min', 'max')
+    rownames(numStats) = colnames(numsData)
     numStats = round(numStats, digits)
     }
 
@@ -90,5 +93,4 @@ describeAll <- function(data, binlogasFactor=TRUE, charIgnore=TRUE, digits=3) {
   return(list(Numeric = numStats,
               Categorical = tabls)
   )
-
 }
