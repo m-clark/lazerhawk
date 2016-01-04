@@ -4,12 +4,23 @@ Title: Miscellaneous functions
 Version: 0.1.0
 Author: Michael Clark
 Maintainer: Michael Clark <micl@umich.edu>
-Description: This package has a few miscellaneous functions useful to me, and which might be useful to others. It will be added to over time.
+Description: This package has a few miscellaneous functions useful to me, and
+    which might be useful to others. It will be added to over time.
 License: MIT + file LICENSE
 LazyData: TRUE
-Depends: R (>= 3.2.2)
+Depends:
+    R (>= 3.2.2)
 Imports:
-    dplyr, scales, base64enc, htmlwidgets, png, assertthat, RColorBrewer
+    dplyr,
+    scales,
+    base64enc,
+    htmlwidgets,
+    png,
+    assertthat,
+    RColorBrewer
 Suggests:
-    d3heatmap, testthat, shiny
-RoxygenNote: 5.0.0
+    d3heatmap,
+    testthat,
+    shiny,
+    rstudioapi
+RoxygenNote: 5.0.1
