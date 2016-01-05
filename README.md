@@ -37,3 +37,5 @@ insertImgCenterAddin For Rmarkdown files, inserts <img ...> with centered option
 ## Release Notes
 - 0.1.0 Initial release
 - 0.1.1 Added createAdjaceny and createEdges, and start of addins
+
+
