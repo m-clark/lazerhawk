@@ -1,4 +1,4 @@
 Name: Insert centered image
-Description: Inserts img tag with centering at the cursor position.
+Description: Inserts img tag with centering.
 Binding: insertImgCenterAddin
 Interactive: false

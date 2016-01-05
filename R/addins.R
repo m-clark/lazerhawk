@@ -4,15 +4,16 @@
 #'
 #'
 #'
-#' @details This function is an Rstudio addin that inserts <img src="" style="display:block; margin: 0 auto;"> so that one can have a centered image on the fly.
+#' @details This function is an Rstudio addin that inserts <img src="" style="display:block; margin: 0 auto;"> so that one can have a centered image on the fly without an R chunk. You must supply the image location for src.
 #'
 #'
 #' @return <img src="" style="display:block; margin: 0 auto;"> as text.
 #'
 #' @examples
-#' ## Not Run
-#' # library(lazerhawk)
-#' # insertImgCenterAddin()
+#' \dontrun{
+#' library(lazerhawk)
+#' insertImgCenterAddin()
+#' }
 #'
 #' @export
 insertImgCenterAddin <- function() {

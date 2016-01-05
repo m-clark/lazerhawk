@@ -27,3 +27,12 @@ A summary function for mixed data types that provides the information I usually 
 
 ### pairwise
 Apply an arbitrary function to pairwise combinations of rows or columns.
+
+### createAdjacency, createEdges
+Create an adjacency matrix, or use one to create an edge list.
+
+
+
+# Release Notes
+0.1.0 Initial release
+0.1.1 Added createAdjaceny and createEdges, and start of addins

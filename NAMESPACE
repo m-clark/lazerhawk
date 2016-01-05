@@ -2,7 +2,9 @@
 
 export(corrheat)
 export(corrheatOutput)
+export(createAdjacency)
 export(createCorr)
+export(createEdges)
 export(describeAll)
 export(insertImgCenterAddin)
 export(lowerTri)
