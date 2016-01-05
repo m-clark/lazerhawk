@@ -32,7 +32,8 @@ Apply an arbitrary function to pairwise combinations of rows or columns.
 Create an adjacency matrix, or use one to create an edge list.
 
 ## Addins
-insertImgCenterAddin For Rmarkdown files, inserts <img ...> with centered options filled in.
+### insertImgCenterAddin 
+For Rmarkdown files, inserts <img ...> with centered options filled in.
 
 ## Release Notes
 - 0.1.0 Initial release
