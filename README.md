@@ -38,8 +38,13 @@ Clean up your ggvis or ggplot visualizations.
 ### insertImgCenterAddin 
 For Rmarkdown files, inserts `<img ...>` with centered options filled in.
 
+### insertSpanAddin 
+For Rmarkdown files, inserts `<span class=''>` with centered options filled in.
+
+
 ## Release Notes
 - 0.1.0 Initial release
 - 0.1.1 Added createAdjaceny and createEdges, and start of addins
 - 0.1.2 Added clean themes for ggvis and ggplot
+- 0.1.3 Addin for span
 

@@ -2,3 +2,8 @@ Name: Insert centered image
 Description: Inserts img tag with centering.
 Binding: insertImgCenterAddin
 Interactive: false
+
+Name: Insert span
+Description: Inserts span for a certain class.
+Binding: insertSpanAddin
+Interactive: false

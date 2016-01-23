@@ -3,7 +3,7 @@
 \name{ggClean}
 \alias{ggClean}
 \alias{theme_trueMinimal}
-\title{A clean ggvis theme}
+\title{Clean visualizations}
 \usage{
 ggClean(vis)
 
@@ -13,7 +13,7 @@ theme_trueMinimal()
 \item{vis}{A ggvis object}
 }
 \description{
-Removes unnecessary gridlines and 'de-bolds' the blacks.
+Remove unnecessary gridlines and 'de-bold' the blacks.
 }
 \details{
 Like ggplot2, ggvis by default will criss-cross a plot with gridlines, something I almost never need and is completely unnecessary if one has interactive hover over effects like ggvis can do. This function takes a ggvis object and removes the gridlines and adds opacity to the default black axes and labels, allowing the pattern of the visual to be expressed in unimpeded fashion. It simply uses the add_axis function in ggvis and so any part of it can be overridden by supplying your own add_axis after. I also supply an old ggplot theme I used to use that does the same.
