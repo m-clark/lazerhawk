@@ -31,6 +31,9 @@ Apply an arbitrary function to pairwise combinations of rows or columns.
 ### createAdjacency, createEdges
 Create an adjacency matrix, or use one to create an edge list.
 
+### ggClean, theme_trueMinimal
+Clean up your ggvis or ggplot visualizations.
+
 ## Addins
 ### insertImgCenterAddin 
 For Rmarkdown files, inserts `<img ...>` with centered options filled in.
@@ -38,5 +41,5 @@ For Rmarkdown files, inserts `<img ...>` with centered options filled in.
 ## Release Notes
 - 0.1.0 Initial release
 - 0.1.1 Added createAdjaceny and createEdges, and start of addins
-- 0.1.2 Add clean themes for ggvis and ggplot
+- 0.1.2 Added clean themes for ggvis and ggplot
 
