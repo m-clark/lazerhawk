@@ -38,5 +38,5 @@ For Rmarkdown files, inserts `<img ...>` with centered options filled in.
 ## Release Notes
 - 0.1.0 Initial release
 - 0.1.1 Added createAdjaceny and createEdges, and start of addins
-
+- 0.1.2 Add clean themes for ggvis and ggplot
 
