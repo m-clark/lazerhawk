@@ -1,7 +1,7 @@
 Package: lazerhawk
 Type: Package
 Title: Miscellaneous functions
-Version: 0.1.1
+Version: 0.1.2
 Author: Michael Clark
 Maintainer: Michael Clark <micl@umich.edu>
 Description: This package has a few miscellaneous functions useful to me, and
@@ -23,5 +23,7 @@ Suggests:
     testthat,
     shiny,
     rstudioapi,
-    tidyr
+    tidyr,
+    ggvis,
+    ggplot2
 RoxygenNote: 5.0.1
