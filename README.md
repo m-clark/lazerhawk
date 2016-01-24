@@ -40,7 +40,7 @@ Clean up your ggvis or ggplot visualizations.
 For Rmarkdown files, inserts `<img ...>` with centered options filled in.
 
 ### insertSpanAddin 
-For Rmarkdown files, inserts `<span class=''>` with centered options filled in.
+For Rmarkdown files, inserts `<span class=''>`.
 
 
 ## Release Notes
