@@ -1,5 +1,5 @@
 # lazerhawk
-<img src="https://github.com/mclark--/Miscellaneous-R-Code/blob/master/Other/lazerlightning.gif" style="display:block; margin: 0 auto;">
+
 
 ## Package description
 This package has a few miscellaneous functions useful to me, and which might be useful to others. It will be added to over time, and likely will have functions from all over the place as far as utility is concerned.  Nothing extraordinarily unique is here at present, more or less tweaks/variations of available R functions that do almost what I want, but not quite.  Also, I wanted to learn more about building packages, and this is my first foray into that world.  Very little testing of the functions has been done at this point, but the package itself would pass on CRAN, and testing will continue to expand.  Feel free to note issues if you use it.
