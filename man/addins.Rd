@@ -3,12 +3,15 @@
 \name{addins}
 \alias{addins}
 \alias{insertImgCenterAddin}
+\alias{insertSlide}
 \alias{insertSpanAddin}
 \title{Rstudio addins}
 \usage{
 insertImgCenterAddin()
 
 insertSpanAddin()
+
+insertSlide()
 }
 \value{
 <img src="" style="display:block; margin: 0 auto;"> as text.

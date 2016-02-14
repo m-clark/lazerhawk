@@ -34,3 +34,9 @@ insertImgCenterAddin <- function() {
 insertSpanAddin <- function() {
   rstudioapi::insertText("<span class=\"\"></span>")
 }
+
+#' @rdname addins
+#' @export
+insertSlide <- function() {
+  rstudioapi::insertText("Title\n========================================================")
+}

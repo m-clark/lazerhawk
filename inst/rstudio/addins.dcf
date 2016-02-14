@@ -7,3 +7,8 @@ Name: Insert span
 Description: Inserts span for a certain class.
 Binding: insertSpanAddin
 Interactive: false
+
+Name: Insert slide
+Description: Inserts a slide in Rstudio presentations.
+Binding: insertSlide
+Interactive: false
