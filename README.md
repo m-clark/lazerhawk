@@ -47,5 +47,5 @@ For Rmarkdown files, inserts `<span class=''>`.
 - 0.1.0 Initial release
 - 0.1.1 Added createAdjaceny and createEdges, and start of addins
 - 0.1.2 Added clean themes for ggvis and ggplot
-- 0.1.3 Addin for span
+- 0.1.3 Addins for span, slide
 
