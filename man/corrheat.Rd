@@ -11,10 +11,10 @@ factor analytic approach.
 \usage{
 corrheat(x, rotation = "none", ordering = "first", labRow = rownames(x),
   labCol = colnames(x), cexRow, cexCol, digits = 3L, cellnote,
-  cellnote_scale = FALSE, theme = NULL, colors = "RdBu", width = NULL,
-  height = NULL, xaxis_height = 80, yaxis_width = 120,
-  xaxis_font_size = NULL, yaxis_font_size = NULL, brush_color = "#0000FF",
-  show_grid = TRUE, anim_duration = 500, ...)
+  cellnote_scale = FALSE, theme = NULL, width = NULL, height = NULL,
+  xaxis_height = 80, yaxis_width = 120, xaxis_font_size = NULL,
+  yaxis_font_size = NULL, brush_color = "#0000FF", show_grid = TRUE,
+  anim_duration = 500, ...)
 }
 \arguments{
 \item{x}{A complete correlation matrix}
@@ -53,11 +53,6 @@ x is used, should cellnote be scaled if x is also scaled?}
 \item{theme}{A custom CSS theme to use. Currently the only valid values are
 \code{""} and \code{"dark"}. \code{"dark"} is primarily intended for
 standalone visualizations, not R Markdown or Shiny.}
-
-\item{colors}{Either a colorbrewer2.org palette name (e.g. \code{"YlOrRd"} or
-\code{"Blues"}), or a vector of colors to interpolate in hexadecimal
-\code{"#RRGGBB"} format, or a color interpolation function like
-\code{\link[grDevices]{colorRamp}}.}
 
 \item{width}{Width in pixels (optional, defaults to automatic sizing).}
 

@@ -22,10 +22,6 @@
 #' @param theme A custom CSS theme to use. Currently the only valid values are
 #'   \code{""} and \code{"dark"}. \code{"dark"} is primarily intended for
 #'   standalone visualizations, not R Markdown or Shiny.
-#' @param colors Either a colorbrewer2.org palette name (e.g. \code{"YlOrRd"} or
-#'   \code{"Blues"}), or a vector of colors to interpolate in hexadecimal
-#'   \code{"#RRGGBB"} format, or a color interpolation function like
-#'   \code{\link[grDevices]{colorRamp}}.
 #' @param width Width in pixels (optional, defaults to automatic sizing).
 #' @param height Height in pixels (optional, defaults to automatic sizing).
 #' @param xaxis_height Size of axes, in pixels.
@@ -107,7 +103,6 @@ corrheat <- function(x,
 
                      ## visual options
                      theme = NULL,
-                     colors = "RdBu",
                      width = NULL, height = NULL,
                      xaxis_height = 80,
                      yaxis_width = 120,
@@ -207,32 +202,14 @@ corrheat <- function(x,
   )
 
   # change options to incorporate allpos or near allpos (blues), allneg or near allneg (reds)
-  xLower = lowerTri(x, valuesOnly=TRUE)
-  rng = range(x)
-  rngLower = range(xLower)
-  meancorr = mean(xLower)
+  colscalePos = scales::col_numeric(RColorBrewer::brewer.pal(9, 'Blues'), c(0,1), na.color = "transparent")
+  colscaleNeg = scales::col_numeric(rev(RColorBrewer::brewer.pal(9, 'Reds')), c(0,-1), na.color = "transparent")
 
-  # rescaling will be done in an attempt to overcome lumpy/smaller correlation matrices
-  # if(length(xLower) < 100) {
-  #   scalerng = seq(rng[1], rng[2], l=100)
-  # } else{
-  #   scalerng = seq(rng[1], rng[2], l=length(xLower))
-  # }
-  #
-  if(min(rng) > 0 | (diff(rngLower) < 1 & min(rng) > -.1)) {
-    colors = scales::col_numeric(RColorBrewer::brewer.pal(9, 'Blues'), rng, na.color = "transparent")
-    colors = scales::col2hcl(colors(rescale_mid(x, to=c(min(x),1), mid=meancorr)), alpha=T)
-  } else if(max(rng) < 0 | (diff(rngLower) < 1 & max(rng) < .1)) {
-    colors = scales::col_numeric(RColorBrewer::brewer.pal(9, 'Reds'), rng, na.color = "transparent")
-    colors = scales::col2hcl(colors(rescale_mid(x, to=c(-1,max(x)), mid=meancorr)), alpha=T)
-  } else {
-    colors = scales::col_numeric(colors, rng, na.color = "transparent")
-    colors = scales::col2hcl(colors(rescale_mid(x, to=c(-1,1), mid=meancorr)), alpha=T)
-  }
+  colorMatrix = matrix(NA, ncol(x), nrow(x))
+  colorMatrix[x>0] = colscalePos(x[x>0])
+  colorMatrix[x<0] = colscaleNeg(x[x<0])
 
-  # colors =
-
-  imgUri <- encodeAsPNG(t(x), colors)
+  imgUri <- encodeAsPNG(t(x), colorMatrix)
 
   options <- NULL   # required
 
