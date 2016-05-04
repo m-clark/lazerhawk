@@ -6,11 +6,17 @@
 #'   ordering based on a factor analysis.
 #'
 #' @param x A complete correlation matrix
-#' @param rotation Preferred rotation for factor analysis solution (see
-#'   \link[stats]{factanal})
+#' @param psychOptions a \emph{named} list(!) of options to be passed to the psych package.
+#'   Do not include the \code{nfactors} argument, as that is chosen
+#'   automatically.
+#' @param factanalOptions a \emph{named} list(!) of options to be passed to the factanal
+#'   function in base R. \code{psychOptions} will be checked first, and if
+#'   present the psych package will be used and override this argument. Do not
+#'   include the \code{factors} argument, as that is chosen automatically.
 #' @param ordering Order cols/rows based on max raw ("raw") or absolute
 #'   ("absolute") loadings across all factors. Otherwise just based on first
-#'   factor's raw loadings ("first" default).
+#'   factor's raw loadings from \code{psych::fa} or \code{factanal} ("first"
+#'   default).
 #' @param labRow character vectors with row labels to use (from top to bottom);
 #'   default to rownames(x).
 #' @param labCol character vectors with column labels to use (from left to
@@ -50,33 +56,38 @@
 #' @param ... currently ignored
 #'
 #'
-#' @details
-#' d3heatmap is a great tool for matrix visualization and highly recommended.
-#' Correlation matrices are typically better visualized rather than parsed
-#' numerically, and while one can do so with d3heatmap, one often may not want
-#' the cluster based approach to ordering if only dealing with a correlation
-#' matrix, which are often too small to be useful for a cluster based approach.
-#' This function does not currently allow choice of the number of factors
-#' (\code{nfact = 1} if ncol <=4, else \code{floor(sqrt(ncol(x)))}). If you want
-#' explore a factor analysis you will have to do that separately. In addition,
-#' the choice of color will be overridden if the correlations are mostly/all
-#' positive or negative. Right now this function uses \code{factanal} for the
-#' underlying factor analysis, but in the future will use psych's \code{fa}
-#' function (psych has a corrplot function also).
+#' @details d3heatmap is a great tool for matrix visualization and highly
+#'   recommended. Correlation matrices are typically better visualized rather
+#'   than parsed numerically, and while one can do so with d3heatmap, one often
+#'   may not want the cluster based approach to ordering if dealing with a
+#'   correlation matrix, which may be too small column-wise to be useful for a
+#'   cluster analysis, or may be a specific type of data more amenable to a
+#'   measurement error approach (e.g. items from a particular scale).
+#'
+#'   This function does not currently allow choice of the number of factors. The
+#'   number of factors is chosen to more likely 'just work' for visualization
+#'   purposes (\code{nfact = 1} if \code{ncol <=4}, else
+#'   \code{floor(sqrt(ncol(x)))}), which is all we are worried about here. If
+#'   you want explore a factor analysis you will have to do that separately. In
+#'   addition, the choice of color will be overridden if the correlations are
+#'   mostly/all positive or negative. Right now this function uses
+#'   \code{factanal} for the underlying factor analysis, but in the future will
+#'   use psych's \code{fa} function (psych has a corrplot function also).
 #'
 #'
-#' @source
-#' Base code comes from \link[d3heatmap]{d3heatmap} package's core function,
-#' which was mostly gutted, and all dendrogram functionality replaced with a
-#' factor analytic approach.
+#' @source Base code comes from \link[d3heatmap]{d3heatmap} package's core
+#'   function, which was mostly gutted, and all dendrogram functionality
+#'   replaced with a factor analytic approach.
 #'
-#' @seealso
-#' \code{\link[psych]{fa}}, \code{\link[stats]{factanal}}
+#' @seealso \code{\link[psych]{fa}}, \code{\link[stats]{factanal}}
 #'
 #' @examples
 #' library(lazerhawk)
-#' corrheat(cor(mtcars), rotation='varimax')
-#' corrheat(Harman74.cor$cov)
+#' corrheat(cor(mtcars), factanalOptions=list(rotation='varimax'), ordering='absolute')
+#' corrheat(cor(mtcars), factanalOptions=list(rotation='varimax'), ordering='raw')
+#' corrheat(Harman74.cor$cov, psychOptions=list(fm='ml'))
+#' corrheat(cor(state.x77), psychOptions=list(fm='ml'), ordering='raw')
+#'
 #'
 #' @import htmlwidgets
 #' @importFrom scales rescale_mid
@@ -88,7 +99,9 @@
 corrheat <- function(x,
 
                      # fa related
-                     rotation='none', ordering='first',
+                     psychOptions=NULL,
+                     factanalOptions=NULL,
+                     ordering= c('first', 'raw', 'absolute'),
 
                      # labeling
                      labRow = rownames(x),
@@ -150,22 +163,50 @@ corrheat <- function(x,
 
   ## Factor analysis
   ##====================
-  if(nc <= 4) nf = 1
-  else nf = floor(sqrt(nc))
-  faResult = factanal(covmat=x, factors=nf, rotation=ifelse(nf==1 | is.null(rotation), 'varimax', rotation))
+  # number of factors to use.
+  if(nc <= 4) {
+    nf = 1
+  } else {
+    nf = floor(sqrt(nc))
+  }
+
+  if(!is.null(psychOptions) && requireNamespace('psych')){
+    if(!is.null(psychOptions)) {
+      args = append(list(r=x, nfactors=nf), psychOptions)
+    } else {
+      args = list(r=x, nfactors=nf)
+    }
+    suppressWarnings({
+      faResult = do.call(psych::fa, args)
+    })
+  } else {
+    if(!is.null(factanalOptions) | (is.null(factanalOptions) & is.null(psychOptions))) {
+      args = append(list(covmat=x, factors=nf), factanalOptions)
+    } else {
+      args = list(covmat=x, factors=nf)
+    }
+    tryCatch(
+      faResult <- do.call(factanal, args),
+      error = function(c) {
+        c$message = paste('factanal failed with the following message: \n', c$message)
+        stop(c)
+      })
+    }
+
+  # extract loadings, order by if desired
   load = faResult$loadings
   class(load) = 'matrix'
-  if (ordering == 'absolute'){
+  if (ordering[1] == 'absolute'){
     cluster <- apply(abs(load), 1, which.max)
     ord <- sort(cluster, index.return = TRUE)
     index = ord$ix
-  } else if (ordering == 'raw'){
+  } else if (ordering[1] == 'raw'){
     cluster <- apply(load, 1, which.max)
     ord <- sort(cluster, index.return = TRUE)
     index = ord$ix
   } else {
     load = data.frame(var=rownames(load), load)
-    index = order(load$Factor1, decreasing=T)
+    index = order(load[,1], decreasing=T)
   }
 
   ## reorder x
@@ -201,7 +242,7 @@ corrheat <- function(x,
               cols = colnames(x)
   )
 
-  # change options to incorporate allpos or near allpos (blues), allneg or near allneg (reds)
+  # create colors for pos and neg; create colorMatrix
   colscalePos = scales::col_numeric(RColorBrewer::brewer.pal(9, 'Blues'), c(0,1), na.color = "transparent")
   colscaleNeg = scales::col_numeric(rev(RColorBrewer::brewer.pal(9, 'Reds')), c(0,-1), na.color = "transparent")
 

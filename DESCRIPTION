@@ -1,7 +1,7 @@
 Package: lazerhawk
 Type: Package
 Title: Miscellaneous functions
-Version: 0.1.3
+Version: 0.1.4
 Author: Michael Clark
 Maintainer: Michael Clark <micl@umich.edu>
 Description: This package has a few miscellaneous functions useful to me, and which might be useful to others. It will be added to over time.
@@ -20,6 +20,7 @@ Imports:
 Suggests:
     d3heatmap,
     testthat,
+    psych,
     shiny,
     rstudioapi,
     tidyr,

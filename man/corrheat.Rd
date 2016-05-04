@@ -4,12 +4,13 @@
 \alias{corrheat}
 \title{D3 Heatmap widget for correlation matrices}
 \source{
-Base code comes from \link[d3heatmap]{d3heatmap} package's core function,
-which was mostly gutted, and all dendrogram functionality replaced with a
-factor analytic approach.
+Base code comes from \link[d3heatmap]{d3heatmap} package's core
+  function, which was mostly gutted, and all dendrogram functionality
+  replaced with a factor analytic approach.
 }
 \usage{
-corrheat(x, rotation = "none", ordering = "first", labRow = rownames(x),
+corrheat(x, psychOptions = NULL, factanalOptions = NULL,
+  ordering = c("first", "raw", "absolute"), labRow = rownames(x),
   labCol = colnames(x), cexRow, cexCol, digits = 3L, cellnote,
   cellnote_scale = FALSE, theme = NULL, width = NULL, height = NULL,
   xaxis_height = 80, yaxis_width = 120, xaxis_font_size = NULL,
@@ -19,12 +20,19 @@ corrheat(x, rotation = "none", ordering = "first", labRow = rownames(x),
 \arguments{
 \item{x}{A complete correlation matrix}
 
-\item{rotation}{Preferred rotation for factor analysis solution (see
-\link[stats]{factanal})}
+\item{psychOptions}{a \emph{named} list(!) of options to be passed to the psych package.
+Do not include the \code{nfactors} argument, as that is chosen
+automatically.}
+
+\item{factanalOptions}{a \emph{named} list(!) of options to be passed to the factanal
+function in base R. \code{psychOptions} will be checked first, and if
+present the psych package will be used and override this argument. Do not
+include the \code{factors} argument, as that is chosen automatically.}
 
 \item{ordering}{Order cols/rows based on max raw ("raw") or absolute
 ("absolute") loadings across all factors. Otherwise just based on first
-factor's raw loadings ("first" default).}
+factor's raw loadings from \code{psych::fa} or \code{factanal} ("first"
+default).}
 
 \item{labRow}{character vectors with row labels to use (from top to bottom);
 default to rownames(x).}
@@ -88,23 +96,31 @@ Creates a D3.js-based heatmap widget specifically geared toward
   ordering based on a factor analysis.
 }
 \details{
-d3heatmap is a great tool for matrix visualization and highly recommended.
-Correlation matrices are typically better visualized rather than parsed
-numerically, and while one can do so with d3heatmap, one often may not want
-the cluster based approach to ordering if only dealing with a correlation
-matrix, which are often too small to be useful for a cluster based approach.
-This function does not currently allow choice of the number of factors
-(\code{nfact = 1} if ncol <=4, else \code{floor(sqrt(ncol(x)))}). If you want
-explore a factor analysis you will have to do that separately. In addition,
-the choice of color will be overridden if the correlations are mostly/all
-positive or negative. Right now this function uses \code{factanal} for the
-underlying factor analysis, but in the future will use psych's \code{fa}
-function (psych has a corrplot function also).
+d3heatmap is a great tool for matrix visualization and highly
+  recommended. Correlation matrices are typically better visualized rather
+  than parsed numerically, and while one can do so with d3heatmap, one often
+  may not want the cluster based approach to ordering if dealing with a
+  correlation matrix, which may be too small column-wise to be useful for a
+  cluster analysis, or may be a specific type of data more amenable to a
+  measurement error approach (e.g. items from a particular scale).
+
+  This function does not currently allow choice of the number of factors. The
+  number of factors is chosen to more likely 'just work' for visualization
+  purposes (\code{nfact = 1} if \code{ncol <=4}, else
+  \code{floor(sqrt(ncol(x)))}), which is all we are worried about here. If
+  you want explore a factor analysis you will have to do that separately. In
+  addition, the choice of color will be overridden if the correlations are
+  mostly/all positive or negative. Right now this function uses
+  \code{factanal} for the underlying factor analysis, but in the future will
+  use psych's \code{fa} function (psych has a corrplot function also).
 }
 \examples{
 library(lazerhawk)
-corrheat(cor(mtcars), rotation='varimax')
-corrheat(Harman74.cor$cov)
+corrheat(cor(mtcars), factanalOptions=list(rotation='varimax'), ordering='absolute')
+corrheat(cor(mtcars), factanalOptions=list(rotation='varimax'), ordering='raw')
+corrheat(Harman74.cor$cov, psychOptions=list(fm='ml'))
+corrheat(cor(state.x77), psychOptions=list(fm='ml'), ordering='raw')
+
 
 }
 \seealso{
