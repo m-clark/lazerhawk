@@ -49,4 +49,5 @@ For Rmarkdown files, inserts `<span class=''>`.
 - 0.1.2 Added clean themes for ggvis and ggplot
 - 0.1.3 Addins for span, slide
 - 0.1.4 Updates to corrheat to use psych package
+- 0.1.5 Added plotly theme, modified help
 

@@ -1,14 +1,14 @@
 Package: lazerhawk
 Type: Package
 Title: Miscellaneous functions
-Version: 0.1.4
+Version: 0.1.5
 Author: Michael Clark
 Maintainer: Michael Clark <micl@umich.edu>
 Description: This package has a few miscellaneous functions useful to me, and which might be useful to others. It will be added to over time.
 License: MIT + file LICENSE
 LazyData: TRUE
 Depends:
-    R (>= 3.2.2)
+    R (>= 3.3.0)
 Imports:
     dplyr,
     scales,
@@ -25,5 +25,6 @@ Suggests:
     rstudioapi,
     tidyr,
     ggvis,
-    ggplot2
+    ggplot2,
+    plotly
 RoxygenNote: 5.0.1
