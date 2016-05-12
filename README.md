@@ -10,7 +10,7 @@ I was listening to [Lazerhawk](http://lazerhawk.bandcamp.com/album/redline) at o
 The usual github installation. **devtools** package required.
 
 ```{r}
-devtools::install_github('mclark--/lazerhawk')
+devtools::install_github('m-clark/lazerhawk')
 ```
 
 ## Functions
