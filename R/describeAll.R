@@ -9,6 +9,7 @@
 #'
 #' @import dplyr
 #' @importFrom assertthat assert_that
+#' @importFrom stats median sd
 #'
 #' @details This function comes out of my frustrations from various data set
 #'   summaries either being inadequate for my needs, too 'busy' or unable to

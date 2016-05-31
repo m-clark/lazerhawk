@@ -308,6 +308,8 @@ encodeAsPNG <- function(x, colors) {
 #' @seealso \code{\link{corrheat}}, \code{\link[d3heatmap]{d3heatmapOutput}},
 #' \code{\link[d3heatmap]{renderD3heatmap}}
 #'
+#' @importFrom grDevices col2rgb
+#'
 #' @examples
 #' \donttest{
 #' library(lazerhawk)

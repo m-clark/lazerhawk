@@ -25,6 +25,7 @@
 #'                     b = factor(sample(letters[1:4], 10, replace=TRUE)))
 #' pairwise(mydata, 2,  cor)
 
+#' @importFrom utils combn
 
 #' @export
 pairwise <- function(x, margin=2, fun) {

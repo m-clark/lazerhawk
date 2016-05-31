@@ -12,6 +12,7 @@ Depends:
 Imports:
     dplyr,
     scales,
+    brms,
     base64enc,
     htmlwidgets,
     png,
@@ -19,6 +20,7 @@ Imports:
     RColorBrewer
 Suggests:
     d3heatmap,
+    pander,
     testthat,
     psych,
     shiny,
