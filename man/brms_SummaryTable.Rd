@@ -5,7 +5,7 @@
 \title{Summarize brms-fit objects}
 \usage{
 brms_SummaryTable(model, formatOptions = list(digits = 2, nsmall = 2),
-  round = 2, star = F, hype = F, panderize = F, ...)
+  round = 2, star = F, hype = F, panderize = F, justify = NULL, ...)
 }
 \arguments{
 \item{model}{A brmsfit object}
@@ -21,6 +21,8 @@ contain 0}
 (less) than 0 if positive (negative)}
 
 \item{panderize}{Create a markdown summary table. Requires the pander package}
+
+\item{justify}{Additional argument to pass to \code{\link[pander]{pander}}}
 
 \item{...}{Additional arguments to pass to \code{\link[brms]{summary.brmsfit}}}
 }
@@ -58,7 +60,8 @@ summary(fit4)
 
 library(lazerhawk)
 brms_SummaryTable(fit4)
-
+brms_SummaryTable(fit4, star=TRUE, hype=TRUE)
+brms_SummaryTable(fit4, star=TRUE, hype=TRUE, panderize=TRUE, justify='lrrrrclr')
 
 }
 \seealso{

@@ -12,6 +12,7 @@
 #' @param hype Run one-sided hypothesis tests of whether effect is greater
 #'   (less) than 0 if positive (negative)
 #' @param panderize Create a markdown summary table. Requires the pander package
+#' @param justify Additional argument to pass to \code{\link[pander]{pander}}
 #' @param ... Additional arguments to pass to \code{\link[brms]{summary.brmsfit}}
 #'
 #' @details This function creates a data.frame summary object for a brms package
@@ -46,17 +47,19 @@
 #'
 #' library(lazerhawk)
 #' brms_SummaryTable(fit4)
-#'
+#' brms_SummaryTable(fit4, star=TRUE, hype=TRUE)
+#' brms_SummaryTable(fit4, star=TRUE, hype=TRUE, panderize=TRUE, justify='lrrrrclr')
+
 #'
 #' @export
 brms_SummaryTable <- function(model, formatOptions=list(digits=2, nsmall=2), round=2,
-                              star=F, hype=F, panderize=F, ...) {
+                              star=F, hype=F, panderize=F, justify=NULL, ...) {
   if(class(model) != "brmsfit") stop('Model is not a brmsfit class object.')
 
   est = brms:::summary.brmsfit(model, ...)$fixed
   partables = round(est[,c('Estimate', 'Est.Error', 'l-95% CI', 'u-95% CI')], round)
   estnames = rownames(partables)
-  partables_formated = do.call(format, list(x=partables, formatOptions[[1]]))
+  partables_formated = do.call(format, list(x=round(partables, round), formatOptions[[1]]))
 
   # star intervals not containing zero
   if (star){
@@ -79,14 +82,15 @@ brms_SummaryTable <- function(model, formatOptions=list(digits=2, nsmall=2), rou
     ER = unlist(ER)
     sigeffects$pvals = round(ER/(ER+1), round)
     sigeffects$pvals[is.infinite(ER)] = 1
+    sigeffects$pvals = do.call(format, list(x=round(sigeffects$pvals, round), formatOptions[[1]]))
 
     colnames(sigeffects)[ncol(sigeffects)] = 'B < > 0'
-    sigeffects[,'Evidence Ratio'] = round(ER, round)
+    sigeffects[,'Evidence Ratio'] = do.call(format, list(x=round(ER, round), formatOptions[[1]]))
   }
 
   rownames(sigeffects) = NULL
 
-  if(panderize) return(pander::pander(sigeffects))
+  if(panderize) return(pander::pander(x=sigeffects, justify=justify))
   sigeffects
 }
 
