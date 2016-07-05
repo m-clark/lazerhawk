@@ -20,7 +20,7 @@ createEdges(adjmat, zeroEdges = FALSE, symmetric = FALSE, diag = FALSE)
 
 \item{diagonal}{value desired for the diagonal (defaults to a value of 1).}
 
-\item{adjmat}{An matrix like that produced with \code{createAdjacency}}
+\item{adjmat}{A matrix like that produced with \code{createAdjacency}}
 
 \item{zeroEdges}{Include all possible edges or only those with values > 0?}
 

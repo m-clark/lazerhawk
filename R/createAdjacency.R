@@ -50,7 +50,7 @@ createAdjacency <- function(data, n1, n2, value=NULL, diagonal=NULL) {
 
 #' @rdname createAdjacency
 #'
-#' @param adjmat An matrix like that produced with \code{createAdjacency}
+#' @param adjmat A matrix like that produced with \code{createAdjacency}
 #' @param zeroEdges Include all possible edges or only those with values > 0?
 #' @param symmetric Include both A -> B and B -> A? FALSE assumes an undirected graph.
 #' @param diag Include diagonal (i.e. self connections)?
@@ -62,12 +62,12 @@ createEdges <- function(adjmat, zeroEdges=FALSE, symmetric=FALSE, diag=FALSE){
   if(symmetric & !diag) diag(adjmat) = 0
   if(!symmetric & diag) adjmat = lowerTri(adjmat, diag=TRUE)
 
-  edgeMat = tidyr::gather(data.frame(id=colnames(adjmat), adjmat), target, value, -id) %>%
-    rename(source=id)
+  edgeMat = tidyr::gather(data.frame(id=colnames(adjmat), adjmat), target, value, -id)
+  edgeMat = dplyr::rename(edgeMat, source=id)
 
   if(zeroEdges){
     edgeMat
   } else{
-    edgeMat %>% filter(value != 0)
+    edgeMat[edgeMat$value != 0, ]
   }
 }
