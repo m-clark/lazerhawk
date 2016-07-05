@@ -10,13 +10,13 @@
 #'   Do not include the \code{nfactors} argument, as that is chosen
 #'   automatically.
 #' @param factanalOptions a \emph{named} list(!) of options to be passed to the factanal
-#'   function in base R. \code{psychOptions} will be checked first, and if
-#'   present the psych package will be used and override this argument. Do not
-#'   include the \code{factors} argument, as that is chosen automatically.
-#' @param ordering Order cols/rows based on max raw ("raw") or absolute
-#'   ("absolute") loadings across all factors. Otherwise just based on first
-#'   factor's raw loadings from \code{psych::fa} or \code{factanal} ("first"
-#'   default).
+#' function in base R. \code{psychOptions} will be checked first, and if present
+#' the psych package will be used and override this argument. Do not include the
+#' \code{factors} argument, as that is chosen automatically.
+#' @param ordering Order cols/rows based on \code{psych::fa.sort} (default), max
+#'   raw ("raw"), or absolute ("absolute") loadings across all factors, or based
+#'   on the first
+#'   factor's raw loadings from \code{psych::fa} or \code{factanal}.
 #' @param labRow character vectors with row labels to use (from top to bottom);
 #'   default to rownames(x).
 #' @param labCol character vectors with column labels to use (from left to
@@ -64,15 +64,17 @@
 #'   cluster analysis, or may be a specific type of data more amenable to a
 #'   measurement error approach (e.g. items from a particular scale).
 #'
-#'   This function does not currently allow choice of the number of factors. The
-#'   number of factors is chosen to more likely 'just work' for visualization
-#'   purposes (\code{nfact = 1} if \code{ncol <=4}, else
+#'   \code{corrheat} produces a color coded matrix in which Blue represents
+#'   positive, and Red, negative correlations, and fades to white the smaller
+#'   the values are.  The ordering is based on the results of a factor analysis from
+#'   the \code{\link[psych]{fa}} package (which is required).  Though one can
+#'   use factanal from base R, it's not recommended, and can actually be
+#'   reproduced with an additional argument to the psych options (as such I will
+#'   deprecate this option). This function does not currently allow choice of
+#'   the number of factors. The number of factors is chosen to more likely 'just
+#'   work' for visualization purposes (\code{nfact = 1} if \code{ncol <=4}, else
 #'   \code{floor(sqrt(ncol(x)))}), which is all we are worried about here. If
-#'   you want explore a factor analysis you will have to do that separately. In
-#'   addition, the choice of color will be overridden if the correlations are
-#'   mostly/all positive or negative. Right now this function uses
-#'   \code{factanal} for the underlying factor analysis, but in the future will
-#'   use psych's \code{fa} function (psych has a corrplot function also).
+#'   you want explore a factor analysis you will have to do that separately.
 #'
 #'
 #' @source Base code comes from \link[d3heatmap]{d3heatmap} package's core
@@ -101,7 +103,7 @@ corrheat <- function(x,
                      # fa related
                      psychOptions=NULL,
                      factanalOptions=NULL,
-                     ordering= c('first', 'raw', 'absolute'),
+                     ordering= c('fa','raw','first', 'absolute'),
 
                      # labeling
                      labRow = rownames(x),
@@ -170,7 +172,10 @@ corrheat <- function(x,
     nf = floor(sqrt(nc))
   }
 
-  if(!is.null(psychOptions) && requireNamespace('psych')){
+  whichfunc = c(is.null(psychOptions), is.null(factanalOptions))
+  if (all(whichfunc)) message('No FA options specified, using psych package defaults')
+
+  if((all(whichfunc) | !is.null(psychOptions)) && requireNamespace('psych')) {
     if(!is.null(psychOptions)) {
       args = append(list(r=x, nfactors=nf), psychOptions)
     } else {
@@ -196,17 +201,20 @@ corrheat <- function(x,
   # extract loadings, order by if desired
   load = faResult$loadings
   class(load) = 'matrix'
-  if (ordering[1] == 'absolute'){
+  if (ordering[1] == 'absolute') {
     cluster <- apply(abs(load), 1, which.max)
     ord <- sort(cluster, index.return = TRUE)
     index = ord$ix
-  } else if (ordering[1] == 'raw'){
+  } else if (ordering[1] == 'raw') {
     cluster <- apply(load, 1, which.max)
     ord <- sort(cluster, index.return = TRUE)
     index = ord$ix
-  } else {
+  } else if (ordering[1] == 'first'){
     load = data.frame(var=rownames(load), load)
     index = order(load[,1], decreasing=T)
+  } else {
+    sortload = psych::fa.sort(load)
+    index = rownames(sortload)
   }
 
   ## reorder x
