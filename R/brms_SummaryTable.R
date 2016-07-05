@@ -57,9 +57,11 @@ brms_SummaryTable <- function(model, formatOptions=list(digits=2, nsmall=2), rou
   if(class(model) != "brmsfit") stop('Model is not a brmsfit class object.')
 
   est = brms:::summary.brmsfit(model, ...)$fixed
-  partables = round(est[,c('Estimate', 'Est.Error', 'l-95% CI', 'u-95% CI')], round)
+  partables = est[,c('Estimate', 'Est.Error', 'l-95% CI', 'u-95% CI')]
   estnames = rownames(partables)
   partables_formated = do.call(format, list(x=round(partables, round), formatOptions[[1]]))
+
+  if(!star & !hype) return(partables_formated)
 
   # star intervals not containing zero
   if (star){
@@ -80,7 +82,7 @@ brms_SummaryTable <- function(model, formatOptions=list(digits=2, nsmall=2), rou
     hypetests = sapply(testnams, brms::hypothesis, x=model, simplify = F)
     ER = sapply(hypetests, function(test) test[['hypothesis']]['Evid.Ratio'])
     ER = unlist(ER)
-    sigeffects$pvals = round(ER/(ER+1), round)
+    sigeffects$pvals = ER/(ER+1)
     sigeffects$pvals[is.infinite(ER)] = 1
     sigeffects$pvals = do.call(format, list(x=round(sigeffects$pvals, round), formatOptions[[1]]))
 
