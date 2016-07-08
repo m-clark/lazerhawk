@@ -5,7 +5,8 @@
 \title{Summarize brms-fit objects}
 \usage{
 brms_SummaryTable(model, formatOptions = list(digits = 2, nsmall = 2),
-  round = 2, star = F, hype = F, panderize = F, justify = NULL, ...)
+  round = 2, astrology = F, hype = F, panderize = F, justify = NULL,
+  ...)
 }
 \arguments{
 \item{model}{A brmsfit object}
@@ -14,7 +15,7 @@ brms_SummaryTable(model, formatOptions = list(digits = 2, nsmall = 2),
 
 \item{round}{See code{\link[base]{round}}}
 
-\item{star}{Put asterisks next to effects whose credible interval does not
+\item{astrology}{Put asterisks next to effects whose credible interval does not
 contain 0}
 
 \item{hype}{Run one-sided hypothesis tests of whether effect is greater
@@ -60,8 +61,8 @@ summary(fit4)
 
 library(lazerhawk)
 brms_SummaryTable(fit4)
-brms_SummaryTable(fit4, star=TRUE, hype=TRUE)
-brms_SummaryTable(fit4, star=TRUE, hype=TRUE, panderize=TRUE, justify='lrrrrclr')
+brms_SummaryTable(fit4, astrology=TRUE, hype=TRUE)
+brms_SummaryTable(fit4, astrology=TRUE, hype=TRUE, panderize=TRUE, justify='lrrrrclr')
 
 }
 \seealso{

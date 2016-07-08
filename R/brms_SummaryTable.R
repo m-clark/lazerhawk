@@ -7,7 +7,7 @@
 #' @param model A brmsfit object
 #' @param formatOptions A list(!) of options to pass to the format function
 #' @param round See code{\link[base]{round}}
-#' @param star Put asterisks next to effects whose credible interval does not
+#' @param astrology Put asterisks next to effects whose credible interval does not
 #'   contain 0
 #' @param hype Run one-sided hypothesis tests of whether effect is greater
 #'   (less) than 0 if positive (negative)
@@ -47,13 +47,13 @@
 #'
 #' library(lazerhawk)
 #' brms_SummaryTable(fit4)
-#' brms_SummaryTable(fit4, star=TRUE, hype=TRUE)
-#' brms_SummaryTable(fit4, star=TRUE, hype=TRUE, panderize=TRUE, justify='lrrrrclr')
+#' brms_SummaryTable(fit4, astrology=TRUE, hype=TRUE)
+#' brms_SummaryTable(fit4, astrology=TRUE, hype=TRUE, panderize=TRUE, justify='lrrrrclr')
 
 #'
 #' @export
 brms_SummaryTable <- function(model, formatOptions=list(digits=2, nsmall=2), round=2,
-                              star=F, hype=F, panderize=F, justify=NULL, ...) {
+                              astrology=F, hype=F, panderize=F, justify=NULL, ...) {
   if(class(model) != "brmsfit") stop('Model is not a brmsfit class object.')
 
   est = brms:::summary.brmsfit(model, ...)$fixed
@@ -61,10 +61,15 @@ brms_SummaryTable <- function(model, formatOptions=list(digits=2, nsmall=2), rou
   estnames = rownames(partables)
   partables_formated = do.call(format, list(x=round(partables, round), formatOptions[[1]]))
 
-  if(!star & !hype) return(partables_formated)
+  if(!astrology & !hype) {
+    partables_formated = data.frame(partables_formated)
+    colnames(partables_formated) = c('Estimate', 'Est.Error', 'l-95% CI', 'u-95% CI')
+    if (panderize) return(pander::pander(partables_formated, justify='lrrrr'))
+    return(partables_formated)
+  }
 
   # star intervals not containing zero
-  if (star){
+  if (astrology){
     sigeffects0 = apply(sign(partables[,c('l-95% CI', 'u-95% CI')]), 1, function(interval) ifelse(diff(interval)==0, '*', ''))
     sigeffects =  data.frame(var=estnames, partables_formated, sigeffects0)
     colnames(sigeffects) = c('var', 'coef', 'se', '2.5%', '97.5%', '')
@@ -79,7 +84,7 @@ brms_SummaryTable <- function(model, formatOptions=list(digits=2, nsmall=2), rou
     signcoefs = sign(partables[,'Estimate'])
     testnams = mapply(function(coefname, sign) ifelse(sign>0, paste0(coefname, ' > 0'), paste0(coefname, ' < 0')),
                       estnames, signcoefs)
-    hypetests = sapply(testnams, brms::hypothesis, x=model, simplify = F)
+    hypetests = sapply(testnams, brms::hypothesis, x=model, simplify = F, alpha=.025)
     ER = sapply(hypetests, function(test) test[['hypothesis']]['Evid.Ratio'])
     ER = unlist(ER)
     sigeffects$pvals = ER/(ER+1)
