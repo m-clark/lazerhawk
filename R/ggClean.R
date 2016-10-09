@@ -18,7 +18,7 @@
 #' data(mtcars)
 #' mtcars %>% ggplot(aes(wt, mpg)) + theme_trueMinimal()
 #' mtcars %>% ggvis(~wt, ~mpg) %>% theme_ggvis()
-#' mtcars %>% plot_ly(x=wt, y=mpg, mode='markers') %>% theme_plotly()
+#' mtcars %>% plot_ly(x=~wt, y=~mpg, mode='markers') %>% theme_plotly()
 
 
 
@@ -73,6 +73,7 @@ theme_ggvis = function(vis){
 #' @rdname theme_trueMinimal
 #' @export
 theme_plotly = function(vis) {
+  vis %>%
   plotly::layout(xaxis = list(zeroline=F,
                               showgrid=F),
                  yaxis = list(zeroline=F,

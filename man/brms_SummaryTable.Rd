@@ -49,7 +49,7 @@ This function creates a data.frame summary object for a brms package
 }
 \examples{
 
-## Not run:
+\dontrun{
 
 ## Probit regression using the binomial family
 library(brms)
@@ -63,6 +63,7 @@ library(lazerhawk)
 brms_SummaryTable(fit4)
 brms_SummaryTable(fit4, astrology=TRUE, hype=TRUE)
 brms_SummaryTable(fit4, astrology=TRUE, hype=TRUE, panderize=TRUE, justify='lrrrrclr')
+}
 
 }
 \seealso{

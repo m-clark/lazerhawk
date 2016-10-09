@@ -34,6 +34,6 @@ require(plotly)
 data(mtcars)
 mtcars \%>\% ggplot(aes(wt, mpg)) + theme_trueMinimal()
 mtcars \%>\% ggvis(~wt, ~mpg) \%>\% theme_ggvis()
-mtcars \%>\% plot_ly(x=wt, y=mpg, mode='markers') \%>\% theme_plotly()
+mtcars \%>\% plot_ly(x=~wt, y=~mpg, mode='markers') \%>\% theme_plotly()
 }
 

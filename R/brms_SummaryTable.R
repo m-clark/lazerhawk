@@ -35,7 +35,7 @@
 #'
 #' @examples
 #'
-#' ## Not run:
+#' \dontrun{
 #'
 #' ## Probit regression using the binomial family
 #' library(brms)
@@ -49,7 +49,7 @@
 #' brms_SummaryTable(fit4)
 #' brms_SummaryTable(fit4, astrology=TRUE, hype=TRUE)
 #' brms_SummaryTable(fit4, astrology=TRUE, hype=TRUE, panderize=TRUE, justify='lrrrrclr')
-
+#' }
 #'
 #' @export
 brms_SummaryTable <- function(model, formatOptions=list(digits=2, nsmall=2), round=2,
