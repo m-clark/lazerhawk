@@ -7,6 +7,8 @@ Maintainer: Michael Clark <micl@umich.edu>
 Description: This package has a few miscellaneous functions useful to me, and which might be useful to others. It will be added to over time.
 License: MIT + file LICENSE
 LazyData: TRUE
+URL: m-clark.github.io
+Year: 2017
 Depends:
     R (>= 3.3.0)
 Imports:
