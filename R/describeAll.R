@@ -12,8 +12,8 @@
 #' @importFrom stats median sd
 #'
 #' @details This function comes out of my frustrations from various data set
-#'   summaries either being inadequate for my needs, too 'busy' or unable to
-#'   deal well with mixed data types. Numeric data is treated entirely
+#'   summaries either being inadequate for my needs, too 'busy' with output or
+#'   unable to deal well with mixed data types. Numeric data is treated entirely
 #'   separately, and provides the sample size available for the variable in
 #'   question, mean, standard deviation, median, min, and max.  Categorical
 #'   variables are summarized via tables.  Options are available for some types
@@ -46,14 +46,14 @@ describeAll <- function(data, binlogasFactor=TRUE, charIgnore=TRUE, digits=3) {
   binidx = sapply(data, function(x) suppressWarnings(all(sort(unique(x)) == c(0,1))))
 
   nums = cnames[classList %in% c('numeric', 'integer', 'logical')]
-  factors = cnames[classList=='factor']
+  factors = cnames[classList %in% c('ordered', 'factor')]
   chars = cnames[classList=='character']
   bins = cnames[binidx]
 
 
   # categorical
   if (length(factors) > 0) {
-    factorData = data[,factors]
+    factorData = data[,factors, drop=FALSE]
 
     # deal with logicals, characters
     if (length(chars) > 0 && !charIgnore) {
@@ -72,7 +72,7 @@ describeAll <- function(data, binlogasFactor=TRUE, charIgnore=TRUE, digits=3) {
 
   # numeric
   if (length(nums) > 0) {
-    numsData = data[,nums]
+    numsData = data[,nums, drop=FALSE]
     numStats = numsData %>%
       summarize_each(funs(sum(!is.na(.)),
                           mean(., na.rm=TRUE),
