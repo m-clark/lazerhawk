@@ -54,6 +54,7 @@
 #' @export
 brms_SummaryTable <- function(model, formatOptions=list(digits=2, nsmall=2), round=2,
                               astrology=F, hype=F, panderize=F, justify=NULL, ...) {
+
   if(class(model) != "brmsfit") stop('Model is not a brmsfit class object.')
 
   est = brms:::summary.brmsfit(model, ...)$fixed
@@ -72,7 +73,7 @@ brms_SummaryTable <- function(model, formatOptions=list(digits=2, nsmall=2), rou
   if (astrology){
     sigeffects0 = apply(sign(partables[,c('l-95% CI', 'u-95% CI')]), 1, function(interval) ifelse(diff(interval)==0, '*', ''))
     sigeffects =  data.frame(var=estnames, partables_formated, sigeffects0)
-    colnames(sigeffects) = c('var', 'coef', 'se', '2.5%', '97.5%', '')
+    colnames(sigeffects) = c('var', 'coef', 'se', '2.5%', '97.5%', 'Notable')
   } else {
     sigeffects =  data.frame(var=estnames, partables_formated)
     colnames(sigeffects) = c('var', 'coef', 'se', '2.5%', '97.5%')
@@ -94,6 +95,8 @@ brms_SummaryTable <- function(model, formatOptions=list(digits=2, nsmall=2), rou
     colnames(sigeffects)[ncol(sigeffects)] = 'B < > 0'
     sigeffects[,'Evidence Ratio'] = do.call(format, list(x=round(ER, round), formatOptions[[1]]))
   }
+
+  if (astrology && hype)  sigeffects[as.numeric(sigeffects[,'Evidence Ratio']) >= 19, 'Notable'] = '*'
 
   rownames(sigeffects) = NULL
 
