@@ -56,4 +56,3 @@ adjmat
 createEdges(adjmat)
 createEdges(adjmat, symmetric=TRUE)
 }
-

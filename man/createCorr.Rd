@@ -25,4 +25,3 @@ createCorr(cors)
 covs = runif(3, 1, 5)
 createCorr(covs, diag=c(1,2,3))
 }
-

@@ -71,4 +71,3 @@ brms_SummaryTable(fit4, astrology=TRUE, hype=TRUE, panderize=TRUE, justify='lrrr
   \code{\link[rstan]{print.stanfit}} \code{\link[base]{format}}
   \code{\link[base]{round}}
 }
-

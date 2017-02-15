@@ -3,8 +3,8 @@
 \name{addins}
 \alias{addins}
 \alias{insertImgCenterAddin}
-\alias{insertSlide}
 \alias{insertSpanAddin}
+\alias{insertSlide}
 \title{Rstudio addins}
 \usage{
 insertImgCenterAddin()
@@ -35,4 +35,3 @@ insertSpanAddin()
 
 
 }
-

@@ -20,8 +20,8 @@ Describe data sets with multiple variable types effectively.
 }
 \details{
 This function comes out of my frustrations from various data set
-  summaries either being inadequate for my needs, too 'busy' or unable to
-  deal well with mixed data types. Numeric data is treated entirely
+  summaries either being inadequate for my needs, too 'busy' with output or
+  unable to deal well with mixed data types. Numeric data is treated entirely
   separately, and provides the sample size available for the variable in
   question, mean, standard deviation, median, min, and max.  Categorical
   variables are summarized via tables.  Options are available for some types
@@ -47,4 +47,3 @@ describeAll(Xmiss)
 \seealso{
 \code{\link[base]{summary}}
 }
-

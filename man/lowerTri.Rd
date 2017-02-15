@@ -45,4 +45,3 @@ upperTri(m, diag=TRUE, otherVal=NA)
 \seealso{
 \code{\link[base]{lower.tri}},  \code{\link[base]{diag}},  \code{\link[base]{matrix}}
 }
-

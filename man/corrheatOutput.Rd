@@ -56,4 +56,3 @@ shinyApp(ui, server)
 \code{\link{corrheat}}, \code{\link[d3heatmap]{d3heatmapOutput}},
 \code{\link[d3heatmap]{renderD3heatmap}}
 }
-

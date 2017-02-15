@@ -128,4 +128,3 @@ corrheat(cor(state.x77), psychOptions=list(fm='ml'), ordering='raw')
 \seealso{
 \code{\link[psych]{fa}}, \code{\link[stats]{factanal}}
 }
-

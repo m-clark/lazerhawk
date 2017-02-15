@@ -37,4 +37,3 @@ mydata = data.frame(a = factor(sample(letters[1:3], 10, replace=TRUE)),
                     b = factor(sample(letters[1:4], 10, replace=TRUE)))
 pairwise(mydata, 2,  cor)
 }
-
