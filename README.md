@@ -36,8 +36,8 @@ Apply an arbitrary function to pairwise combinations of rows or columns.
 ### createAdjacency, createEdges
 Create an adjacency matrix, or use one to create an edge list.
 
-### ggClean, theme_trueMinimal
-Clean up your ggvis or ggplot visualizations.
+### theme_trueMinimal, theme_plotly
+Clean up your ggplot or plotly visualizations.
 
 ## Addins
 ### insertImgCenterAddin 
