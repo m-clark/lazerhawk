@@ -18,9 +18,12 @@
 #' @export
 createCorr = function(x, diagonal=NULL){
   if(!is.numeric(x)) stop('x needs to be numeric.')
+  if(any(is.na(x)))  stop('x cannot have missing values.')
+
   if (is.null(diagonal)) {
     nc = ceiling(sqrt(2*length(x)))
   } else {
+    if(!is.numeric(diagonal)) stop('diagonal needs to be numeric.')
     nc = length(diagonal)
   }
 

@@ -36,11 +36,12 @@ theme_trueMinimal = function(){
 #' @rdname theme_trueMinimal
 #' @export
 theme_plotly = function(vis) {
+  if(! 'plotly' %in% class(vis))  stop('vis is not a plotly object.')
   vis %>%
-  plotly::layout(xaxis = list(zeroline=F,
-                              showgrid=F),
-                 yaxis = list(zeroline=F,
-                              showgrid=F)) %>%
+    plotly::layout(xaxis = list(zeroline=F,
+                                showgrid=F),
+                   yaxis = list(zeroline=F,
+                                showgrid=F)) %>%
     plotly::config(showLink = F,
                    displaylogo = FALSE,
                    modeBarButtonsToRemove = list('pan2d'))
