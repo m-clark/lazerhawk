@@ -2,6 +2,9 @@
 
 [![Build Status](https://travis-ci.org/m-clark/lazerhawk.svg?branch=master)](https://travis-ci.org/m-clark/lazerhawk)
 
+<img src="lh2_o.jpg" style="display:block; margin: 0 auto;" width='50%'>
+
+
 ## Package description
 
 This package has a few miscellaneous functions useful to me, and which might be useful to others. It will be added to over time, and likely will have functions from all over the place as far as utility is concerned.  Nothing extraordinarily unique is here at present, more or less tweaks/variations of available R functions that do almost what I want, but not quite.  Also, I wanted to learn more about building packages, and this is my first foray into that world.  Very little testing of the functions has been done at this point, but the package itself would pass on CRAN, and testing will continue to expand.  Feel free to note issues if you use it.
@@ -17,9 +20,6 @@ devtools::install_github('m-clark/lazerhawk')
 ```
 
 ## Functions
-
-### corrheat
-A copy of [d3heatmap](https://github.com/rstudio/d3heatmap) specifically for correlation matrices, with a measurement focus.  Currently requires d3heatmap.
 
 ### createCorr
 A function to create a correlation matrix. Useful, for example, in setting up simulations.
@@ -39,7 +39,12 @@ Create an adjacency matrix, or use one to create an edge list.
 ### theme_trueMinimal, theme_plotly
 Clean up your ggplot or plotly visualizations.
 
+### sum_NA, sum_NaN, sum_blank
+Get counts of nothing.
+
+
 ## Addins
+
 ### insertImgCenterAddin 
 For Rmarkdown files, inserts `<img ...>` with centered options filled in.
 
@@ -55,4 +60,5 @@ For Rmarkdown files, inserts `<span class=''>`.
 - 0.1.3 Addins for span, slide
 - 0.1.4 Updates to corrheat to use psych package
 - 0.1.5 Added plotly theme, modified help
+- 0.1.6 Removed corrheat to its own package, added sum of missingness
 
