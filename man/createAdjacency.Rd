@@ -18,7 +18,7 @@ createEdges(adjmat, zeroEdges = FALSE, symmetric = FALSE, diag = FALSE)
 
 \item{value}{column representing the weight (otherwise will be set to 1).}
 
-\item{diagonal}{value desired for the diagonal (defaults to a value of 1).}
+\item{diagonal}{numeric value desired for the diagonal (defaults to a value of 1).}
 
 \item{adjmat}{A matrix like that produced with \code{createAdjacency}}
 
@@ -48,9 +48,14 @@ The idea is to have this functionality without requiring any special
 }
 \examples{
 library(lazerhawk); library(dplyr)
-nodeData = data.frame(pair=1:10, node1 = sample(letters[1:4], 10, replace=TRUE),
-                      node2 = sample(LETTERS[1:4], 10, replace=TRUE))
+nodeData = data.frame(pair=1:10,
+node1 = sample(letters[1:4], 10, replace=TRUE),
+                      node2 = sample(LETTERS[1:4], 10, replace=TRUE),
+                      weight = runif(10),
+                      diagonal = 0)
 adjmat = createAdjacency(nodeData, n1='node1', n2='node2')
+adjmat
+adjmat = createAdjacency(nodeData, n1='node1', n2='node2', value='weight', diagonal=0)
 adjmat
 
 createEdges(adjmat)

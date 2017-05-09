@@ -6,7 +6,7 @@
 #' @param n1 column representing the first set of nodes.
 #' @param n2 column representing the second set of nodes.
 #' @param value column representing the weight (otherwise will be set to 1).
-#' @param diagonal value desired for the diagonal (defaults to a value of 1).
+#' @param diagonal numeric value desired for the diagonal (defaults to a value of 1).
 #'
 #' @details The idea is to have this functionality without requiring any special
 #'   graph or network object, as typical graphs can be represented rather simply
@@ -22,9 +22,14 @@
 #'
 #' @examples
 #' library(lazerhawk); library(dplyr)
-#' nodeData = data.frame(pair=1:10, node1 = sample(letters[1:4], 10, replace=TRUE),
-#'                       node2 = sample(LETTERS[1:4], 10, replace=TRUE))
+#' nodeData = data.frame(pair=1:10,
+#' node1 = sample(letters[1:4], 10, replace=TRUE),
+#'                       node2 = sample(LETTERS[1:4], 10, replace=TRUE),
+#'                       weight = runif(10),
+#'                       diagonal = 0)
 #' adjmat = createAdjacency(nodeData, n1='node1', n2='node2')
+#' adjmat
+#' adjmat = createAdjacency(nodeData, n1='node1', n2='node2', value='weight', diagonal=0)
 #' adjmat
 #'
 #' createEdges(adjmat)
@@ -34,18 +39,26 @@
 #' @export
 createAdjacency <- function(data, n1, n2, value=NULL, diagonal=NULL) {
   assertthat::assert_that(is.data.frame(data))
-  nams = sort(unique(unlist(select_(data, n1, n2))))
-  data = as.matrix(data)
+  nams = unique(c(as.character(data[,n1]), as.character(data[,n2])))
+  didx = dplyr::mutate_all(data[,c(n1,n2)], as.character)
 
-  adjmat = diag(1, length(nams)); rownames(adjmat) = colnames(adjmat) = nams
+  adjmat = diag(1, length(nams))
+  rownames(adjmat) = colnames(adjmat) = nams
 
   for (i in 1:nrow(data)){
-    r = data[i, c(n1, n2)]
-    adjmat[r, rev(r)] = ifelse(is.null(value), 1, data[,value][i])
+    r = as.matrix(didx[i,])
+    adjmat[r, rev(r)] = ifelse(is.null(value), 1, data[, value][i])
   }
 
   if (!is.null(diagonal)) diag(adjmat) = diagonal
-  adjmat
+  if (is.numeric(adjmat)) {
+    adjmat
+  }
+  else {
+    adjmat = apply(adjmat, 2, as.numeric)
+    rownames(adjmat) = colnames(adjmat)
+    adjmat
+  }
 }
 
 #' @rdname createAdjacency
