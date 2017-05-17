@@ -21,6 +21,7 @@ Imports:
     assertthat,
     RColorBrewer
 Suggests:
+    broom,
     stringi,
     d3heatmap,
     pander,
