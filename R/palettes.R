@@ -6,6 +6,8 @@
 #'
 #' - orange : #ff5503
 #'
+#' - stanred: #b2001d
+#'
 #' - RdBu_11: RdBu palette from colorbrewer for sequence of 11
 #'
 #' ...
