@@ -42,7 +42,8 @@
 #' n <- sample(1:10, 100, TRUE)  # number of trials
 #' success <- rbinom(100, size = n, prob = 0.4)
 #' x <- rnorm(100)
-#' fit4 <- brm(success | trials(n) ~ x, family = binomial("probit"))
+#' d <- data.frame(n, success, x)
+#' fit4 <- brm(success | trials(n) ~ x, data=d, family = binomial("probit"))
 #' summary(fit4)
 #'
 #' library(lazerhawk)
@@ -57,35 +58,36 @@ brms_SummaryTable <- function(model, formatOptions=list(digits=2, nsmall=2), rou
 
   if(class(model) != "brmsfit") stop('Model is not a brmsfit class object.')
 
-  est = brms:::summary.brmsfit(model, ...)$fixed
-  partables = est[,c('Estimate', 'Est.Error', 'l-95% CI', 'u-95% CI')]
-  estnames = rownames(partables)
+  est = broom::tidy(model)
+  fe_names0 = stringr::str_subset(est$term, pattern='^b(|cs|mo|me|m)_')
+  fe_names = stringr::str_replace(fe_names0, pattern='b_', '')  # won't generalize to others, but fine for now
+  partables = est[est$term %in% fe_names0, c('estimate', 'std.error', 'lower', 'upper')]
   partables_formated = do.call(format, list(x=round(partables, round), formatOptions[[1]]))
 
   if(!astrology & !hype) {
-    partables_formated = data.frame(partables_formated)
-    colnames(partables_formated) = c('Estimate', 'Est.Error', 'l-95% CI', 'u-95% CI')
+    partables_formated = data.frame(Covariate=fe_names, partables_formated)
+    colnames(partables_formated)[-1] = c('Estimate', 'Est.Error', 'l-95% CI', 'u-95% CI')
     if (panderize) return(pander::pander(partables_formated, justify='lrrrr'))
     return(partables_formated)
   }
 
   # star intervals not containing zero
   if (astrology){
-    sigeffects0 = apply(sign(partables[,c('l-95% CI', 'u-95% CI')]), 1, function(interval) ifelse(diff(interval)==0, '*', ''))
-    sigeffects =  data.frame(var=estnames, partables_formated, sigeffects0)
-    colnames(sigeffects) = c('var', 'coef', 'se', '2.5%', '97.5%', 'Notable')
+    sigeffects0 = apply(sign(partables[,c('lower', 'upper')]), 1, function(interval) ifelse(diff(interval)==0, '*', ''))
+    sigeffects =  data.frame(partables_formated, sigeffects0)
+    colnames(sigeffects) = c('Covariate', 'Estimate', 'Est.Error', 'l-95% CI', 'u-95% CI', 'Notable')
   } else {
-    sigeffects =  data.frame(var=estnames, partables_formated)
-    colnames(sigeffects) = c('var', 'coef', 'se', '2.5%', '97.5%')
+    sigeffects =  data.frame(Covariate=fe_names, partables_formated)
+    colnames(sigeffects) = c('Covariate', 'Estimate', 'Est.Error', 'l-95% CI', 'u-95% CI')
   }
 
 
   # conduct hypothesis tests
   if(hype){
-    signcoefs = sign(partables[,'Estimate'])
+    signcoefs = sign(partables[,'estimate'])
     testnams = mapply(function(coefname, sign) ifelse(sign>0, paste0(coefname, ' > 0'), paste0(coefname, ' < 0')),
-                      estnames, signcoefs)
-    hypetests = sapply(testnams, brms::hypothesis, x=model, simplify = F, alpha=.025)
+                      fe_names, signcoefs)
+    hypetests = sapply(testnams, brms::hypothesis, x=model, simplify = F, alpha=.025, seed=NULL)
     ER = sapply(hypetests, function(test) test[['hypothesis']]['Evid.Ratio'])
     ER = unlist(ER)
     sigeffects$pvals = ER/(ER+1)
@@ -96,7 +98,7 @@ brms_SummaryTable <- function(model, formatOptions=list(digits=2, nsmall=2), rou
     sigeffects[,'Evidence Ratio'] = do.call(format, list(x=round(ER, round), formatOptions[[1]]))
   }
 
-  if (astrology && hype)  sigeffects[as.numeric(sigeffects[,'Evidence Ratio']) >= 19, 'Notable'] = '*'
+  if (astrology && hype)  sigeffects[, 'Notable'] = ifelse(as.numeric(sigeffects[,'Evidence Ratio']) >= 19, '*', '')
 
   rownames(sigeffects) = NULL
 

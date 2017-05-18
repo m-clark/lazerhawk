@@ -23,6 +23,7 @@ Imports:
 Suggests:
     broom,
     stringi,
+    stringr,
     d3heatmap,
     pander,
     testthat,

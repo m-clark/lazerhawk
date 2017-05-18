@@ -56,7 +56,8 @@ library(brms)
 n <- sample(1:10, 100, TRUE)  # number of trials
 success <- rbinom(100, size = n, prob = 0.4)
 x <- rnorm(100)
-fit4 <- brm(success | trials(n) ~ x, family = binomial("probit"))
+d <- data.frame(n, success, x)
+fit4 <- brm(success | trials(n) ~ x, data=d, family = binomial("probit"))
 summary(fit4)
 
 library(lazerhawk)
