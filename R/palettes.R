@@ -10,6 +10,8 @@
 #'
 #' - RdBu_11: RdBu palette from colorbrewer for sequence of 11
 #'
+#' - Rblue: #1f65b7
+#'
 #' ...
 #' @source For example \url{http://paletton.com/}, \url{https://www.sessions.edu/color-calculator/},  \url{https://colorbrewer.org}
 'palettes'
