@@ -12,6 +12,9 @@
 #'
 #' - Rblue: #1f65b7
 #'
+#' - Latvian Red: #9E1B34
+#'
+#' - Tyrian Purple: #3c6602
 #' ...
 #' @source For example \url{http://paletton.com/}, \url{https://www.sessions.edu/color-calculator/},  \url{https://colorbrewer.org}
 'palettes'
