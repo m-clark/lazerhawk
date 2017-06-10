@@ -4,7 +4,7 @@
 #'
 #' @format (Possibly) named vectors/lists of colors
 #'
-#' - orange : #ff5503
+#' - orange : #ff5500
 #'
 #' - stanred: #b2001d
 #'
