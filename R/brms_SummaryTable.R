@@ -62,31 +62,33 @@ brms_SummaryTable <- function(model, formatOptions=list(digits=2, nsmall=2), rou
   fe_names0 = stringr::str_subset(est$term, pattern='^b(|cs|mo|me|m)_')
   fe_names = stringr::str_replace(fe_names0, pattern='b_', '')  # won't generalize to others, but fine for now
   partables = est[est$term %in% fe_names0, c('estimate', 'std.error', 'lower', 'upper')]
-  partables_formated = do.call(format, list(x=round(partables, round), formatOptions[[1]]))
+  partables_formatted = data.frame(Covariate=fe_names,
+                                   do.call(format, list(x=round(partables, round), formatOptions[[1]])))
 
   if(!astrology & !hype) {
-    partables_formated = data.frame(Covariate=fe_names, partables_formated)
-    colnames(partables_formated)[-1] = c('Estimate', 'Est.Error', 'l-95% CI', 'u-95% CI')
-    if (panderize) return(pander::pander(partables_formated, justify='lrrrr'))
-    return(partables_formated)
+    colnames(partables_formatted)[-1] = c('Estimate', 'Est.Error', 'l-95% CI', 'u-95% CI')
+    if (is.null(justify)) justify = paste0('l', paste0(rep('r', ncol(partables_formatted)-1), collapse = ''))
+    if (panderize) return(pander::pander(partables_formatted, justify='lrrrr', split.tables=Inf))
+    return(partables_formatted)
   }
 
   # star intervals not containing zero
-  if (astrology){
-    sigeffects0 = apply(sign(partables[,c('lower', 'upper')]), 1, function(interval) ifelse(diff(interval)==0, '*', ''))
-    sigeffects =  data.frame(partables_formated, sigeffects0)
+  if (astrology) {
+    sigeffects0 = apply(sign(partables[,c('lower', 'upper')]), 1,
+                        function(interval) ifelse(diff(interval)==0, '*', ''))
+    sigeffects =  data.frame(partables_formatted, sigeffects0)
     colnames(sigeffects) = c('Covariate', 'Estimate', 'Est.Error', 'l-95% CI', 'u-95% CI', 'Notable')
   } else {
-    sigeffects =  data.frame(Covariate=fe_names, partables_formated)
+    sigeffects =  partables_formatted
     colnames(sigeffects) = c('Covariate', 'Estimate', 'Est.Error', 'l-95% CI', 'u-95% CI')
   }
 
 
   # conduct hypothesis tests
-  if(hype){
+  if (hype) {
     signcoefs = sign(partables[,'estimate'])
-    testnams = mapply(function(coefname, sign) ifelse(sign>0, paste0(coefname, ' > 0'), paste0(coefname, ' < 0')),
-                      fe_names, signcoefs)
+    testnams = mapply(function(coefname, sign)
+      ifelse(sign>0, paste0(coefname, ' > 0'), paste0(coefname, ' < 0')), fe_names, signcoefs)
     hypetests = sapply(testnams, brms::hypothesis, x=model, simplify = F, alpha=.025, seed=NULL)
     ER = sapply(hypetests, function(test) test[['hypothesis']]['Evid.Ratio'])
     ER = unlist(ER)
@@ -102,7 +104,11 @@ brms_SummaryTable <- function(model, formatOptions=list(digits=2, nsmall=2), rou
 
   rownames(sigeffects) = NULL
 
-  if(panderize) return(pander::pander(x=sigeffects, justify=justify))
+  if (panderize) {
+    if (is.null(justify)) justify = paste0('l', paste0(rep('r', ncol(sigeffects)-1), collapse = ''))
+    return(pander::pander(x=sigeffects, justify=justify, split.tables=Inf))
+  }
+
   sigeffects
 }
 
