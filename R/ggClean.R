@@ -42,7 +42,9 @@ theme_plotly = function(vis) {
     plotly::layout(xaxis = list(zeroline=F,
                                 showgrid=F),
                    yaxis = list(zeroline=F,
-                                showgrid=F)) %>%
+                                showgrid=F),
+                   plot_bgcolor='transparent',
+                   paper_bgcolor='transparent') %>%
     plotly::config(showLink = F,
                    displaylogo = FALSE,
                    modeBarButtonsToRemove = list('pan2d'))
