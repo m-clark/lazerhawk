@@ -3,25 +3,26 @@
 #' @description Uses colortools package (and possibly scales) to easily create a
 #'   color palette based on a initial input color.
 #'
-#' @param colorhex  Hexadecimal value of color.
+#' @param colorhex  Hexadecimal value of color or an R color name.
 #' @param name optional name of color
 #' @param toHCL Convert colors to hcl. Defaults to \code{FALSE}.
 #' @param plot Plot the results. Defaults to \code{FALSE}.
 #' @param alpha Transparency. Takes values from 0 to 1. Default is 1.
 #'
 #' @details Will return complementary, analogous/adjacent, split complementary,
-#'   triadic, square and tetradic color values relative to the initial color. Note that if you want sequential, qualitative, diverging etc., other packages like \link{RColorBrewer}, \href{https://cran.rstudio.com/web/packages/colorspace/}{colorspace}, and \href{https://cran.rstudio.com/web/packages/colortools/}{colortools} will do that for you.
+#'   triadic, square and tetradic color values relative to the initial color. Note that if you want sequential, qualitative, diverging etc., other packages like \href{https://cran.rstudio.com/web/packages/colorspace/}{RColorBrewer}, \href{https://cran.rstudio.com/web/packages/colorspace/}{colorspace}, and \href{https://cran.rstudio.com/web/packages/colortools/}{colortools} will do that for you.
 #'
 #' @return A list of colors
 #' @importFrom colortools complementary adjacent splitComp triadic square
 #'   tetradic pizza
 #' @importFrom scales col2hcl alpha
+#' @importFrom graphics layout mtext par
 #' @examples
 #' create_palette(colorhex = '#ff5500', name='orange')
 #' create_palette(colorhex = '#ff5500', name='orange', alpha=.5)
 #'
 #' @export
-create_palette <- function(colorhex, name=NULL, toHCL=FALSE, plot=F, alpha=1) {
+create_palette <- function(colorhex, name=NULL, toHCL=FALSE, plot=FALSE, alpha=1) {
   if (is.null(name)) name = colorhex
   if (!is.character(colorhex)) stop('color hex must be a character string of the form #ffffff or an R color name. Obviously.')
   if (alpha < 0 | alpha > 1) stop('alpha must be between 0 and 1.')

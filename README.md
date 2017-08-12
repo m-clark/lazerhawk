@@ -42,6 +42,9 @@ Clean up your ggplot or plotly visualizations.
 ### sum_NA, sum_NaN, sum_blank
 Get counts of nothing.
 
+### create_palette
+Create a palette including complementary, triadic, tetradic, etc. colors.
+
 
 ## Addins
 
@@ -54,11 +57,12 @@ For Rmarkdown files, inserts `<span class=''>`.
 
 ## Release Notes
 
-- 0.1.0 Initial release
-- 0.1.1 Added createAdjaceny and createEdges, and start of addins
-- 0.1.2 Added clean themes for ggvis and ggplot
-- 0.1.3 Addins for span, slide
-- 0.1.4 Updates to corrheat to use psych package
-- 0.1.5 Added plotly theme, modified help
+- 0.1.7 Added create_palette and made updates to palettes
 - 0.1.6 Removed corrheat to its own package, added sum of missingness
+- 0.1.5 Added plotly theme, modified help
+- 0.1.4 Updates to corrheat to use psych package
+- 0.1.3 Addins for span, slide
+- 0.1.2 Added clean themes for ggvis and ggplot
+- 0.1.1 Added createAdjaceny and createEdges, and start of addins
+- 0.1.0 Initial release
 

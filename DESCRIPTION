@@ -19,7 +19,6 @@ Imports:
     htmlwidgets,
     png,
     assertthat,
-    RColorBrewer,
     colortools
 Suggests:
     broom,
@@ -33,5 +32,7 @@ Suggests:
     rstudioapi,
     tidyr,
     ggplot2,
-    plotly
+    plotly,
+    graphics,
+    RColorBrewer
 RoxygenNote: 6.0.1
