@@ -18,6 +18,8 @@
 
 - Tyrian Purple: #3c6602
 
+- Tyrian Purple2: #990024  A more web friendly version
+
 - Plotly: plotly's default colorscale, because decent documentation is next to impossible for those folks.
 ...}
 \source{
@@ -27,7 +29,7 @@ For example \url{http://paletton.com/}, \url{https://www.sessions.edu/color-calc
 palettes
 }
 \description{
-A list of commonly used palettes with some base color and including complementary, monochromatic, analagous, split_complementary, triadic, tetradic.  Otherwise, just ones I use (e.g. colorbrewer)
+A list of commonly used palettes with some base color and including complementary, monochromatic, analagous, split_complementary, triadic, tetradic.  Otherwise, just ones I use e.g. colorbrewer, plotly or others of interest.
 }
 \references{
 https://stackoverflow.com/questions/40673490/how-to-get-plotly-js-default-colors-list

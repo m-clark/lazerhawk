@@ -19,7 +19,8 @@ Imports:
     htmlwidgets,
     png,
     assertthat,
-    RColorBrewer
+    RColorBrewer,
+    colortools
 Suggests:
     broom,
     stringi,
