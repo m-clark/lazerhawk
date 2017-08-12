@@ -23,7 +23,7 @@
 - Plotly: plotly's default colorscale, because decent documentation is next to impossible for those folks.
 ...}
 \source{
-For example \url{http://paletton.com/}, \url{https://www.sessions.edu/color-calculator/},  \url{https://colorbrewer.org}
+For example the colortools and colorspace packages, \url{http://paletton.com/}, \url{https://www.sessions.edu/color-calculator/},  \url{https://colorbrewer.org}
 }
 \usage{
 palettes
