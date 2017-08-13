@@ -1,6 +1,6 @@
 language: r
 r:
   - release
-cache: packages
+# cache: packages
 latex: false
 sudo: false
