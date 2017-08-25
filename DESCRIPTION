@@ -1,7 +1,7 @@
 Package: lazerhawk
 Type: Package
 Title: Miscellaneous functions mostly inspired by synthwave
-Version: 0.1.6
+Version: 0.1.7
 Author: Michael Clark
 Maintainer: Michael Clark <micl@umich.edu>
 Description: This package has a few miscellaneous functions useful to me, and which might be useful to others. It will be added to over time.
@@ -10,7 +10,7 @@ LazyData: TRUE
 URL: m-clark.github.io
 Year: 2017
 Depends:
-    R (>= 3.3.0)
+    R (>= 3.4.0)
 Imports:
     dplyr,
     scales,

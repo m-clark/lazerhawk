@@ -37,6 +37,12 @@ insertSpanAddin <- function() {
 
 #' @rdname addins
 #' @export
-insertSlide <- function() {
+insertSlideAddin <- function() {
   rstudioapi::insertText("Title\n========================================================")
+}
+
+#' @rdname addins
+#' @export
+insertLaTeXAddin <- function() {
+  rstudioapi::insertText("$\\LaTeX$")
 }
