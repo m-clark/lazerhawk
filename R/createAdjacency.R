@@ -75,7 +75,7 @@ createEdges <- function(adjmat, zeroEdges=FALSE, symmetric=FALSE, diag=FALSE){
   if(symmetric & !diag) diag(adjmat) = 0
   if(!symmetric & diag) adjmat = lowerTri(adjmat, diag=TRUE)
 
-  edgeMat = tidyr::gather(data.frame(id=colnames(adjmat), adjmat), target, value, -id)
+  edgeMat = tidyr::gather(dplyr::bind_cols(id=colnames(adjmat), dplyr::as_tibble(adjmat)), target, value, -id)
   edgeMat = dplyr::rename(edgeMat, source=id)
 
   if(zeroEdges){

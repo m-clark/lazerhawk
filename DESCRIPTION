@@ -19,6 +19,7 @@ Imports:
     htmlwidgets,
     png,
     assertthat,
+    rlang,
     colortools
 Suggests:
     broom,

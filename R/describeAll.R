@@ -74,7 +74,7 @@ describeAll <- function(data, binlogasFactor=TRUE, charIgnore=TRUE, digits=3) {
   if (length(nums) > 0) {
     numsData = data[,nums, drop=FALSE]
     numStats = numsData %>%
-      summarize_each(funs(sum(!is.na(.)),
+      summarize_all(funs(sum(!is.na(.)),
                           mean(., na.rm=TRUE),
                           sd(., na.rm=TRUE),
                           median(., na.rm=TRUE),

@@ -57,6 +57,7 @@ For Rmarkdown files, inserts `<span class=''>`.
 
 ## Release Notes
 
+- 0.1.8 Added num_by summary function and fixed issue #3
 - 0.1.7 Added create_palette and made updates to palettes
 - 0.1.6 Removed corrheat to its own package, added sum of missingness
 - 0.1.5 Added plotly theme, modified help
