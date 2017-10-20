@@ -45,6 +45,10 @@ Get counts of nothing.
 ### create_palette
 Create a palette including complementary, triadic, tetradic, etc. colors.
 
+### num_by
+
+A quick summarise, possibly with dplyr::group_by, that provides things like mean, sd, etc.
+
 
 ## Addins
 
