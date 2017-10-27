@@ -17,12 +17,13 @@ num_by(df, main_var, group_var)
 data.frame/tibble with the corresponding summary statistics
 }
 \description{
-Summarize data
+Provide common numeric summary information.
 }
 \details{
 This function takes a numeric variable from a dataframe and provides
-  mean, standard deviation, median, min, and max, possibly over a grouping
-  variable. It works in the dplyr style using unquoted (bare) variable names.
+  sample size, mean, standard deviation, min, first quartile, median, third
+  quartile, and max, possibly over a grouping variable. It works in the dplyr
+  style using unquoted (bare) variable names.
 }
 \examples{
 library(dplyr)
