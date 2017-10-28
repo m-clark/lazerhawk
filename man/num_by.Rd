@@ -2,9 +2,12 @@
 % Please edit documentation in R/num_by.R
 \name{num_by}
 \alias{num_by}
+\alias{cat_by}
 \title{Summarize data}
 \usage{
-num_by(df, main_var, group_var)
+num_by(df, main_var, group_var, digits = FALSE)
+
+cat_by(df, main_var, group_var, digits = FALSE, perc_by_group = TRUE)
 }
 \arguments{
 \item{df}{data frame}
@@ -12,6 +15,11 @@ num_by(df, main_var, group_var)
 \item{main_var}{the main numeric variable to be summarised}
 
 \item{group_var}{the optional grouping variable}
+
+\item{digits}{optional rounding}
+
+\item{perc_by_group}{when supplied a grouping variable for cat_by, do you
+want within group percentages (default) or out of total?}
 }
 \value{
 data.frame/tibble with the corresponding summary statistics
@@ -20,27 +28,33 @@ data.frame/tibble with the corresponding summary statistics
 Provide common numeric summary information.
 }
 \details{
-This function takes a numeric variable from a dataframe and provides
-  sample size, mean, standard deviation, min, first quartile, median, third
-  quartile, and max, possibly over a grouping variable. It works in the dplyr
-  style using unquoted (bare) variable names.
+The \code{num_by} function takes a numeric variable from a dataframe
+  and provides sample size, mean, standard deviation, min, first quartile,
+  median, third quartile, and max, possibly over a grouping variable. It
+  works in the dplyr style using unquoted (bare) variable names.
+
+  For \code{cat_by}, frequencies and percentage (within the grouping variable
+  or out of total) are returned. Warnings are given if there are more than 10
+  levels or the data appears to be numeric.
 }
 \examples{
-library(dplyr)
-df1 <- tibble(
-g1 = sample(1:2, 50, replace = TRUE),
-g2 = sample(1:4, 50, replace = TRUE),
-a = rnorm(50),
-b = rpois(50, 10)
-)
+df1 <- data.frame(g1 = factor(sample(1:2, 50, replace = TRUE), labels=c('a','b')),
+                  g2 = sample(1:4, 50, replace = TRUE),
+                  a = rnorm(50),
+                  b = rpois(50, 10),
+                  c = sample(letters, 50, replace=TRUE),
+                  d = sample(c(TRUE, FALSE), 50, replace=TRUE)
+                 )
 
 
 num_by(df1, main_var = a)
 num_by(df1, main_var = a, group_var = g2)
 
 num_by(df1, main_var = b)
-num_by(df1, main_var = b, group_var = g1)
+num_by(df1, main_var = b, group_var = g1, digits=2)
 
+cat_by(df1, main_var = g1, group_var = g2, digits=1)
+cat_by(df1, main_var = g1, group_var = g2, perc_by_group=FALSE)
 
 }
 \seealso{
