@@ -20,6 +20,7 @@ Imports:
     png,
     assertthat,
     rlang,
+    tidyselect,
     colortools
 Suggests:
     broom,

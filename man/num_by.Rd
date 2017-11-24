@@ -5,21 +5,26 @@
 \alias{cat_by}
 \title{Summarize data}
 \usage{
-num_by(df, main_var, group_var, digits = FALSE)
+num_by(data, main_var, group_var, digits = FALSE)
 
-cat_by(df, main_var, group_var, digits = FALSE, perc_by_group = TRUE)
+cat_by(data, main_var, group_var, digits = FALSE, perc_by_group = TRUE,
+  sort_by_group = TRUE)
 }
 \arguments{
-\item{df}{data frame}
+\item{data}{data frame}
 
-\item{main_var}{the main numeric variable to be summarised}
+\item{main_var}{the variable to be summarised. Multiple variables are
+supplied using the vars() function.}
 
-\item{group_var}{the optional grouping variable}
+\item{group_var}{the (optional) grouping variable.}
 
 \item{digits}{optional rounding}
 
 \item{perc_by_group}{when supplied a grouping variable for cat_by, do you
-want within group percentages (default) or out of total?}
+want within group percentages also (default is TRUE)}
+
+\item{sort_by_group}{when supplied a grouping variable for cat_by, do you
+want result sorted on the grouping variable? Default is TRUE.}
 }
 \value{
 data.frame/tibble with the corresponding summary statistics
@@ -30,12 +35,23 @@ Provide common numeric summary information.
 \details{
 The \code{num_by} function takes a numeric variable from a dataframe
   and provides sample size, mean, standard deviation, min, first quartile,
-  median, third quartile, and max, possibly over a grouping variable. It
-  works in the dplyr style using unquoted (bare) variable names.
+  median, third quartile, max, and number of missing values, possibly over a
+  grouping variable.
 
-  For \code{cat_by}, frequencies and percentage (within the grouping variable
-  or out of total) are returned. Warnings are given if there are more than 10
-  levels or the data appears to be numeric.
+  It works in the dplyr style using unquoted (bare)
+  variable names, using the vars() function if there is more than one
+  variable.  If using a grouping variable, it will treat missing values as a
+  separate group.
+
+  For \code{cat_by}, frequencies and percentage (out of total or group_var)
+  are returned. Warnings are given if any of the main
+  variables are more than 10 levels, or the data appears to be non-categorical. The
+  group_var argument is essentially just to provide percentages based on a
+  focal grouping variable out of all those supplied.
+
+  Missing values are treated as separate groups, as it's often useful to
+  explore the nature of the missingness. To avoid this, just use
+  \code{na.omit} or \code{dplyr::drop_na} on the data frame first.
 }
 \examples{
 df1 <- data.frame(g1 = factor(sample(1:2, 50, replace = TRUE), labels=c('a','b')),
@@ -48,13 +64,12 @@ df1 <- data.frame(g1 = factor(sample(1:2, 50, replace = TRUE), labels=c('a','b')
 
 
 num_by(df1, main_var = a)
-num_by(df1, main_var = a, group_var = g2)
+num_by(df1, main_var = a, group_var = g2, digits=2)
 
-num_by(df1, main_var = b)
-num_by(df1, main_var = b, group_var = g1, digits=2)
+num_by(df1, main_var = dplyr::vars(a,b), group_var = g1, digits=1)
 
 cat_by(df1, main_var = g1, group_var = g2, digits=1)
-cat_by(df1, main_var = g1, group_var = g2, perc_by_group=FALSE)
+cat_by(df1, main_var = dplyr::vars(g1,d), group_var = g2, perc_by_group=FALSE)
 
 }
 \seealso{

@@ -8,8 +8,13 @@ df1 <- tibble(
   c = sample(letters, 50, replace=TRUE),
   d = sample(c(T,F), 50, replace=TRUE)
 )
+
 test_that('num_by returns a data frame', {
   expect_s3_class(num_by(df1, main_var = a), 'data.frame')
+})
+
+test_that('num_by takes multple main_varn', {
+  expect_s3_class(num_by(df1, main_var = vars(a,b)), 'data.frame')
 })
 
 test_that('num_by takes a group var', {
@@ -22,6 +27,10 @@ test_that('num_by will take digits', {
 
 test_that('fails on non-numeric', {
   expect_error(num_by(df1, main_var = c))
+})
+
+test_that('fails with non-data.frame object', {
+  expect_error(num_by(as.matrix(df1[,'a']), main_var = a))
 })
 
 test_that('num_by is ok with logical', {
