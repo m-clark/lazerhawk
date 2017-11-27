@@ -25,7 +25,8 @@ num_summary <- function(x, digits=1) {
   d = data.frame(
     N = length(na.omit(x)),
     data.frame(t(c(summary(x)))),
-    SD = sd(x, na.rm=T)
+    SD = sd(x, na.rm=T),
+    Missing = sum_NA(x)
   ) %>%
     # currently there is a bug that keeps this from working
     # rename_all(funs(gsub(., pattern='.', replacement=''))) %>%
