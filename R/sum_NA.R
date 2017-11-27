@@ -21,14 +21,12 @@
 #'
 #' @export
 sum_NA <- function(x) {
-  if(length(x)==1) stop('Just look at it you dolt.')
   sum(is.na(x))
 }
 
 #' @rdname sum_NA
 #' @export
 sum_NaN <- function(x) {
-  if(length(x)==1) stop('Just look at it you dolt.')
   if(!is.numeric(x)) stop('x must potentially be a number in order to not be a number. ~ The Buddha')
   sum(is.nan(x))
 }
@@ -36,7 +34,6 @@ sum_NaN <- function(x) {
 #' @rdname sum_NA
 #' @export
 sum_blank <- function(x) {
-  if(length(x)==1) stop('Just look at it you dolt.')
   sum(stringi::stri_trim_both(x)=='')
 }
 

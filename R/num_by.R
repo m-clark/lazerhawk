@@ -114,7 +114,7 @@ num_by <- function(data, main_var, group_var, digits=FALSE) {
                      Median = median(., na.rm = TRUE),
                      Q3 = quantile(., p=.75, na.rm = TRUE),
                      Max = max(., na.rm = TRUE),
-                     Missing = ifelse(any(is.na(.)), sum(is.na(.)), NA)
+                     Missing = sum_NA(.)
                    )
       )
     if (length(main_var) > 1) {
@@ -139,7 +139,7 @@ num_by <- function(data, main_var, group_var, digits=FALSE) {
                      Median = median(., na.rm = TRUE),
                      Q3 = quantile(., p=.75, na.rm = TRUE),
                      Max = max(., na.rm = TRUE),
-                     Missing = ifelse(any(is.na(.)), sum(is.na(.)), NA)
+                     Missing = sum_NA(.)
                    )
       )
     if (length(main_var) > 1) {
