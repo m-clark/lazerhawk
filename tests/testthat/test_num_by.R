@@ -6,7 +6,9 @@ df1 <- tibble(
   a = rnorm(50),
   b = rpois(50, 10),
   c = sample(letters, 50, replace=TRUE),
-  d = sample(c(T,F), 50, replace=TRUE)
+  d = sample(c(T,F), 50, replace=TRUE),
+  a_b = a*b,
+  b_sq = b^2
 )
 
 test_that('num_by returns a data frame', {
@@ -35,4 +37,9 @@ test_that('fails with non-data.frame object', {
 
 test_that('num_by is ok with logical', {
   expect_s3_class(num_by(df1, main_var = d, group_var = g2), 'data.frame')
+})
+
+test_that('num_by can handle underscores in variable names', {
+  res = num_by(df1, main_var = vars(a_b, b_sq), group_var = g2)
+  expect_equivalent(unique(res$Variable), c('a_b', 'b_sq'))
 })

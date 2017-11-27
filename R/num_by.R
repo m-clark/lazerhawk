@@ -118,9 +118,10 @@ num_by <- function(data, main_var, group_var, digits=FALSE) {
                    )
       )
     if (length(main_var) > 1) {
+      # regex will look for the last _ , in case there are variable names with underscores
       data = data %>%
         tidyr::gather(key=results, value=value, -!!gv) %>%
-        tidyr::separate(col=results, sep='_', into=c('Variable', 'result')) %>%
+        tidyr::separate(col=results, sep='_(?=[^_]+$)', into=c('Variable', 'result')) %>%
         tidyr::spread(result, value) %>%   # the obsession with auto alphabetical order in the tidyverse strikes once again
         select(!!gv, Variable, N,  Mean, SD, Min, Q1, Median, Q3, Max, Missing)
     }
@@ -147,7 +148,7 @@ num_by <- function(data, main_var, group_var, digits=FALSE) {
       suppressWarnings({
         data = data %>%
           tidyr::gather(key=results, value=value) %>%
-          tidyr::separate(col=results, sep='_', into=c('Variable', 'result')) %>%
+          tidyr::separate(col=results, sep='_(?=[^_]+$)', into=c('Variable', 'result')) %>%
           tidyr::spread(result, value) %>%
           select(Variable, N,  Mean, SD, Min, Q1, Median, Q3, Max, Missing)
       })
