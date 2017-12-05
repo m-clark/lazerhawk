@@ -3,8 +3,6 @@
 #' @description Describe data sets with multiple variable types effectively.
 #'
 #' @param data The dataset, of class data.frame.
-#' @param binlogasFactor Binary and/or Logical variables will be treated as factors
-#' @param charIgnore Ignore variables that are character class?
 #' @param digits See \code{\link[base]{round}}.
 #'
 #' @import dplyr
@@ -14,12 +12,10 @@
 #' @details This function comes out of my frustrations from various data set
 #'   summaries either being inadequate for my needs, too 'busy' with output or
 #'   unable to deal well with mixed data types. Numeric data is treated entirely
-#'   separately, and provides the sample size available for the variable in
-#'   question, mean, standard deviation, median, min, and max.  Categorical
-#'   variables are summarized via tables.  Options are available for some types
-#'   that could go either way (e.g. binary variables).
+#'   separately, and provides the same information as in num_by.  Categorical
+#'   variables are summarized with frequencies and percentages.
 #'
-#' @seealso \code{\link[base]{summary}}
+#' @seealso \code{\link[base]{summary}} \code{\link[lazerhawk]{num_by}}
 #'
 #' @examples
 #' library(lazerhawk); library(dplyr)
@@ -30,68 +26,73 @@
 #'                  num2 = rpois(20, 5),
 #'                  char1 = sample(letters, 20, replace = TRUE))
 #' describeAll(X)
-#' describeAll(X, binlogasFactor = FALSE, charIgnore = FALSE)
 #'
-#' # test missing
-#' Xmiss = X
-#' Xmiss[sample(1:20, 5), sample(1:ncol(X), 3)] = NA
-#' describeAll(Xmiss)
-#'
+#' describeAll(data.frame(x=factor(1:7)), digits=5)
 #' @export
-describeAll <- function(data, binlogasFactor=TRUE, charIgnore=TRUE, digits=3) {
+describeAll <- function(data, digits=2) {
   assertthat::assert_that(any(class(data) %in% c('data.frame', 'data.table')))
-  classList = sapply(data, class)
-  cnames = colnames(data)
 
-  binidx = sapply(data, function(x) suppressWarnings(all(sort(unique(x)) == c(0,1))))
+  nc_num = data %>%
+    select_if(is.numeric) %>%
+    ncol()
+  nc_cat = data %>%
+    select_if(function(x) !is.numeric(x)) %>%
+    ncol()
 
-  nums = cnames[classList %in% c('numeric', 'integer', 'logical')]
-  factors = cnames[classList %in% c('ordered', 'factor')]
-  chars = cnames[classList=='character']
-  bins = cnames[binidx]
+  if (nc_num > 0) {
+    data_num = data %>%
+      select_if(is.numeric) %>%
+      summarise_all(funs(
+        N = n()-sum(is.na(.)),
+        Mean = mean(., na.rm = TRUE),
+        SD = sd(., na.rm = TRUE),
+        Min = min(., na.rm = TRUE),
+        Q1 = quantile(., p=.25, na.rm = TRUE),
+        Median = median(., na.rm = TRUE),
+        Q3 = quantile(., p=.75, na.rm = TRUE),
+        Max = max(., na.rm = TRUE),
+        Missing = sum_NA(.)
+      )
+      )
+    if (nc_num > 1) {
+      # suppress warnings if mixed logical and numerics
+      suppressWarnings ({
+        data_num = data_num %>%
+          tidyr::gather(key=results, value=value) %>%
+          tidyr::separate(col=results, sep='_(?=[^_]+$)', into=c('Variable', 'result')) %>%
+          tidyr::spread(result, value) %>%
+          select(Variable, N,  Mean, SD, Min, Q1, Median, Q3, Max, Missing)
+      })
 
-
-  # categorical
-  if (length(factors) > 0) {
-    factorData = data[,factors, drop=FALSE]
-
-    # deal with logicals, characters
-    if (length(chars) > 0 && !charIgnore) {
-      charsFactor = sapply(data[, chars, drop=FALSE], as.factor)
-      factorData = cbind(factorData, charsFactor)
     }
-
-    if (length(bins) > 0 & binlogasFactor) {
-      binsFactor = sapply(data[, bins, drop=FALSE], as.factor)
-      factorData = cbind(factorData, binsFactor)
-    }
-    tabls = lapply(factorData, function(x) cbind(table(x), round(prop.table(table(x))*100, 2)))
-    tabls = lapply(tabls, function(x) {colnames(x) <- c('Freq', 'Perc'); x})
+    if (digits) data_num = data_num %>% mutate_if(is.numeric, round, digits=digits)
+  } else {
+    data_num = NULL
   }
 
+  # todo: add missing data option
+  if (nc_cat > 0) {
+    data_cat = data %>%
+      select_if(function(x) !is.numeric(x))
 
-  # numeric
-  if (length(nums) > 0) {
-    numsData = data[,nums, drop=FALSE]
-    numStats = numsData %>%
-      summarize_all(funs(sum(!is.na(.)),
-                          mean(., na.rm=TRUE),
-                          sd(., na.rm=TRUE),
-                          median(., na.rm=TRUE),
-                          min(., na.rm=TRUE),
-                          max(., na.rm=TRUE))) %>%
-      unlist
-    dim(numStats) = c(ncol(numsData), 6)
+    cat_names = names(data_cat)
+    nlevs = data_cat %>% purrr::map_int(n_distinct)
 
-    colnames(numStats) = c('N', 'mean', 'sd', 'median', 'min', 'max')
-    rownames(numStats) = colnames(numsData)
-    numStats = round(numStats, digits)
-    }
+    data_cat = data_cat %>%
+      purrr::map(function(x) data.frame(x=table(x), y=prop.table(table(x))) %>%
+            select(-y.x) %>%
+            rename(Group=x.x,
+                   Frequency = x.Freq,
+                   perc=y.Freq) %>%
+            mutate(perc = 100*round(perc, digits))
+      )
 
+    data_cat = data.frame(Variable=rep(cat_names, nlevs),
+                          suppressWarnings(bind_rows(data_cat))) %>% # suppress coerce to char message
+      rename(`%` = perc)    # otherwise lose symbol on bind rows
+  } else {
+    data_cat = NULL
+  }
 
-  if (!exists('tabls')) tabls = 'No categorical data.'
-  if (!exists('numStats')) numStats = 'No numeric data.'
-  return(list(Numeric = numStats,
-              Categorical = tabls)
-  )
+  list(`Numeric Variables` = data_num, `Categorical Variables` = data_cat)
 }

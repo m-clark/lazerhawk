@@ -4,14 +4,10 @@
 \alias{describeAll}
 \title{Describe your data cleanly and effectively}
 \usage{
-describeAll(data, binlogasFactor = TRUE, charIgnore = TRUE, digits = 3)
+describeAll(data, digits = 2)
 }
 \arguments{
 \item{data}{The dataset, of class data.frame.}
-
-\item{binlogasFactor}{Binary and/or Logical variables will be treated as factors}
-
-\item{charIgnore}{Ignore variables that are character class?}
 
 \item{digits}{See \code{\link[base]{round}}.}
 }
@@ -22,10 +18,8 @@ Describe data sets with multiple variable types effectively.
 This function comes out of my frustrations from various data set
   summaries either being inadequate for my needs, too 'busy' with output or
   unable to deal well with mixed data types. Numeric data is treated entirely
-  separately, and provides the sample size available for the variable in
-  question, mean, standard deviation, median, min, and max.  Categorical
-  variables are summarized via tables.  Options are available for some types
-  that could go either way (e.g. binary variables).
+  separately, and provides the same information as in num_by.  Categorical
+  variables are summarized with frequencies and percentages.
 }
 \examples{
 library(lazerhawk); library(dplyr)
@@ -36,14 +30,9 @@ X = X \%>\% mutate(bin1 = rbinom(20, 1, p=.5),
                  num2 = rpois(20, 5),
                  char1 = sample(letters, 20, replace = TRUE))
 describeAll(X)
-describeAll(X, binlogasFactor = FALSE, charIgnore = FALSE)
 
-# test missing
-Xmiss = X
-Xmiss[sample(1:20, 5), sample(1:ncol(X), 3)] = NA
-describeAll(Xmiss)
-
+describeAll(data.frame(x=factor(1:7)), digits=5)
 }
 \seealso{
-\code{\link[base]{summary}}
+\code{\link[base]{summary}} \code{\link[lazerhawk]{num_by}}
 }
