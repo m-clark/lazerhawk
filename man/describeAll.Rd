@@ -11,6 +11,9 @@ describeAll(data, digits = 2)
 
 \item{digits}{See \code{\link[base]{round}}.}
 }
+\value{
+A list with two elements of summaries for numeric and other variables respectively.
+}
 \description{
 Describe data sets with multiple variable types effectively.
 }

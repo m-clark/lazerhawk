@@ -8,12 +8,15 @@
 #' @import dplyr
 #' @importFrom assertthat assert_that
 #' @importFrom stats median sd
+#' @importFrom purrr map map_int
 #'
 #' @details This function comes out of my frustrations from various data set
 #'   summaries either being inadequate for my needs, too 'busy' with output or
 #'   unable to deal well with mixed data types. Numeric data is treated entirely
 #'   separately, and provides the same information as in num_by.  Categorical
 #'   variables are summarized with frequencies and percentages.
+#'
+#' @return A list with two elements of summaries for numeric and other variables respectively.
 #'
 #' @seealso \code{\link[base]{summary}} \code{\link[lazerhawk]{num_by}}
 #'
