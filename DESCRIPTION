@@ -25,6 +25,7 @@ Imports:
     colortools
 Suggests:
     broom,
+    nlme,
     stringi,
     stringr,
     d3heatmap,
