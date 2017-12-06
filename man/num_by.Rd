@@ -45,9 +45,10 @@ The \code{num_by} function takes a numeric variable from a dataframe
 
   For \code{cat_by}, frequencies and percentage (out of total or group_var)
   are returned. Warnings are given if any of the main
-  variables are more than 10 levels, or the data appears to be non-categorical. The
-  group_var argument is essentially just to provide percentages based on a
-  focal grouping variable out of all those supplied.
+  variables are more than 10 levels, or the data appears to be
+  non-categorical. The group_var argument is essentially just to provide
+  percentages based on a focal grouping variable out of all those supplied.
+  Missing values are treated as an additional unique value.
 
   Missing values are treated as separate groups, as it's often useful to
   explore the nature of the missingness. To avoid this, just use
