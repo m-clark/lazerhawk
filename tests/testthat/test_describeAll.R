@@ -32,3 +32,8 @@ test_that('describeAll can take digits argument', {
   res = describeAll(data.frame(x=pi), digits = 2)[[1]]
   expect_equal(nchar(as.character(res$Mean)), 4)
 })
+
+test_that('describeAll can handle empty levels', {
+  res = describeAll(iris %>% filter(Species != 'setosa'))[[2]]
+  expect_equal(nrow(res), 3)
+})

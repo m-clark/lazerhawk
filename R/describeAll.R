@@ -79,7 +79,10 @@ describeAll <- function(data, digits=2) {
       select_if(function(x) !is.numeric(x))
 
     cat_names = names(data_cat)
-    nlevs = data_cat %>% purrr::map_int(n_distinct)
+    nlevs = data_cat %>%
+      purrr::map_int(function(x) if_else(is.factor(x),
+                                         nlevels(x),
+                                         n_distinct(x)))
 
     data_cat = data_cat %>%
       purrr::map(function(x) data.frame(x=table(x), y=prop.table(table(x))) %>%
