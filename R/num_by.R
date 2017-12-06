@@ -24,9 +24,10 @@
 #'
 #'   For \code{cat_by}, frequencies and percentage (out of total or group_var)
 #'   are returned. Warnings are given if any of the main
-#'   variables are more than 10 levels, or the data appears to be non-categorical. The
-#'   group_var argument is essentially just to provide percentages based on a
-#'   focal grouping variable out of all those supplied.
+#'   variables are more than 10 levels, or the data appears to be
+#'   non-categorical. The group_var argument is essentially just to provide
+#'   percentages based on a focal grouping variable out of all those supplied.
+#'   Missing values are treated as an additional unique value.
 #'
 #'   Missing values are treated as separate groups, as it's often useful to
 #'   explore the nature of the missingness. To avoid this, just use
@@ -196,7 +197,7 @@ cat_by <- function(data, main_var, group_var, digits=FALSE, perc_by_group=TRUE, 
     data = data %>%
       select_at(main_var) %>%
       group_by_all() %>%
-      summarise(N = n()-sum(is.na(!!mv))) %>%
+      summarise(N = n()) %>%     # Treat NA as a category -sum(is.na(!!mv))
       ungroup() %>%
       mutate(`% of Total` = 100*N/sum(N))
 
@@ -217,7 +218,7 @@ cat_by <- function(data, main_var, group_var, digits=FALSE, perc_by_group=TRUE, 
     # no group var --------------------------------------------------------
     data = data %>%
       group_by_at(main_var) %>%
-      summarise(N = n()-sum(is.na(!!mv))) %>%
+      summarise(N = n()) %>%     # Treat NA as a category -sum(is.na(!!mv))
       ungroup() %>%
       mutate(`% of Total` = 100*N/sum(N))
   }
