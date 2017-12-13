@@ -58,7 +58,6 @@
 #'
 #' @export
 num_by <- function(data, main_var, group_var, digits=FALSE) {
-  if (nrow(data)==0 | is.null(data)) stop('No data to summarise.')
 
   # for future reference; the tryCatch was just to make it easy to pass a single
   # variable name in lieu of using vars().
@@ -76,6 +75,7 @@ num_by <- function(data, main_var, group_var, digits=FALSE) {
   # perhaps tidyselect will have some useful documentation in the future
 
   # Initial checks ------------------------------------------------------------
+  if (nrow(data)==0 | is.null(data)) stop('No data to summarise.')
   if (!'data.frame' %in% class(data)) stop('Need a data.frame type object.')
 
 
@@ -94,6 +94,7 @@ num_by <- function(data, main_var, group_var, digits=FALSE) {
     unlist()
   if (!all(class_mv %in% c('numeric', 'integer', 'logical'))) stop('Non-numeric/logical variable detected.')
 
+  nc = length(class_mv)
 
   # Main processing ---------------------------------------------------------
 
@@ -118,7 +119,7 @@ num_by <- function(data, main_var, group_var, digits=FALSE) {
                      Missing = sum_NA(.)
                    )
       )
-    if (length(main_var) > 1) {
+    if (nc > 1) {
       # regex will look for the last _ , in case there are variable names with underscores
       data = data %>%
         tidyr::gather(key=results, value=value, -!!gv) %>%
@@ -144,7 +145,7 @@ num_by <- function(data, main_var, group_var, digits=FALSE) {
                      Missing = sum_NA(.)
                    )
       )
-    if (length(main_var) > 1) {
+    if (nc > 1) {
       # suppress warnings if mixed logical and numerics
       suppressWarnings({
         data = data %>%

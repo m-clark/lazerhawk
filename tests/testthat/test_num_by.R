@@ -43,3 +43,15 @@ test_that('num_by can handle underscores in variable names', {
   res = num_by(df1, main_var = vars(a_b, b_sq), group_var = g2)
   expect_equivalent(unique(res$Variable), c('a_b', 'b_sq'))
 })
+
+
+test_that('num_by can use helper functions', {
+  res = num_by(df1, main_var = vars(one_of('a','b')), group_var = g2)  # don't use matches because testthat::matches will screw it up
+  expect_equivalent(unique(res$Variable), c('a', 'b'))
+  res = num_by(df1, main_var = vars(starts_with('a')), group_var = g2)
+  expect_s3_class(res, 'data.frame')
+  res = num_by(df1, main_var = vars(ends_with('a')), group_var = g2)
+  expect_s3_class(res, 'data.frame')
+  res = num_by(df1, main_var = vars(contains('a')), group_var = g2)
+  expect_s3_class(res, 'data.frame')
+})
