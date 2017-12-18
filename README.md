@@ -8,7 +8,7 @@
 
 ## Package description
 
-This package has a few miscellaneous functions useful to me, and which might be useful to others. It will be added to over time, and likely will have functions from all over the place as far as utility is concerned.  Nothing extraordinarily unique is here at present, more or less tweaks/variations of available R functions that do almost what I want, but not quite.  Also, I wanted to learn more about building packages, and this is my first foray into that world.  Very little testing of the functions has been done at this point, but the package itself would pass on CRAN, and testing will continue to expand.  Feel free to note issues if you use it.
+This package has a few miscellaneous functions useful to me, and which might be useful to others. It will be added to over time, and likely will have functions from all over the place as far as utility is concerned.  Nothing extraordinarily unique is here at present, more or less tweaks/variations of available R functions that do almost what I want, but not quite.  Also, I wanted to learn more about building packages, and this was my first foray into that world.  The package itself is not on CRAN but would pass CRAN checks.  Feel free to note issues if you use it.
 
 I was listening to [Lazerhawk](http://lazerhawk.bandcamp.com/album/redline) at one point while creating it, hence the name, and which I can suggest is decent to listen to for programming, but to each their own in that regard.
 
@@ -22,35 +22,39 @@ devtools::install_github('m-clark/lazerhawk')
 
 ## Functions
 
-### createCorr
-A function to create a correlation matrix. Useful, for example, in setting up simulations.
+### brmsSummaryTable
+A function I use when creating reports for other people that involve models using the [brms](https://github.com/paul-buerkner/brms) package.
 
-### lowerTri, upperTri
-Return a triangular matrix, with some options on what specifically is returned.
-
-### describeAll
-A summary function for mixed data types that provides the information I usually want.
-
-### pairwise
-Apply an arbitrary function to pairwise combinations of rows or columns.
+### cat_by
+A quick summarise for categorical variables, possibly with dplyr::group_by, that provides frequencies and percentages of catgories.
 
 ### createAdjacency, createEdges
 Create an adjacency matrix, or use one to create an edge list.
 
-### theme_trueMinimal, theme_plotly
-Clean up your ggplot or plotly visualizations.
-
-### sum_NA, sum_NaN, sum_blank
-Get counts of nothing.
+### createCorr
+A function to create a correlation matrix. Useful, for example, in setting up simulations.
 
 ### create_palette
 Create a palette including complementary, triadic, tetradic, etc. colors.
 
+### describeAll
+A summary function for mixed data types that provides the information I usually want.
+
+### lowerTri, upperTri
+Return a triangular matrix, with some options on what specifically is returned.
+
 ### num_by
 A quick summarise, possibly with dplyr::group_by, that provides things like mean, sd, etc.
 
-### cat_by
-A quick summarise for categorical variables, possibly with dplyr::group_by, that provides frequencies and percentages of catgories.
+### pairwise
+Apply an arbitrary function to pairwise combinations of rows or columns.
+
+### sum_NA, sum_NaN, sum_blank
+Understand your nothingness.
+
+### theme_trueMinimal, theme_plotly
+Clean up your ggplot or plotly visualizations.
+
 
 
 ## Addins
