@@ -29,3 +29,7 @@ test_that('num_summary works with a logical', {
 test_that('num_summary works with missing values', {
   expect_s3_class(num_summary(c(df1$d, NA)), 'data.frame')
 })
+
+test_that('num_summary will fail with non-numeric', {
+  expect_error(num_summary(df1$c))
+})
