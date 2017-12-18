@@ -1,6 +1,7 @@
 # lazerhawk
 
 [![Build Status](https://travis-ci.org/m-clark/lazerhawk.svg?branch=master)](https://travis-ci.org/m-clark/lazerhawk)
+[![codecov](https://codecov.io/gh/m-clark/lazerhawk/branch/master/graph/badge.svg)](https://codecov.io/gh/m-clark/lazerhawk)
 
 <img src="lh2_o.jpg" style="display:block; margin: 0 auto;" width='50%'>
 
