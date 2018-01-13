@@ -3,11 +3,14 @@
 \name{theme_trueMinimal}
 \alias{theme_trueMinimal}
 \alias{theme_plotly}
+\alias{theme_blank}
 \title{Clean visualizations}
 \usage{
 theme_trueMinimal()
 
 theme_plotly(vis)
+
+theme_blank(vis)
 }
 \arguments{
 \item{vis}{A plotly, or ggvis}
@@ -16,10 +19,17 @@ theme_plotly(vis)
 Clean up plots from their defaults.
 }
 \details{
-From a gray background, to unnecessary gridlines, to by-default reference lines, some of the more popular visualization packages come out 75% fantastic and 25% wtf?.  These functions remove unnecessary gridlines, 'de-bold' the blacks, etc.
-**ggplot2**: This function takes a ggplot object and removes the gray background, gridlines and adds opacity to the default black axes and labels, allowing the pattern of the visual to be expressed in unimpeded fashion.
+From a gray background, to unnecessary gridlines, to by-default
+  reference lines, some of the more popular visualization packages come out
+  75% fantastic and 25% wtf?.  These functions remove unnecessary gridlines,
+  'de-bold' the blacks, etc. **ggplot2**: This function takes a ggplot object
+  and removes the gray background, gridlines and adds opacity to the default
+  black axes and labels, allowing the pattern of the visual to be expressed
+  in unimpeded fashion.
 
-Plotly will put reference lines at zero, and some of its 'modebar' is unnecessary.  Otherwise little is changed at this point.
+  Plotly will put reference lines at zero, and some of its 'modebar' is
+  unnecessary.  Otherwise little is changed at this point, except for
+  theme_blank, which is like theme_void for ggplot.
 }
 \examples{
 require(lazerhawk)
@@ -28,4 +38,5 @@ require(plotly)
 data(mtcars)
 mtcars \%>\% ggplot(aes(wt, mpg)) + theme_trueMinimal()
 mtcars \%>\% plot_ly(x=~wt, y=~mpg, mode='markers') \%>\% theme_plotly()
+mtcars \%>\% plot_ly(x=~wt, y=~mpg, mode='markers') \%>\% theme_blank()
 }

@@ -1,4 +1,4 @@
-context('lowerTri error for data.frame input')
+context('test lowerTri')
 test_that('Error returned for data.frame input', {
   expect_error(lowerTri(data.frame(matrix(1:9, 3, 3))))
 })

@@ -40,7 +40,7 @@ create_palette <- function(colorhex, name=NULL, toHCL=FALSE, plot=FALSE, alpha=1
   l$square = colortools::square(colorhex, plot=plot)
   l$tetradic = colortools::tetradic(colorhex, plot=plot)
 
-  if (alpha !=1) {
+  if (alpha != 1) {
     l = lapply(l, function(x) unname(sapply(x, scales::alpha, alpha)))
     if (plot) {
       lapply(l[-1], colortools::pizza)
