@@ -19,7 +19,7 @@
 #' require(lazerhawk)
 #' require(ggplot2)
 #' data(mtcars)
-#' mtcars %>% ggplot(aes(wt, mpg)) + theme_trueMinimal()
+#' ggplot(aes(wt, mpg), data=mtcars) + theme_trueMinimal()
 #' require(plotly)
 #' mtcars %>% plot_ly(x=~wt, y=~mpg, mode='markers') %>% theme_plotly()
 #' mtcars %>% plot_ly(x=~wt, y=~mpg, mode='markers') %>% theme_blank()
