@@ -35,7 +35,7 @@ From a gray background, to unnecessary gridlines, to by-default
 require(lazerhawk)
 require(ggplot2)
 data(mtcars)
-ggplot(aes(wt, mpg), data=mtcars) + theme_trueMinimal()
+ggplot(aes(wt, mpg), data=mtcars)# + theme_trueMinimal()
 require(plotly)
 mtcars \%>\% plot_ly(x=~wt, y=~mpg, mode='markers') \%>\% theme_plotly()
 mtcars \%>\% plot_ly(x=~wt, y=~mpg, mode='markers') \%>\% theme_blank()
