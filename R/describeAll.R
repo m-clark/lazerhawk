@@ -14,7 +14,8 @@
 #'   summaries either being inadequate for my needs, too 'busy' with output or
 #'   unable to deal well with mixed data types. Numeric data is treated entirely
 #'   separately, and provides the same information as in num_by.  Categorical
-#'   variables are summarized with frequencies and percentages.
+#'   variables are summarized with frequencies and percentages. For empty
+#'   categoriccal variables (e.g. after a subset), a warning is thrown.
 #'
 #' @return A list with two elements of summaries for numeric and other variables respectively.
 #'
@@ -80,22 +81,28 @@ describeAll <- function(data, digits=2) {
 
     cat_names = names(data_cat)
     nlevs = data_cat %>%
-      purrr::map_int(function(x) if_else(is.factor(x),
-                                         nlevels(x),
-                                         n_distinct(x)))
+      purrr::map_int(function(x) if_else(all(is.na(x)), 0L,
+                                         if_else(is.factor(x), length(levels(x)), n_distinct(x))))
 
-    data_cat = data_cat %>%
-      purrr::map(function(x) data.frame(x=table(x), y=prop.table(table(x))) %>%
-            select(-y.x) %>%
-            rename(Group=x.x,
-                   Frequency = x.Freq,
-                   perc=y.Freq) %>%
-            mutate(perc = 100*round(perc, digits))
-      )
+    if (any(nlevs == 0)) warning(paste0(names(nlevs)[nlevs==0], ' have no category levels and will be dropped.\n'))
 
-    data_cat = data.frame(Variable=rep(cat_names, nlevs),
-                          suppressWarnings(bind_rows(data_cat))) %>% # suppress coerce to char message
-      rename(`%` = perc)    # otherwise lose symbol on bind rows
+    if (any(nlevs > 0)){
+      data_cat = data_cat %>%
+        select_if(nlevs > 0) %>%
+        purrr::map(function(x) data.frame(x=table(x), y=prop.table(table(x))) %>%
+                     select(-y.x) %>%
+                     rename(Group=x.x,
+                            Frequency = x.Freq,
+                            perc=y.Freq) %>%
+                     mutate(perc = 100*round(perc, digits))
+        )
+
+      data_cat = data.frame(Variable=rep(cat_names, nlevs),
+                            suppressWarnings(bind_rows(data_cat))) %>% # suppress coerce to char message
+        rename(`%` = perc)    # otherwise lose symbol on bind rows
+    } else {
+      data_cat = NULL
+    }
   } else {
     data_cat = NULL
   }

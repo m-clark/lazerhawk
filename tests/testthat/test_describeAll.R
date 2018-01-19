@@ -25,7 +25,7 @@ test_that('describeAll handles no numeric', {
 })
 
 test_that('describeAll fails if not a data frame', {
-  expect_error(as.data.frame(describeAll)(df1[,c('g1')]))
+  expect_error(as.data.frame(describeAll(df1[,c('g1')])))
 })
 
 test_that('describeAll can take digits argument', {
@@ -36,4 +36,8 @@ test_that('describeAll can take digits argument', {
 test_that('describeAll can handle empty levels', {
   res = describeAll(iris %>% filter(Species != 'setosa'))[[2]]
   expect_equal(nrow(res), 3)
+})
+
+test_that('describeAll can handle empty categorical variables', {
+  expect_warning(describeAll(iris %>% mutate(Species = NA)))
 })
