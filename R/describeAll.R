@@ -4,6 +4,7 @@
 #'
 #' @param data The dataset, of class data.frame.
 #' @param digits See \code{\link[base]{round}}.
+#' @param NAcat_include Include NA values as categorical levels? Default is TRUE.
 #'
 #' @import dplyr
 #' @importFrom assertthat assert_that
@@ -33,7 +34,7 @@
 #'
 #' describeAll(data.frame(x=factor(1:7)), digits=5)
 #' @export
-describeAll <- function(data, digits=2) {
+describeAll <- function(data, digits=2, NAcat_include=TRUE) {
   assertthat::assert_that(any(class(data) %in% c('data.frame', 'data.table')))
 
   nc_num = data %>%
@@ -77,19 +78,21 @@ describeAll <- function(data, digits=2) {
   # todo: add missing data option
   if (nc_cat > 0) {
     data_cat = data %>%
-      select_if(function(x) !is.numeric(x))
+      select_if(function(x) !is.numeric(x)) %>%
+      mutate_all(as.character)
 
     cat_names = names(data_cat)
     nlevs = data_cat %>%
       purrr::map_int(function(x) if_else(all(is.na(x)), 0L,
-                                         if_else(is.factor(x), length(levels(x)), n_distinct(x))))
+                                         if_else(NAcat_include, n_distinct(x), n_distinct(na.omit(x)))))
 
     if (any(nlevs == 0)) warning(paste0(names(nlevs)[nlevs==0], ' have no category levels and will be dropped.\n'))
 
     if (any(nlevs > 0)){
       data_cat = data_cat %>%
         select_if(nlevs > 0) %>%
-        purrr::map(function(x) data.frame(x=table(x), y=prop.table(table(x))) %>%
+        purrr::map(function(x) data.frame(x=table(x, useNA = if_else(NAcat_include, 'ifany', 'no')),
+                                          y=prop.table(table(x, useNA = if_else(NAcat_include, 'ifany', 'no')))) %>%
                      select(-y.x) %>%
                      rename(Group=x.x,
                             Frequency = x.Freq,
@@ -109,3 +112,6 @@ describeAll <- function(data, digits=2) {
 
   list(`Numeric Variables` = data_num, `Categorical Variables` = data_cat)
 }
+
+#' @export
+describe_all <- describeAll

@@ -35,9 +35,13 @@ test_that('describeAll can take digits argument', {
 
 test_that('describeAll can handle empty levels', {
   res = describeAll(iris %>% filter(Species != 'setosa'))[[2]]
-  expect_equal(nrow(res), 3)
+  expect_equal(nrow(res), 2)
 })
 
 test_that('describeAll can handle empty categorical variables', {
   expect_warning(describeAll(iris %>% mutate(Species = NA)))
+})
+
+test_that('describeAll can drop NA', {
+  expect_equal(nrow(describeAll(iris %>% rbind(NA), NAcat_include = T)[[2]]), 4)
 })

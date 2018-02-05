@@ -4,12 +4,14 @@
 \alias{describeAll}
 \title{Describe your data cleanly and effectively}
 \usage{
-describeAll(data, digits = 2)
+describeAll(data, digits = 2, NAcat_include = TRUE)
 }
 \arguments{
 \item{data}{The dataset, of class data.frame.}
 
 \item{digits}{See \code{\link[base]{round}}.}
+
+\item{NAcat_include}{Include NA values as categorical levels? Default is TRUE.}
 }
 \value{
 A list with two elements of summaries for numeric and other variables respectively.
