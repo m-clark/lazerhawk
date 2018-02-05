@@ -43,5 +43,5 @@ describeAll(X)
 describeAll(data.frame(x=factor(1:7)), digits=5)
 }
 \seealso{
-\code{\link[base]{summary}} \code{\link[lazerhawk]{num_by}}
+\code{\link[base]{summary}} \code{\link[lazerhawk]{num_by}} \code{\link[lazerhawk]{num_summary}}
 }

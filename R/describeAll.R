@@ -20,7 +20,7 @@
 #'
 #' @return A list with two elements of summaries for numeric and other variables respectively.
 #'
-#' @seealso \code{\link[base]{summary}} \code{\link[lazerhawk]{num_by}}
+#' @seealso \code{\link[base]{summary}} \code{\link[lazerhawk]{num_by}} \code{\link[lazerhawk]{num_summary}}
 #'
 #' @examples
 #' library(lazerhawk); library(dplyr)
@@ -101,7 +101,8 @@ describeAll <- function(data, digits=2, NAcat_include=TRUE) {
         )
 
       data_cat = data.frame(Variable=rep(cat_names, nlevs),
-                            suppressWarnings(bind_rows(data_cat))) %>% # suppress coerce to char message
+                            suppressWarnings(bind_rows(data_cat)),
+                            stringsAsFactors=F) %>% # suppress coerce to char message
         rename(`%` = perc)    # otherwise lose symbol on bind rows
     } else {
       data_cat = NULL
