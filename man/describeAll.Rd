@@ -2,9 +2,12 @@
 % Please edit documentation in R/describeAll.R
 \name{describeAll}
 \alias{describeAll}
+\alias{describe_all}
 \title{Describe your data cleanly and effectively}
 \usage{
 describeAll(data, digits = 2, NAcat_include = TRUE)
+
+describe_all(data, digits = 2, NAcat_include = TRUE)
 }
 \arguments{
 \item{data}{The dataset, of class data.frame.}

@@ -113,5 +113,6 @@ describeAll <- function(data, digits=2, NAcat_include=TRUE) {
   list(`Numeric Variables` = data_num, `Categorical Variables` = data_cat)
 }
 
+#' @rdname describeAll
 #' @export
 describe_all <- describeAll
