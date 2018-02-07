@@ -15,7 +15,6 @@ Imports:
     dplyr,
     purrr,
     scales,
-    brms,
     base64enc,
     htmlwidgets,
     png,
@@ -38,5 +37,6 @@ Suggests:
     ggplot2,
     plotly,
     graphics,
-    RColorBrewer
+    RColorBrewer,
+    brms
 RoxygenNote: 6.0.1

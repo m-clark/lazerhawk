@@ -55,6 +55,10 @@
 #' @export
 brms_SummaryTable <- function(model, formatOptions=list(digits=2, nsmall=2), round=2,
                               astrology=F, hype=F, panderize=F, justify=NULL, ...) {
+  if (!requireNamespace("brms", quietly = TRUE)) {
+    stop("brms package, along with related dependencies, is needed for this function to work. Please install it.",
+         call. = FALSE)
+  }
 
   if(class(model) != "brmsfit") stop('Model is not a brmsfit class object.')
 
