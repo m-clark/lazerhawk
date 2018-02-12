@@ -3,6 +3,7 @@
 #' @description Clean up plots from their defaults.
 #'
 #' @param vis A plotly, or ggvis
+#' @param MB For plotly, an option to dispaly the mode bar. Defaults to FALSE.
 #' @details From a gray background, to unnecessary gridlines, to by-default
 #'   reference lines, some of the more popular visualization packages come out
 #'   75% fantastic and 25% wtf?.  These functions remove unnecessary gridlines,
@@ -44,23 +45,26 @@ theme_trueMinimal = function(){
 
 #' @rdname theme_trueMinimal
 #' @export
-theme_plotly = function(vis) {
+theme_plotly = function(vis, MB=FALSE) {
   if(! 'plotly' %in% class(vis))  stop('vis is not a plotly object.')
-  vis %>%
+  vis = vis %>%
     plotly::layout(xaxis = list(zeroline=F,
                                 showgrid=F),
                    yaxis = list(zeroline=F,
                                 showgrid=F),
                    plot_bgcolor='transparent',
-                   paper_bgcolor='transparent') %>%
-    plotly::config(showLink = F,
-                   displaylogo = FALSE,
-                   modeBarButtonsToRemove = list('pan2d'))
+                   paper_bgcolor='transparent')
+    if(!MB) {
+      vis = vis %>%
+        plotly::config(displayModeBar=FALSE)
+    }
+
+  vis
 }
 
 #' @rdname theme_trueMinimal
 #' @export
-theme_blank = function(vis) {
+theme_blank = function(vis, MB=FALSE) {
   if(! 'plotly' %in% class(vis))  stop('vis is not a plotly object.')
   a <- list(
     title = '',
@@ -69,12 +73,15 @@ theme_blank = function(vis) {
     showticklabels = FALSE,
     showgrid = FALSE
   )
-  vis %>%
+  vis = vis %>%
     plotly::layout(xaxis = a,
                    yaxis = a,
                    plot_bgcolor='transparent',
-                   paper_bgcolor='transparent') %>%
-    plotly::config(showLink = F,
-                   displaylogo = FALSE,
-                   modeBarButtonsToRemove = list('pan2d'))
+                   paper_bgcolor='transparent')
+  if(!MB) {
+    vis = vis %>%
+      plotly::config(displayModeBar=FALSE)
+  }
+
+  vis
 }

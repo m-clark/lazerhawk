@@ -8,12 +8,14 @@
 \usage{
 theme_trueMinimal()
 
-theme_plotly(vis)
+theme_plotly(vis, MB = FALSE)
 
-theme_blank(vis)
+theme_blank(vis, MB = FALSE)
 }
 \arguments{
 \item{vis}{A plotly, or ggvis}
+
+\item{MB}{For plotly, an option to dispaly the mode bar. Defaults to FALSE.}
 }
 \description{
 Clean up plots from their defaults.
