@@ -4,12 +4,15 @@
 \alias{num_summary}
 \title{num_summary}
 \usage{
-num_summary(x, digits = 1)
+num_summary(x, digits = 1, extra = F)
 }
 \arguments{
 \item{x}{A numeric or logical variable}
 
 \item{digits}{Argument to \code{round}. Default is 1.}
+
+\item{extra}{Add things like number distinct, number of zeros, and more as I
+think of them.}
 }
 \value{
 A data.frame containing those values.
@@ -18,8 +21,10 @@ A data.frame containing those values.
 Essentially a slight tweak to the base R summary.
 }
 \details{
-Takes a numeric variable and provides sample size, mean, standard deviation, min, first quartile,
-  median, third quartile, and max, and number of NAs.
+Takes a numeric variable and provides sample size, mean, standard
+  deviation, min, first quartile, median, third quartile, and max, and number
+  of NAs. Extras include the number of distinct values, and the number of
+  zeros.
 }
 \examples{
 num_summary(c(1:10, NA))

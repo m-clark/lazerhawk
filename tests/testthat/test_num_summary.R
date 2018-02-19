@@ -33,3 +33,8 @@ test_that('num_summary works with missing values', {
 test_that('num_summary will fail with non-numeric', {
   expect_error(num_summary(df1$c))
 })
+
+test_that('check extra', {
+  expect_gt(ncol(num_summary(c(rpois(50, 2), NA, NA), extra=T)),
+            ncol(num_summary(c(rpois(50, 2), NA, NA), extra=F)))
+})
