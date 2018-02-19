@@ -37,7 +37,7 @@ A function to create a correlation matrix. Useful, for example, in setting up si
 ### create_palette
 Create a palette including complementary, triadic, tetradic, etc. colors.
 
-### describeAll
+### describe_all
 A summary function for mixed data types that provides the information I usually want.
 
 ### lowerTri, upperTri
@@ -45,6 +45,9 @@ Return a triangular matrix, with some options on what specifically is returned.
 
 ### num_by
 A quick summarise, possibly with dplyr::group_by, that provides things like mean, sd, etc.
+
+### num_summary
+A little better than summary.
 
 ### pairwise
 Apply an arbitrary function to pairwise combinations of rows or columns.

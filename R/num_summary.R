@@ -20,10 +20,10 @@ num_summary <- function(x, digits=1, extra=F) {
   # initial check of variable type
   test_x = tryCatch(as.numeric(x), warning = function(c) {
     msg <- conditionMessage(c)
-    # if (!silent) message(c)
     invisible(structure(msg, class = "try-warning"))
   })
-  if(class(test_x) == 'try-warning') stop('Need something numeric or which can reasonably be converted to such. \nThe current variable would introduce NAs by coercion.')
+  if(class(test_x) == 'try-warning') stop('Need something numeric or which can reasonably be converted to such.
+                                          \nThe current variable would introduce NAs by coercion.')
 
   x = as.numeric(x)
   d = data.frame(
