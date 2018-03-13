@@ -8,32 +8,33 @@ Description: This package has a few miscellaneous functions useful to me, and wh
 License: MIT + file LICENSE
 LazyData: TRUE
 URL: m-clark.github.io
-Year: 2017
+Year: 2018
 Depends:
     R (>= 3.4.0)
 Imports:
+    assertthat,
+    colortools,
     dplyr,
     purrr,
-    scales,
-    assertthat,
     rlang,
-    tidyselect,
-    colortools
+    scales,
+    tidyselect
 Suggests:
+    brms,
     broom,
+    d3heatmap,
+    ggplot2,
+    graphics,
+    Matrix,
     nlme,
+    pander,
+    plotly,
+    psych,
+    RColorBrewer,
+    rstudioapi,
+    shiny,
     stringi,
     stringr,
-    d3heatmap,
-    pander,
     testthat,
-    psych,
-    shiny,
-    rstudioapi,
-    tidyr,
-    ggplot2,
-    plotly,
-    graphics,
-    RColorBrewer,
-    brms
+    tidyr
 RoxygenNote: 6.0.1

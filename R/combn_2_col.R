@@ -9,6 +9,8 @@
 #' @param collapse In the names of the new columns, how do you want the label
 #'   combinations separated?
 #' @param max_m The maximum number of possible combinations. Default is 1.
+#' @param toInteger Convert the logical result to integers of 0,1.
+#' @param sparse Return only the new indicators as a sparse matrix?
 #'
 #' @details This comes up every once in a while.  Someone has for whatever
 #'   reason coded multiple labels into cells within a single column, and now you
@@ -32,7 +34,10 @@
 #'
 #'   If you don't need combinations and each cell has the same pattern of entry,
 #'   you could use \code{tidyr::separate}.
-#' @return
+#' @return A data frame with new columns indicating label membership.  If
+#'   \code{sparse = TRUE}, then only the new indicators will be returned as a
+#'   sparse matrix.
+#'
 #'
 #' @examples
 #' d = data.frame(id = 1:4,
@@ -46,7 +51,13 @@
 #' combn_2_col(data=d, var='labs', sep=',', max_m=2, collapse='-')
 #'
 #' @export
-combn_2_col <- function(data, var, sep='[^[:alnum:]]+', max_m=1, collapse = '_') {
+combn_2_col <- function(data,
+                        var,
+                        sep='[^[:alnum:]]+',
+                        max_m=1,
+                        collapse = '_',
+                        toInteger=FALSE,
+                        sparse=FALSE) {
   if (is.null(data) | is.null(var)) stop('Need data and variable name to continue.')
   if (max_m < 1) stop('Need positive value for max_m.')
 
@@ -62,7 +73,17 @@ combn_2_col <- function(data, var, sep='[^[:alnum:]]+', max_m=1, collapse = '_')
              ) %>% unlist()
     )
   combo_cols = unique(unlist(data$combo))
-  data[, combo_cols] = sapply(data$combo, function(x) combo_cols %in% x) %>% t()
+
+  if (sparse) return(sapply(data$combo, function(x) as.integer(combo_cols %in% x)) %>%
+                       t() %>%
+                       Matrix::Matrix(sparse = T))
+
+  if (toInteger) {
+    data[, combo_cols] = sapply(data$combo, function(x) as.integer(combo_cols %in% x)) %>% t()
+  } else {
+    if (sparse) return()
+    data[, combo_cols] = sapply(data$combo, function(x) combo_cols %in% x) %>% t()
+  }
   data
 }
 

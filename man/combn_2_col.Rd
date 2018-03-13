@@ -4,7 +4,8 @@
 \alias{combn_2_col}
 \title{combn_2_col}
 \usage{
-combn_2_col(data, var, sep = "[^[:alnum:]]+", max_m = 1, collapse = "_")
+combn_2_col(data, var, sep = "[^[:alnum:]]+", max_m = 1, collapse = "_",
+  toInteger = FALSE, sparse = FALSE)
 }
 \arguments{
 \item{data}{The data frame in question.}
@@ -18,9 +19,15 @@ character or factor.}
 
 \item{collapse}{In the names of the new columns, how do you want the label
 combinations separated?}
+
+\item{toInteger}{Convert the logical result to integers of 0,1.}
+
+\item{sparse}{Return only the new indicators as a sparse matrix?}
 }
 \value{
-
+A data frame with new columns indicating label membership.  If
+  \code{sparse = TRUE}, then only the new indicators will be returned as a
+  sparse matrix.
 }
 \description{
 Convert a character or factor of multiple labels.
