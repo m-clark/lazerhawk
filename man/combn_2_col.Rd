@@ -2,7 +2,7 @@
 % Please edit documentation in R/combn_2_col.R
 \name{combn_2_col}
 \alias{combn_2_col}
-\title{combn_2_col}
+\title{Combinations to columns}
 \usage{
 combn_2_col(data, var, sep = "[^[:alnum:]]+", max_m = 1, collapse = "_",
   toInteger = FALSE, sparse = FALSE)
@@ -24,11 +24,6 @@ combinations separated?}
 
 \item{sparse}{Return only the new indicators as a sparse matrix?}
 }
-\value{
-A data frame with new columns indicating label membership.  If
-  \code{sparse = TRUE}, then only the new indicators will be returned as a
-  sparse matrix.
-}
 \description{
 Convert a character or factor of multiple labels.
 }
@@ -46,8 +41,8 @@ This comes up every once in a while.  Someone has for whatever
   sensible values. Check with combn(n_unique_labels, n_combinations) if you
   think there might be an issue.
 
-  Usually in this situation it's a result of poor data entry, and you'll
-  likely need to do a little text pre-processing just to get started.
+  Usually this situation is a result of poor data entry, and you'll likely
+  need to do a little text pre-processing just to get started.
 
   This can actually be used for one hot encoding if max_m is set to 1, though
   I'll make a more efficient version of that process in a  later function.
@@ -55,6 +50,14 @@ This comes up every once in a while.  Someone has for whatever
 
   If you don't need combinations and each cell has the same pattern of entry,
   you could use \code{tidyr::separate}.
+
+  I tested this against a \code{model.matrix} approach and two text-analysis
+  approaches (see examples), and with a problem that was notably more
+  sizeable than the examples. Using \code{model.matrix} wasn't viable with
+  even that size, and surprisingly, a simple tidytext approach was
+  consistently fastest. However, this implementation is parallelizable in two
+  parts, and requires nothing beyond what comes with a base R installation,
+  so it wins.
 }
 \examples{
 d = data.frame(id = 1:4,
@@ -66,5 +69,55 @@ d$labs =  c('A B', 'B C D E', 'A E', 'D E')
 combn_2_col(data=d, var='labs', max_m=1)
 d$labs =  c('Tom, Dick & Harriet', "J'Sean", "OBG, Andreas", NA)
 combn_2_col(data=d, var='labs', sep=',', max_m=2, collapse='-')
+
+\dontrun{
+# requires at least tidytext
+tidy_dtm <- function(data, var, sep='-', max_m=3) {
+  init = stringr::str_split(data[[var]], pattern = sep) # creates a list of separated letters
+
+  # the following gets the combos with a dot separating drugs in a given combo
+  # this first lapply could be parallelized if need be and is probably slowest
+  # probably want to change to m = min(c(4, m)) so as to only limit to 4
+  # see also, combinat::combn which is slightly faster than base R below
+  observation_combos = init \%>\%
+    lapply(function(x)
+      sapply(seq_along(x), function(m)
+        utils::combn(x,  min(max_m, m), FUN=paste, collapse = '_')))
+
+  # now we have a standard text analysis problem in need of a document term matrix
+  documents = observation_combos \%>\% lapply(unlist)
+
+  # create a 'tidy' form of documents and terms; each term (i.e. combo) only
+  occurs once in a document
+  doc_df = data.frame(id=rep(data$id, sapply(documents, length)),
+                      combos=unlist(documents),
+                      count=1)  # each term only occurs once in the document
+  doc_df \%>\%
+    tidytext::cast_dfm(document=id, term=combos, value=count)
+  }
+
+# requires at least text2vec
+ttv <- function(data, var, sep='-', max_m=3) {
+  docs = sapply(stringr::str_split(data[[var]], pattern=sep),
+                function(str_vec)
+                  sapply(seq_along(str_vec),
+                         function(m)
+                           combn(str_vec,
+                                 m = min(max_m, m),
+                                 FUN = paste,
+                                 collapse = '_')
+                  ) \%>\% unlist()
+  )
+
+  toks = itoken(docs, progressbar = FALSE)
+  vocab = create_vocabulary(toks)
+  create_dtm(toks, vectorizer = vocab_vectorizer(vocab), progressbar = FALSE) \%>\%
+    as.matrix() \%>\%
+    cbind(data,.)
+}
+
+}
+
+
 
 }
