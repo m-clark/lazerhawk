@@ -2,6 +2,7 @@
 
 export(brms_SummaryTable)
 export(cat_by)
+export(combn_2_col)
 export(createAdjacency)
 export(createCorr)
 export(createEdges)
