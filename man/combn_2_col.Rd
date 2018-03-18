@@ -60,6 +60,7 @@ This comes up every once in a while.  Someone has for whatever
   so it wins.
 }
 \examples{
+library(lazerhawk)
 d = data.frame(id = 1:4,
                labs = c('A/B', 'B/C/D/E', 'A/E', 'D/E'))
 test = combn_2_col(data=d, var='labs', max_m=3)
