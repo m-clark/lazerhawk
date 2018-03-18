@@ -5,15 +5,15 @@
 \title{Summarize brms-fit objects}
 \usage{
 brms_SummaryTable(model, formatOptions = list(digits = 2, nsmall = 2),
-  round = 2, astrology = F, hype = F, panderize = F, justify = NULL,
-  ...)
+  round = 2, astrology = FALSE, hype = FALSE, panderize = FALSE,
+  justify = NULL, seed = 1234, ...)
 }
 \arguments{
 \item{model}{A brmsfit object}
 
-\item{formatOptions}{A list(!) of options to pass to the format function}
+\item{formatOptions}{A named list(!) of options to pass to the format function}
 
-\item{round}{See code{\link[base]{round}}}
+\item{round}{See \code{\link[base]{round}}}
 
 \item{astrology}{Put asterisks next to effects whose credible interval does not
 contain 0}
@@ -24,6 +24,8 @@ contain 0}
 \item{panderize}{Create a markdown summary table. Requires the pander package}
 
 \item{justify}{Additional argument to pass to \code{\link[pander]{pander}}}
+
+\item{seed}{Seed for hypothesis tests}
 
 \item{...}{Additional arguments to pass to \code{\link[brms]{summary.brmsfit}}}
 }
@@ -62,6 +64,7 @@ summary(fit4)
 
 library(lazerhawk)
 brms_SummaryTable(fit4)
+brms_SummaryTable(fit4, formatOptions=list(digits=5, nmsall=5))
 brms_SummaryTable(fit4, astrology=TRUE, hype=TRUE)
 brms_SummaryTable(fit4, astrology=TRUE, hype=TRUE, panderize=TRUE, justify='lrrrrclr')
 }
