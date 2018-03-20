@@ -14,7 +14,7 @@ I was listening to [Lazerhawk](http://lazerhawk.bandcamp.com/album/redline) at o
 
 ## Installation
 
-The usual github installation. **devtools** package required.
+The usual GitHub installation. **devtools** package required.
 
 ```{r}
 devtools::install_github('m-clark/lazerhawk')
@@ -26,7 +26,10 @@ devtools::install_github('m-clark/lazerhawk')
 A function I use when creating reports for other people that involve models using the [brms](https://github.com/paul-buerkner/brms) package.
 
 ### cat_by
-A quick summarise for categorical variables, possibly with dplyr::group_by, that provides frequencies and percentages of catgories.
+A quick summarize for categorical variables, possibly with dplyr::group_by, that provides frequencies and percentages of categories.
+
+### combn_2_col
+Takes a column with multiple entries per cell and creates indicator columns of all possible combinations of the cell values up to m combinations.
 
 ### createAdjacency, createEdges
 Create an adjacency matrix, or use one to create an edge list.
@@ -40,14 +43,20 @@ Create a palette including complementary, triadic, tetradic, etc. colors.
 ### describe_all
 A summary function for mixed data types that provides the information I usually want.
 
+### extract_nlme_variances
+A very specific function for extracting heterogenous variances from nlme output.
+
 ### lowerTri, upperTri
 Return a triangular matrix, with some options on what specifically is returned.
 
 ### num_by
-A quick summarise, possibly with dplyr::group_by, that provides things like mean, sd, etc.
+A quick summarize, possibly with dplyr::group_by, that provides things like mean, sd, etc.
 
 ### num_summary
 A little better than summary.
+
+### onehot
+A function for one-hot encoding with a few helpful options.
 
 ### pairwise
 Apply an arbitrary function to pairwise combinations of rows or columns.
@@ -63,14 +72,15 @@ Clean up your ggplot or plotly visualizations.
 ## Addins
 
 ### insertImgCenterAddin 
-For Rmarkdown files, inserts `<img ...>` with centered options filled in.
+For R Markdown files, inserts `<img ...>` with centered options filled in.
 
 ### insertSpanAddin 
-For Rmarkdown files, inserts `<span class=''>`.
+For R Markdown files, inserts `<span class=''>`.
 
 
 ## Release Notes
 
+- 0.2.0 Add combn_2_col, onehot, and extract_nlme_variances
 - 0.1.9 Extend num_by and rewrite describeAll
 - 0.1.8 Added num_by summary function and fixed issue #3
 - 0.1.7 Added create_palette and made updates to palettes
@@ -79,6 +89,6 @@ For Rmarkdown files, inserts `<span class=''>`.
 - 0.1.4 Updates to corrheat to use psych package
 - 0.1.3 Addins for span, slide
 - 0.1.2 Added clean themes for ggvis and ggplot
-- 0.1.1 Added createAdjaceny and createEdges, and start of addins
+- 0.1.1 Added createAdjacency and createEdges, and start of addins
 - 0.1.0 Initial release
 
