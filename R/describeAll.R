@@ -1,10 +1,11 @@
-#' Describe your data cleanly and effectively
+#' @title describe_all Describe your data cleanly and effectively
 #'
 #' @description Describe data sets with multiple variable types effectively.
 #'
 #' @param data The dataset, of class data.frame.
 #' @param digits See \code{\link[base]{round}}.
-#' @param NAcat_include Include NA values as categorical levels? Default is TRUE.
+#' @param NAcat_include Include NA values as categorical levels? Default is
+#'   TRUE.
 #'
 #' @import dplyr
 #' @importFrom assertthat assert_that
@@ -16,11 +17,17 @@
 #'   unable to deal well with mixed data types. Numeric data is treated entirely
 #'   separately, and provides the same information as in num_by.  Categorical
 #'   variables are summarized with frequencies and percentages. For empty
-#'   categoriccal variables (e.g. after a subset), a warning is thrown.
+#'   categorical variables (e.g. after a subset), a warning is thrown.
 #'
-#' @return A list with two elements of summaries for numeric and other variables respectively.
+#'   The functions \code{describe_all_num} and  \code{describe_all_cat} will
+#'   provide only numeric or only categorical data summaries respectively.
+#'   \code{describeAll} is a deprecated alias.
 #'
-#' @seealso \code{\link[base]{summary}} \code{\link[lazerhawk]{num_by}} \code{\link[lazerhawk]{num_summary}}
+#' @return A list with two elements of summaries for numeric and other variables
+#'   respectively.
+#'
+#' @seealso \code{\link[base]{summary}} \code{\link[lazerhawk]{num_by}}
+#'   \code{\link[lazerhawk]{num_summary}}
 #'
 #' @examples
 #' library(lazerhawk); library(dplyr)
@@ -34,14 +41,11 @@
 #'
 #' describeAll(data.frame(x=factor(1:7)), digits=5)
 #' @export
-describeAll <- function(data, digits=2, NAcat_include=TRUE) {
+describe_all <- function(data, digits=2, NAcat_include=TRUE) {
   assertthat::assert_that(any(class(data) %in% c('data.frame', 'data.table')))
 
   nc_num = data %>%
     select_if(is.numeric) %>%
-    ncol()
-  nc_cat = data %>%
-    select_if(function(x) !is.numeric(x)) %>%
     ncol()
 
   if (nc_num > 0) {
@@ -75,7 +79,10 @@ describeAll <- function(data, digits=2, NAcat_include=TRUE) {
     data_num = NULL
   }
 
-  # todo: add missing data option
+  nc_cat = data %>%
+    select_if(function(x) !is.numeric(x)) %>%
+    ncol()
+
   if (nc_cat > 0) {
     data_cat = data %>%
       select_if(function(x) !is.numeric(x)) %>%
@@ -114,6 +121,96 @@ describeAll <- function(data, digits=2, NAcat_include=TRUE) {
   list(`Numeric Variables` = data_num, `Categorical Variables` = data_cat)
 }
 
-#' @rdname describeAll
+#' @rdname describe_all
 #' @export
-describe_all <- describeAll
+describe_all_num <- function(data, digits=2) {
+  assertthat::assert_that(any(class(data) %in% c('data.frame', 'data.table')))
+
+  nc_num = data %>%
+    select_if(is.numeric) %>%
+    ncol()
+
+  if (nc_num > 0) {
+    data_num = data %>%
+      select_if(is.numeric) %>%
+      summarise_all(funs(
+        N = n()-sum(is.na(.)),
+        Mean = mean(., na.rm = TRUE),
+        SD = sd(., na.rm = TRUE),
+        Min = min(., na.rm = TRUE),
+        Q1 = quantile(., p=.25, na.rm = TRUE),
+        Median = median(., na.rm = TRUE),
+        Q3 = quantile(., p=.75, na.rm = TRUE),
+        Max = max(., na.rm = TRUE),
+        Missing = sum_NA(.)
+      )
+      )
+    if (nc_num > 1) {
+      # suppress warnings if mixed logical and numerics
+      suppressWarnings ({
+        data_num = data_num %>%
+          tidyr::gather(key=results, value=value) %>%
+          tidyr::separate(col=results, sep='_(?=[^_]+$)', into=c('Variable', 'result')) %>%
+          tidyr::spread(result, value) %>%
+          select(Variable, N,  Mean, SD, Min, Q1, Median, Q3, Max, Missing)
+      })
+    }
+    if (digits) data_num = data_num %>% mutate_if(is.numeric, round, digits=digits)
+  } else {
+    data_num = message('No numeric data.')
+  }
+  data_num
+}
+
+#' @rdname describe_all
+#' @export
+describe_all_cat <- function(data, digits=2, NAcat_include=TRUE) {
+  assertthat::assert_that(any(class(data) %in% c('data.frame', 'data.table')))
+
+  nc_cat = data %>%
+    select_if(function(x) !is.numeric(x)) %>%
+    ncol()
+
+  if (nc_cat > 0) {
+    data_cat = data %>%
+      select_if(function(x) !is.numeric(x)) %>%
+      mutate_all(as.character)
+
+    cat_names = names(data_cat)
+    nlevs = data_cat %>%
+      purrr::map_int(function(x) if_else(all(is.na(x)), 0L,
+                                         if_else(NAcat_include, n_distinct(x), n_distinct(na.omit(x)))))
+
+    if (any(nlevs == 0)) warning(paste0(names(nlevs)[nlevs==0], ' have no category levels and will be dropped.\n'))
+
+    if (any(nlevs > 0)){
+      data_cat = data_cat %>%
+        select_if(nlevs > 0) %>%
+        purrr::map(function(x) data.frame(x=table(x, useNA = if_else(NAcat_include, 'ifany', 'no')),
+                                          y=prop.table(table(x, useNA = if_else(NAcat_include, 'ifany', 'no')))) %>%
+                     select(-y.x) %>%
+                     rename(Group=x.x,
+                            Frequency = x.Freq,
+                            perc=y.Freq) %>%
+                     mutate(perc = 100*round(perc, digits))
+        )
+
+      data_cat = data.frame(Variable=rep(cat_names, nlevs),
+                            suppressWarnings(bind_rows(data_cat)),
+                            stringsAsFactors=F) %>% # suppress coerce to char message
+        rename(`%` = perc)    # otherwise lose symbol on bind rows
+    } else {
+      data_cat = NULL
+    }
+  } else {
+    data_cat = message('No categorical data.')
+  }
+  data_cat
+}
+
+
+
+#' @rdname describe_all
+#' @export
+describeAll <- describe_all
+

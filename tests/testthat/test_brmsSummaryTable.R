@@ -28,7 +28,7 @@ test_that('brms_SummaryTable can panderize', {
 
 
 test_that('brms_SummaryTable can justify', {
-  # file.remove('brms_pander_output') # if you need to reset
+  # file.remove('brms_pander_output1') # if you need to reset
   expect_known_output(brms_SummaryTable(fit1, panderize = TRUE, justify = 'lrrrr'),
                       'brms_pander_output1',
                       print = TRUE)
@@ -36,6 +36,7 @@ test_that('brms_SummaryTable can justify', {
 
 
 test_that('brms_SummaryTable can justify with hype stars', {
+  # file.remove('brms_pander_output2') # if you need to reset
   expect_known_output(brms_SummaryTable(fit1, astrology = TRUE, hype = TRUE, panderize = TRUE, justify = 'lrrrrrrr'),
                       'brms_pander_output2',
                       print = TRUE)
@@ -44,6 +45,12 @@ test_that('brms_SummaryTable can justify with hype stars', {
 test_that('brms_SummaryTable can justify with just hype', {
   expect_known_output(brms_SummaryTable(fit1, astrology = FALSE, hype = TRUE, panderize = TRUE, justify = 'lrrrrrr'),
                       'brms_pander_output3',
+                      print = TRUE)
+})
+
+test_that('brms_SummaryTable can add justify with just astro', {
+  expect_known_output(brms_SummaryTable(fit1, astrology = TRUE, hype = FALSE, panderize = TRUE, justify = NULL),
+                      'brms_pander_output4',
                       print = TRUE)
 })
 
