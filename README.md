@@ -1,5 +1,5 @@
-lazerhawk <img src="man/img/lh_hex.png" align="right" width = 3600/>
-====================================================================
+lazerhawk <img src="man/img/lh_hex.png" align="right" width = 360/>
+===================================================================
 
 [![Build Status](https://travis-ci.org/m-clark/lazerhawk.svg?branch=master)](https://travis-ci.org/m-clark/lazerhawk) [![codecov](https://codecov.io/gh/m-clark/lazerhawk/branch/master/graph/badge.svg)](https://codecov.io/gh/m-clark/lazerhawk)
 
