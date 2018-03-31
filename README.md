@@ -3,7 +3,7 @@ lazerhawk <img src="man/img/lh_hex.png" align="right" width = 120/>
 
 [![Build Status](https://travis-ci.org/m-clark/lazerhawk.svg?branch=master)](https://travis-ci.org/m-clark/lazerhawk) [![codecov](https://codecov.io/gh/m-clark/lazerhawk/branch/master/graph/badge.svg)](https://codecov.io/gh/m-clark/lazerhawk)
 
-<img src="lh2_o.jpg" style="display:block; margin: 0 auto;" width='50%'>
+<img src="man/img/lh_hex.png" style="display:block; margin: 0 auto;" width='50%'>
 
 Package description
 -------------------
