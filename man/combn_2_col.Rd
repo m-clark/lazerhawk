@@ -24,6 +24,9 @@ combinations separated?}
 
 \item{sparse}{Return only the new indicators as a sparse matrix?}
 }
+\value{
+A data frame with the new indicator columns, or a sparse matrix of only the indicator columns.
+}
 \description{
 Convert a character or factor of multiple labels.
 }

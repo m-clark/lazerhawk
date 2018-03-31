@@ -1,5 +1,5 @@
-
 #' Combinations to columns
+#'
 #' @description Convert a character or factor of multiple labels.
 #'
 #' @param data The data frame in question.
@@ -43,7 +43,7 @@
 #'   parts, and requires nothing beyond what comes with a base R installation,
 #'   so it wins.
 #'
-#'
+#' @return A data frame with the new indicator columns, or a sparse matrix of only the indicator columns.
 #' @examples
 #' library(lazerhawk)
 #' d = data.frame(id = 1:4,

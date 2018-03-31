@@ -40,6 +40,9 @@ A function to create a correlation matrix. Useful, for example, in setting up si
 ### create_palette
 Create a palette including complementary, triadic, tetradic, etc. colors.
 
+### create_prediction_data
+Straightforward way to quickly create data to make model predictions.
+
 ### describe_all
 A summary function for mixed data types that provides the information I usually want.
 
@@ -80,6 +83,7 @@ For R Markdown files, inserts `<span class=''>`.
 
 ## Release Notes
 
+- 0.2.1 Add create_prediction_data
 - 0.2.0 Add combn_2_col, onehot, and extract_nlme_variances
 - 0.1.9 Extend num_by and rewrite describeAll
 - 0.1.8 Added num_by summary function and fixed issue #3
