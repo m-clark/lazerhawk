@@ -51,7 +51,6 @@ onehot <- function(data,
     f_c = colnames(data) %in% var
   }
 
-
   if (all(!f_c)) stop("You didn't supply variable names,
                       and none of the data is character or factor.
                       If you really meant to do this,
@@ -70,7 +69,6 @@ onehot <- function(data,
   You have supplied numeric variables.
   Attempts were made to keep the
   column names consistent, but you'll want to check.")
-
 
   # deal with NAs
   init_na = options('na.action')
@@ -94,16 +92,15 @@ onehot <- function(data,
   if (sparse) {
     l_names = names(res)
 
-        for (i in seq_along(res)) {
+    for (i in seq_along(res)) {
       dimnames(res[[i]])[2][[1]] = paste0(l_names[i], '_', dimnames(res[[i]])[2][[1]])
-        }
+    }
 
     res = do.call(cbind, res)
   } else {
     res = do.call(cbind, res)
     colnames(res) = gsub(colnames(res), pattern='.x|.X', replacement='_')
   }
-
 
   # return
   if (sparse) {
