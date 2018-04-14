@@ -70,7 +70,7 @@
 #'
 #'   \code{startPalette = list(c(59, 62, 70))}
 #'
-#'   The R code is based on the gist found here:
+#'   The R code is based on the gist by Kamil Slowikowski found here:
 #'   \href{https://gist.github.com/slowkow/22daea426607416bfcd573ce9cbd89ab}{link}.
 #'
 #' @references
@@ -127,7 +127,7 @@ colorgorical <- function(n = 10,
 
   retval <- httr::POST(url = 'http://vrl.cs.brown.edu/color/makePalette',
                        body = post_body) %>%
-    httr::content(retval)
+    httr::content()
 
   labs = sapply(retval$palette, unlist)
   if (output == 'lab') return(t(labs))

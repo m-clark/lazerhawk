@@ -93,7 +93,7 @@ This function accesses the colorgorical website to create a color
 
   \code{startPalette = list(c(59, 62, 70))}
 
-  The R code is based on the gist found here:
+  The R code is based on the gist by Kamil Slowikowski found here:
   \href{https://gist.github.com/slowkow/22daea426607416bfcd573ce9cbd89ab}{link}.
 }
 \examples{
