@@ -16,7 +16,7 @@
 #' createCorr(covs, diag=c(1,2,3))
 
 #' @export
-createCorr = function(x, diagonal=NULL){
+create_corr = function(x, diagonal=NULL){
   if(!is.numeric(x)) stop('x needs to be numeric.')
   if(any(is.na(x)))  stop('x cannot have missing values.')
 

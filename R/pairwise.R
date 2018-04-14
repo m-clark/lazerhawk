@@ -39,7 +39,7 @@ pairwise <- function(x, margin=2, fun) {
   pairlist = combn(1:nc, 2)
   lt = apply(pairlist, 2, function(pair) fun(x[,pair[1]], x[,pair[2]]))
   diagonal = sapply(1:nc, function(elem) fun(x[,elem], x[,elem]))
-  res = createCorr(lt, diagonal=diagonal)
+  res = create_corr(lt, diagonal=diagonal)
   colnames(res) = rownames(res) = cnames
 
   res

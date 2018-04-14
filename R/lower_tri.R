@@ -24,13 +24,13 @@
 #' library(lazerhawk)
 #' (m <- matrix(1:9, 3, 3, byrow=TRUE))
 #' lower.tri(m)
-#' lowerTri(m)
-#' lowerTri(m, diag=TRUE, otherVal=NA)
-#' lowerTri(m, valuesOnly=TRUE)
-#' upperTri(m, diag=TRUE, otherVal=NA)
+#' lower_tri(m)
+#' lower_tri(m, diag=TRUE, otherVal=NA)
+#' lower_tri(m, valuesOnly=TRUE)
+#' upper_tri(m, diag=TRUE, otherVal=NA)
 
 #' @export
-lowerTri = function(x, diag=FALSE, valuesOnly=FALSE, otherVal=0){
+lower_tri = function(x, diag=FALSE, valuesOnly=FALSE, otherVal=0){
   # initial checks
   if (!is.matrix(x)) stop('Need a matrix')
   if (dim(x)[1] != dim(x)[2]) stop('non-square matrix')
@@ -49,9 +49,13 @@ lowerTri = function(x, diag=FALSE, valuesOnly=FALSE, otherVal=0){
   }
 }
 
-#' @rdname lowerTri
+#' @rdname lower_tri
 #' @export
-upperTri = function(x, diag=FALSE, valuesOnly=FALSE, otherVal=0){
+lowerTri <- lower_tri
+
+#' @rdname lower_tri
+#' @export
+upper_tri = function(x, diag=FALSE, valuesOnly=FALSE, otherVal=0){
   # initial checks
   if (!is.matrix(x)) stop('Need a matrix')
   if (dim(x)[1] != dim(x)[2]) stop('non-square matrix')
@@ -70,3 +74,6 @@ upperTri = function(x, diag=FALSE, valuesOnly=FALSE, otherVal=0){
   }
 }
 
+#' @rdname lower_tri
+#' @export
+upperTri <- upper_tri
