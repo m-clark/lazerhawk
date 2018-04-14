@@ -21,7 +21,7 @@ This function takes the provided values and creates a symmetric (covariance) mat
 \examples{
 library(lazerhawk)
 cors = runif(6, -1, 1)
-createCorr(cors)
+create_corr(cors)
 covs = runif(3, 1, 5)
-createCorr(covs, diag=c(1,2,3))
+create_corr(covs, diag=c(1,2,3))
 }
