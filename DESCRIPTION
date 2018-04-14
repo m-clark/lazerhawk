@@ -22,9 +22,12 @@ Imports:
 Suggests:
     brms,
     broom,
+    colorspace,
     d3heatmap,
     ggplot2,
     graphics,
+    httr,
+    jsonlite,
     Matrix,
     nlme,
     pander,

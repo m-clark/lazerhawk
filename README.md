@@ -31,15 +31,19 @@ A function I use when creating reports for other people that involve models usin
 
 A quick summarize for categorical variables, possibly with dplyr::group\_by, that provides frequencies and percentages of categories.
 
+### colorgorical
+
+An interface for creating palettes from [colorgorical](http://vrl.cs.brown.edu/color/).
+
 ### combn\_2\_col
 
 Takes a column with multiple entries per cell and creates indicator columns of all possible combinations of the cell values up to m combinations.
 
-### createAdjacency, createEdges
+### create\_adjacency, create\_edges
 
 Create an adjacency matrix, or use one to create an edge list.
 
-### createCorr
+### create\_corr
 
 A function to create a correlation matrix. Useful, for example, in setting up simulations.
 
@@ -59,7 +63,7 @@ A summary function for mixed data types that provides the information I usually 
 
 A very specific function for extracting heterogenous variances from nlme output.
 
-### lowerTri, upperTri
+### lower\_tri, upper\_tri
 
 Return a triangular matrix, with some options on what specifically is returned.
 
@@ -101,6 +105,7 @@ For R Markdown files, inserts `<span class=''>`.
 Release Notes
 -------------
 
+-   0.2.2 Add colorgorical, convert names to snake case
 -   0.2.1 Add create\_prediction\_data
 -   0.2.0 Add combn\_2\_col, onehot, and extract\_nlme\_variances
 -   0.1.9 Extend num\_by and rewrite describeAll
