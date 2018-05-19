@@ -1,4 +1,4 @@
-#' @title num_summary
+#' @title Get numerical summaries
 #' @description Essentially a slight tweak to the base R summary.
 #'
 #' @param x A numeric or logical variable

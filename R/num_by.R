@@ -57,7 +57,10 @@
 #' cat_by(df1, main_var = dplyr::vars(g1,d), group_var = g2, perc_by_group=FALSE)
 #'
 #' @export
-num_by <- function(data, main_var, group_var, digits=FALSE) {
+num_by <- function(data,
+                   main_var,
+                   group_var,
+                   digits=FALSE) {
 
   # for future reference; the tryCatch was just to make it easy to pass a single
   # variable name in lieu of using vars().
@@ -166,7 +169,12 @@ num_by <- function(data, main_var, group_var, digits=FALSE) {
 #' @rdname num_by
 #' @export
 #'
-cat_by <- function(data, main_var, group_var, digits=FALSE, perc_by_group=TRUE, sort_by_group=TRUE) {
+cat_by <- function(data,
+                   main_var,
+                   group_var,
+                   digits=FALSE,
+                   perc_by_group=TRUE,
+                   sort_by_group=TRUE) {
   if (nrow(data)==0 | is.null(data)) stop('No data to summarise.')
 
   mv = enquo(main_var)
@@ -222,6 +230,7 @@ cat_by <- function(data, main_var, group_var, digits=FALSE, perc_by_group=TRUE, 
       summarise(N = n()) %>%     # Treat NA as a category -sum(is.na(!!mv))
       ungroup() %>%
       mutate(`% of Total` = 100*N/sum(N))
+
   }
   if (digits) data = data %>% mutate_if(is.numeric, round, digits=digits)
   data

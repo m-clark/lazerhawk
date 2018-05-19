@@ -2,7 +2,7 @@
 % Please edit documentation in R/num_summary.R
 \name{num_summary}
 \alias{num_summary}
-\title{num_summary}
+\title{Get numerical summaries}
 \usage{
 num_summary(x, digits = 1, extra = F)
 }

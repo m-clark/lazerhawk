@@ -2,7 +2,7 @@
 % Please edit documentation in R/colorgorical.R
 \name{colorgorical}
 \alias{colorgorical}
-\title{Colorgorical}
+\title{Create a colorgorical palette}
 \usage{
 colorgorical(n = 10, perceptualDifference = 0, nameDifference = 0,
   nameUniqueness = 0, pairPreference = 0, hueFilters = list(),
@@ -105,6 +105,6 @@ colorgorical(n=12, pairPreference = 1, startPalette = list(c(10, -60, 45)))
 \references{
 \href{http://vrl.cs.brown.edu/color/}{The colorgorical website}.
 
-\href{https://github.com/connorgr/colorgorical}{Original source code at
+\href{https://github.com/connorgr/colorgorical}{Original Python source code at
 GitHub}.
 }

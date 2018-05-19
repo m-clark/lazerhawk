@@ -1,4 +1,4 @@
-#' @title  Colorgorical
+#' @title  Create a colorgorical palette
 #' @description An interface for creating palettes from
 #'   \href{http://vrl.cs.brown.edu/color/}{colorgorical}.
 #'
@@ -77,7 +77,7 @@
 #'
 #' \href{http://vrl.cs.brown.edu/color/}{The colorgorical website}.
 #'
-#' \href{https://github.com/connorgr/colorgorical}{Original source code at
+#' \href{https://github.com/connorgr/colorgorical}{Original Python source code at
 #' GitHub}.
 #'
 #' @return A character vector of color values in hex form.
