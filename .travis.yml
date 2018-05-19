@@ -13,4 +13,6 @@ r_packages:
   - covr
 
 after_success:
-  - Rscript -e 'library(covr); codecov()'
+  - Rscript -e "library(covr); codecov(line_exclusions = list(\'R/brms_SummaryTable.R\'=67:70,
+                               \'R/addins.R\',
+                               \'R/colorgorical.R\'=113:139))"
