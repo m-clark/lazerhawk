@@ -1,7 +1,7 @@
 lazerhawk <img src="man/img/lh_hex.png" align="right" width = 360/>
 ===================================================================
 
-[![Build Status](https://travis-ci.org/m-clark/lazerhawk.svg?branch=master)](https://travis-ci.org/m-clark/lazerhawk) [![codecov](https://codecov.io/gh/m-clark/lazerhawk/branch/master/graph/badge.svg)](https://codecov.io/gh/m-clark/lazerhawk) <a href="" alt="Miscellaneous Shenanigans"> <img src="https://img.shields.io/badge/miscellaneous_shenanigans-constant-ff5500.svg?colorA=00aaff&longCache=true&style=for-the-badge"  width=50%/></a>
+[![Build Status](https://travis-ci.org/m-clark/lazerhawk.svg?branch=master)](https://travis-ci.org/m-clark/lazerhawk) [![codecov](https://codecov.io/gh/m-clark/lazerhawk/branch/master/graph/badge.svg)](https://codecov.io/gh/m-clark/lazerhawk) <a href="https://github.com/m-clark/lazerhawk" alt="Miscellaneous Shenanigans"> <img src="https://img.shields.io/badge/miscellaneous_shenanigans-constant-ff5500.svg?colorA=00aaff&longCache=true&style=for-the-badge"  width=10%/></a>
 
 <!-- [](https://img.shields.io/badge/misc_shenanigans-constant-ff5500.svg) -->
 <!-- https://github.com/badges/shields -->
