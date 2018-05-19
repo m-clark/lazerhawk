@@ -1,6 +1,6 @@
 context('test describe_all')
 
-
+set.seed(1234)
 df1 <- tibble(
   g1 = factor(sample(1:2, 50, replace = TRUE), labels=c('a','b')),
   g2 = sample(1:4, 50, replace = TRUE),
@@ -43,7 +43,7 @@ test_that('describe_all can handle empty categorical variables', {
 })
 
 test_that('describe_all can drop NA', {
-  expect_equal(nrow(describe_all(iris %>% rbind(NA), NAcat_include = T)[[2]]), 4)
+  expect_equal(nrow(describe_all(iris %>% rbind(NA), include_NAcat = T)[[2]]), 4)
 })
 
 
@@ -72,15 +72,30 @@ test_that('describe_all_cat fails if not a data frame', {
 })
 
 test_that('describe_all_cat returns message if no categorical', {
-  expect_message(describe_all_cat(df1 %>% select_if(is.numeric)))
+  expect_message(describe_all_cat(df1 %>% select(a, b)))
 })
 
 test_that('describe_all_cat returns warning if no levels', {
   expect_warning(describe_all_cat(df1 %>% select(g1) %>% filter(g1=='c')))
 })
 
+test_that('describe_all_cat can do different max_levels', {
+  expect_equal(nrow(describe_all_cat(df1, max_levels = 2)), 4)
+})
+
+test_that('describe_all_cat can do numeric', {
+  # including numeric should include variable g2 (4 levels)
+  expect_equal(nrow(describe_all_cat(df1, max_levels = 4, include_numeric = T)), 8)
+})
+
+test_that('describe_all_cat can sort result', {
+  init_sort = describe_all_cat(df1, max_levels = 10, include_numeric = T, sort_by_freq = T)
+  init_nosort = describe_all_cat(df1, max_levels = 10, include_numeric = T, sort_by_freq = F)
+  expect_false(identical(init_nosort, init_sort))
+})
+
 test_that('describe_all_cat can drop NA', {
-  expect_equal(nrow(describe_all_cat(iris %>% rbind(NA), NAcat_include = T)), 4)
+  expect_equal(nrow(describe_all_cat(iris %>% rbind(NA), include_NAcat = T)), 4)
 })
 
 

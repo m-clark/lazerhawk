@@ -1,13 +1,13 @@
 Package: lazerhawk
 Type: Package
 Title: Miscellaneous functions mostly inspired by synthwave
-Version: 0.2.1
+Version: 0.2.3
 Author: Michael Clark
 Maintainer: Michael Clark <micl@umich.edu>
 Description: This package has a few miscellaneous functions useful to me, and which might be useful to others. It will be added to over time.
 License: MIT + file LICENSE
 LazyData: TRUE
-URL: m-clark.github.io
+URL: github.com/m-clark/lazerhawk
 Year: 2018
 Depends:
     R (>= 3.4.0)

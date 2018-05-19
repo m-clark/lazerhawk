@@ -105,6 +105,7 @@ For R Markdown files, inserts `<span class=''>`.
 Release Notes
 -------------
 
+-   0.2.3 Added some options and streamlined describe\_all functions (e.g. issue \#10)
 -   0.2.2 Add colorgorical, convert names to snake case
 -   0.2.1 Add create\_prediction\_data
 -   0.2.0 Add combn\_2\_col, onehot, and extract\_nlme\_variances

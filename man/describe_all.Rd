@@ -7,21 +7,40 @@
 \alias{describeAll}
 \title{describe_all Describe your data cleanly and effectively}
 \usage{
-describe_all(data, digits = 2, NAcat_include = TRUE)
+describe_all(data, digits = 2, include_NAcat = TRUE, max_levels = 10,
+  include_numeric = FALSE, sort_by_freq = FALSE, NAcat_include = NULL,
+  ...)
 
-describe_all_num(data, digits = 2)
+describe_all_num(data, digits = 2, ...)
 
-describe_all_cat(data, digits = 2, NAcat_include = TRUE)
+describe_all_cat(data, digits = 2, include_NAcat = TRUE, max_levels = 10,
+  include_numeric = FALSE, sort_by_freq = FALSE)
 
-describeAll(data, digits = 2, NAcat_include = TRUE)
+describeAll(data, digits = 2, include_NAcat = TRUE, max_levels = 10,
+  include_numeric = FALSE, sort_by_freq = FALSE, NAcat_include = NULL,
+  ...)
 }
 \arguments{
 \item{data}{The dataset, of class data.frame.}
 
-\item{digits}{See \code{\link[base]{round}}.}
+\item{digits}{See \code{\link[base]{round}}. Default is 2, which for
+categorical is applied to the proportion (i.e. before converting to
+percentage).}
 
-\item{NAcat_include}{Include NA values as categorical levels? Default is
+\item{include_NAcat}{Include NA values as categorical levels? Default is
 TRUE.}
+
+\item{max_levels}{The maximum number of levels you want to display for
+categorical variables. Default is 10.}
+
+\item{include_numeric}{For categorical summary, also include numeric
+variables with fewer or equal max_levels? Default is FALSE.}
+
+\item{sort_by_freq}{Sort categorical result by frequency? Default is FALSE.}
+
+\item{NAcat_include}{Deprecated include_NAcat.}
+
+\item{...}{Additional arguments passed to \code{num_summary}}
 }
 \value{
 A list with two elements of summaries for numeric and other variables
@@ -32,11 +51,14 @@ Describe data sets with multiple variable types effectively.
 }
 \details{
 This function comes out of my frustrations from various data set
-  summaries either being inadequate for my needs, too 'busy' with output or
-  unable to deal well with mixed data types. Numeric data is treated entirely
-  separately, and provides the same information as in num_by.  Categorical
-  variables are summarized with frequencies and percentages. For empty
-  categorical variables (e.g. after a subset), a warning is thrown.
+  summaries either being inadequate for my needs, too 'busy' with output, or
+  unable to deal well with mixed data types. Numeric data is treated
+  separately from categorical, and provides the same information as in
+  \code{\link[lazerhawk]{num_summary}}. Categorical variables are defined as anything with equal or
+  fewer distinct values than \code{max_levels} combined with
+  \code{include_numeric}. Categorical variables are summarized with
+  frequencies and percentages. For empty categorical variables (e.g. after a
+  subset), a warning is thrown.
 
   The functions \code{describe_all_num} and  \code{describe_all_cat} will
   provide only numeric or only categorical data summaries respectively.
