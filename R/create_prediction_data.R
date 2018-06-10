@@ -42,6 +42,8 @@
 #' predict(test_mod, newdata = nd)
 #' @export
 create_prediction_data <- function(model_data, conditional_data = NULL, num=mean, cat='most_common', ...) {
+  .Deprecated('tidyext::create_prediction_data')
+
   if (cat == 'most_common') {
     catfun = function(x) {
       cx = class(x)

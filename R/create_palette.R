@@ -23,6 +23,9 @@
 #'
 #' @export
 create_palette <- function(colorhex, name=NULL, toHCL=FALSE, plot=FALSE, alpha=1) {
+
+  .Deprecated('visibly::create_palette')
+
   if (is.null(name)) name = colorhex
   if (!is.character(colorhex)) stop('color hex must be a character string of the form #ffffff or an R color name. Obviously.')
   if (alpha < 0 | alpha > 1) stop('alpha must be between 0 and 1.')

@@ -21,12 +21,14 @@
 #'
 #' @export
 sum_NA <- function(x) {
+  .Deprecated('tidyext::sum_NA')
   sum(is.na(x))
 }
 
 #' @rdname sum_NA
 #' @export
 sum_NaN <- function(x) {
+  .Deprecated('tidyext::sum_NaN')
   if(!is.numeric(x)) stop('x must potentially be a number in order to not be a number. ~ The Buddha')
   sum(is.nan(x))
 }
@@ -34,6 +36,7 @@ sum_NaN <- function(x) {
 #' @rdname sum_NA
 #' @export
 sum_blank <- function(x) {
+  .Deprecated('tidyext::sum_blank')
   sum(stringi::stri_trim_both(x)=='')
 }
 

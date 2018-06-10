@@ -30,6 +30,8 @@
 
 #' @export
 theme_trueMinimal = function(){
+  .Deprecated('visibly::theme_trueMinimal')
+
   ggplot2::theme(
     axis.text.x = ggplot2::element_text(colour='gray50'),
     axis.text.y = ggplot2::element_text(colour='gray50'),
@@ -47,6 +49,9 @@ theme_trueMinimal = function(){
 #' @rdname theme_trueMinimal
 #' @export
 theme_plotly = function(vis, MB=FALSE) {
+
+  .Deprecated('visibly::theme_plotly')
+
   if(! 'plotly' %in% class(vis))  stop('vis is not a plotly object.')
   vis = vis %>%
     plotly::layout(xaxis = list(zeroline=F,
@@ -66,6 +71,9 @@ theme_plotly = function(vis, MB=FALSE) {
 #' @rdname theme_trueMinimal
 #' @export
 theme_blank = function(vis, MB=FALSE) {
+
+  .Deprecated('visibly::theme_blank')
+
   if(! 'plotly' %in% class(vis))  stop('vis is not a plotly object.')
   a <- list(
     title = '',

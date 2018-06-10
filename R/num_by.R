@@ -62,6 +62,8 @@ num_by <- function(data,
                    group_var,
                    digits=FALSE) {
 
+  .Deprecated('tidyext::num_by')
+
   # for future reference; the tryCatch was just to make it easy to pass a single
   # variable name in lieu of using vars().
   # - summarise_* won't take single unquoted names nor is there a straightforward way to pass
@@ -175,6 +177,9 @@ cat_by <- function(data,
                    digits=FALSE,
                    perc_by_group=TRUE,
                    sort_by_group=TRUE) {
+
+  .Deprecated('tidyext::cat_by')
+
   if (nrow(data)==0 | is.null(data)) stop('No data to summarise.')
 
   mv = enquo(main_var)

@@ -12,37 +12,37 @@ df1 <- tibble(
 
 
 test_that('cat_by returns a data frame', {
-  expect_s3_class(cat_by(df1, main_var = g1), 'data.frame')
+  suppressWarnings(expect_s3_class(cat_by(df1, main_var = g1), 'data.frame'))
 })
 
 test_that('cat_by takes multiple main vars', {
-  expect_s3_class(cat_by(df1, main_var = vars(g1,d)), 'data.frame')
+  suppressWarnings(expect_s3_class(cat_by(df1, main_var = vars(g1,d)), 'data.frame'))
 })
 
 test_that('cat_by takes a group var', {
-  expect_s3_class(cat_by(df1, main_var = g1, group_var = g2), 'data.frame')
+  suppressWarnings(expect_s3_class(cat_by(df1, main_var = g1, group_var = g2), 'data.frame'))
 })
 
 test_that('cat_by takes multiple main_vars and a group var', {
-  expect_s3_class(cat_by(df1, main_var = vars(g1,d), group_var = g2), 'data.frame')
+  suppressWarnings(expect_s3_class(cat_by(df1, main_var = vars(g1,d), group_var = g2), 'data.frame'))
 })
 
 test_that('cat_by will take digits', {
-  expect_s3_class(cat_by(df1, main_var = g1, group_var = g2, digits=2), 'data.frame')
+  suppressWarnings(expect_s3_class(cat_by(df1, main_var = g1, group_var = g2, digits=2), 'data.frame'))
 })
 
 
 test_that('cat_by will do percentages out of total', {
-  cb1 = cat_by(df1, main_var = g1, group_var = g2, digits=2)
-  cb2 = cat_by(df1, main_var = g1, group_var = g2, perc_by_group=F, digits=2)
-  expect_false(identical(cb1, cb2))
+  cb1 = suppressWarnings(cat_by(df1, main_var = g1, group_var = g2, digits=2))
+  cb2 = suppressWarnings(cat_by(df1, main_var = g1, group_var = g2, perc_by_group=F, digits=2))
+  suppressWarnings(expect_false(identical(cb1, cb2)))
 })
 
 
 test_that('cat_by warns on numeric', {
-  expect_warning(cat_by(df1, main_var = g2))
+  suppressWarnings(expect_warning(cat_by(df1, main_var = g2)))
 })
 
 test_that('cat_by warns on too many levels', {
-  expect_warning(cat_by(df1, main_var = c))
+  suppressWarnings(expect_warning(cat_by(df1, main_var = c)))
 })

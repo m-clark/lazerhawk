@@ -100,6 +100,8 @@ colorgorical <- function(n = 10,
                          startPalette = list(),
                          output = 'HEX') {
 
+  .Deprecated('visibly::colorgorical')
+
   weights = c(perceptualDifference, nameDifference, nameUniqueness, pairPreference)
   lr = as.numeric(lightnessRange)
   output = tolower(output)  # to accept lowercase

@@ -17,6 +17,9 @@
 #' num_summary(c('1','2','3'))
 #' @export
 num_summary <- function(x, digits=1, extra=F) {
+
+  .Deprecated('tidyext::num_summary')
+
   # initial check of variable type
   test_x = tryCatch(as.numeric(x), warning = function(c) {
     msg <- conditionMessage(c)

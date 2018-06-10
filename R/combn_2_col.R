@@ -114,6 +114,9 @@ combn_2_col <- function(data,
                         collapse = '_',
                         toInteger=FALSE,
                         sparse=FALSE) {
+
+  .Deprecated('tidyext::combn_2_col')
+
   if (is.null(data) | is.null(var)) stop('Need data and variable name to continue.')
   if (max_m < 1) stop('Need positive value for max_m.')
 

@@ -61,6 +61,8 @@ describe_all <- function(data,
                          sort_by_freq = FALSE,
                          NAcat_include = NULL,
                          ...) {
+  .Deprecated('tidyext::describe_all')
+
   assertthat::assert_that(any(class(data) %in% c('data.frame', 'data.table')))
 
   if(!is.null(NAcat_include)) include_NAcat = NAcat_include
@@ -80,6 +82,8 @@ describe_all <- function(data,
 #' @rdname describe_all
 #' @export
 describe_all_num <- function(data, digits=2, ...) {
+  .Deprecated('tidyext::describe_all_num')
+
   assertthat::assert_that(any(class(data) %in% c('data.frame', 'data.table')))
 
   data_num = data %>%
@@ -109,6 +113,8 @@ describe_all_cat <- function(data,
                              max_levels = 10,
                              include_numeric = FALSE,
                              sort_by_freq = FALSE) {
+  .Deprecated('tidyext::describe_all_cat')
+
   assertthat::assert_that(any(class(data) %in% c('data.frame', 'data.table')))
 
   data_cat = data %>%

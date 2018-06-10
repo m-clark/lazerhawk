@@ -42,6 +42,9 @@ onehot <- function(data,
                    nas='na.pass',
                    sparse=FALSE,
                    keep.original=FALSE) {
+
+  .Deprecated('tidyext::onehot')
+
   if (!inherits(data,  'data.frame')) stop('Need a data frame.')
   if (sparse & keep.original==TRUE) message('Original data dropped when sparse is TRUE')
 

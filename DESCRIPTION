@@ -18,7 +18,8 @@ Imports:
     purrr,
     rlang,
     scales,
-    tidyselect
+    tidyselect,
+    devtools
 Suggests:
     brms,
     broom,

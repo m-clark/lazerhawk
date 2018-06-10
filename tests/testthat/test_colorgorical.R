@@ -53,23 +53,23 @@ y <- as(x, "LAB")
 # })
 
 test_that('colorgorical will fail with invalid weights', {
-  expect_error(colorgorical(n=4, pairPreference = 10))
+  suppressWarnings(expect_error(colorgorical(n=4, pairPreference = 10)))
 })
 
 test_that('colorgorical will fail with invalid lightnessRange', {
-  expect_error(colorgorical(n=4, lightnessRange = c('25', '101')))
+  suppressWarnings(expect_error(colorgorical(n=4, lightnessRange = c('25', '101'))))
 })
 
 test_that('colorgorical will fail with invalid output', {
-  expect_error(colorgorical(n=4, output = 'blah'))
+  suppressWarnings(expect_error(colorgorical(n=4, output = 'blah')))
 })
 
 test_that('colorgorical will fail if hueFilters not a list', {
-  expect_error(colorgorical(n=4, hueFilters = c(25,80)))
+  suppressWarnings(expect_error(colorgorical(n=4, hueFilters = c(25,80))))
 })
 
 test_that('colorgorical will fail if startPalette not a list', {
-  expect_error(colorgorical(n=4, startPalette =  '#ff5500'))
+  suppressWarnings(expect_error(colorgorical(n=4, startPalette =  '#ff5500')))
 })
 
 
