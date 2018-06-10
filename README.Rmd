@@ -37,17 +37,11 @@ devtools::install_github('m-clark/lazerhawk')
 ### brmsSummaryTable
 A function I use when creating reports for other people that involve models using the [brms](https://github.com/paul-buerkner/brms) package.
 
-### colorgorical
-An interface for creating palettes from [colorgorical](http://vrl.cs.brown.edu/color/).
-
 ### create_adjacency, create_edges
 Create an adjacency matrix, or use one to create an edge list.
 
 ### create_corr
 A function to create a correlation matrix. Useful, for example, in setting up simulations.
-
-### create_palette
-Create a palette including complementary, triadic, tetradic, etc. colors.
 
 ### extract_nlme_variances
 A very specific function for extracting heterogenous variances from nlme output.
@@ -57,9 +51,6 @@ Return a triangular matrix, with some options on what specifically is returned.
 
 ### pairwise
 Apply an arbitrary function to pairwise combinations of rows or columns.
-
-### theme_trueMinimal, theme_plotly
-Clean up your ggplot or plotly visualizations.
 
 ### update_github_pkgs
 Guess.
@@ -76,7 +67,7 @@ For R Markdown files, inserts `<span class=''>`.
 
 ## Release Notes
 
-- 0.3.0 Split off more tidy-oriented functions to tidyext package
+- 0.2.4 Split off more tidy-oriented functions to tidyext and visibly packages, add update_github_pkgs
 - 0.2.3 Added some options and streamlined describe_all functions (e.g. issue #10)
 - 0.2.2 Add colorgorical, convert names to snake case
 - 0.2.1 Add create_prediction_data

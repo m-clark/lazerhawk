@@ -1,7 +1,11 @@
 #' Update GitHub packages.
 #'
 #' @description Updates packages installed from GitHub.
-#' @details Updates packages installed from GitHub. Taken entirely from user
+#' @details Updates packages installed from GitHub. Rather, it re-installs
+#'   GitHub-only packages.  This is not quite as smooth a process as with CRAN,
+#'   but you'll get a note of \code{FALSE} for the package if it failed.
+#'
+#' Taken entirely from user
 #'   vh-d's response on
 #'   \href{https://stackoverflow.com/questions/32538052/update-all-packages-from-github}{StackOverflow}
 #'   with only a very slight modification.
@@ -25,7 +29,6 @@ update_github_pkgs <- function() {
   pkgs <- utils::installed.packages(fields = "RemoteType")
   github_pkgs <- pkgs[pkgs[, "RemoteType"] %in% "github", "Package"]
 
-  # print(github_pkgs)
   lapply(github_pkgs, function(pac) {
     message("Updating ", pac, " from GitHub...")
 

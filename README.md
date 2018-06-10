@@ -24,6 +24,12 @@ packages, and this was my first foray into that world. The package
 itself is not on CRAN but would pass CRAN checks. Feel free to note
 issues if you use it.
 
+It is currently undergoing quite a bit of change and many functions are
+deprecated, as they have been moved to
+[tidyext](https://github.com/m-clark/tidyext) and
+[visibly](https://github.com/m-clark/visibly). This package will be more
+of a grab-bag of odds and ends that don’t seem to fit elsewhere.
+
 I was listening to
 [Lazerhawk](http://lazerhawk.bandcamp.com/album/redline) at one point
 while creating it, hence the name, and which I can suggest is decent to
@@ -44,11 +50,6 @@ devtools::install_github('m-clark/lazerhawk')
 A function I use when creating reports for other people that involve
 models using the [brms](https://github.com/paul-buerkner/brms) package.
 
-### colorgorical
-
-An interface for creating palettes from
-[colorgorical](http://vrl.cs.brown.edu/color/).
-
 ### create\_adjacency, create\_edges
 
 Create an adjacency matrix, or use one to create an edge list.
@@ -57,11 +58,6 @@ Create an adjacency matrix, or use one to create an edge list.
 
 A function to create a correlation matrix. Useful, for example, in
 setting up simulations.
-
-### create\_palette
-
-Create a palette including complementary, triadic, tetradic, etc.
-colors.
 
 ### extract\_nlme\_variances
 
@@ -76,10 +72,6 @@ returned.
 ### pairwise
 
 Apply an arbitrary function to pairwise combinations of rows or columns.
-
-### theme\_trueMinimal, theme\_plotly
-
-Clean up your ggplot or plotly visualizations.
 
 ### update\_github\_pkgs
 
@@ -98,7 +90,8 @@ For R Markdown files, inserts `<span class=''>`.
 
 ## Release Notes
 
-  - 0.3.0 Split off more tidy-oriented functions to tidyext package
+  - 0.2.4 Split off more tidy-oriented functions to tidyext package, add
+    update\_github\_pkgs
   - 0.2.3 Added some options and streamlined describe\_all functions
     (e.g. issue \#10)
   - 0.2.2 Add colorgorical, convert names to snake case

@@ -29,7 +29,7 @@ For example the colortools and colorspace packages, \url{http://paletton.com/}, 
 palettes
 }
 \description{
-A list of commonly used palettes with some base color and including complementary, monochromatic, analagous, split_complementary, triadic, tetradic.  Otherwise, just ones I use e.g. colorbrewer, plotly or others of interest.
+A list of commonly used palettes with some base color and including complementary, monochromatic, analogous, split_complementary, triadic, tetradic.  Otherwise, just ones I use e.g. colorbrewer, plotly or others of interest.
 }
 \details{
 This is now deprecated and has moved to the \code{visibly} package (\link[visibly]{palettes}).
