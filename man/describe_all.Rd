@@ -8,17 +8,17 @@
 \title{describe_all Describe your data cleanly and effectively}
 \usage{
 describe_all(data, digits = 2, include_NAcat = TRUE, max_levels = 10,
-  include_numeric = FALSE, sort_by_freq = FALSE, NAcat_include = NULL,
-  ...)
+  include_numeric = FALSE, sort_by_freq = FALSE,
+  NAcat_include = NULL, ...)
 
 describe_all_num(data, digits = 2, ...)
 
-describe_all_cat(data, digits = 2, include_NAcat = TRUE, max_levels = 10,
-  include_numeric = FALSE, sort_by_freq = FALSE)
+describe_all_cat(data, digits = 2, include_NAcat = TRUE,
+  max_levels = 10, include_numeric = FALSE, sort_by_freq = FALSE)
 
 describeAll(data, digits = 2, include_NAcat = TRUE, max_levels = 10,
-  include_numeric = FALSE, sort_by_freq = FALSE, NAcat_include = NULL,
-  ...)
+  include_numeric = FALSE, sort_by_freq = FALSE,
+  NAcat_include = NULL, ...)
 }
 \arguments{
 \item{data}{The dataset, of class data.frame.}
@@ -48,6 +48,7 @@ A list with two elements of summaries for numeric and other variables
 }
 \description{
 Describe data sets with multiple variable types effectively.
+  Deprecated and moved to tidyext package.
 }
 \details{
 This function comes out of my frustrations from various data set
@@ -65,6 +66,7 @@ This function comes out of my frustrations from various data set
   \code{describeAll} is a deprecated alias.
 }
 \examples{
+\dontrun{
 library(lazerhawk); library(dplyr)
 X = data.frame(f1 =gl(2, 1, 20, labels=c('A', 'B')), f2=gl(2, 2, 20, labels=c('X', 'Q')))
 X = X \%>\% mutate(bin1 = rbinom(20, 1, p=.5),
@@ -75,6 +77,7 @@ X = X \%>\% mutate(bin1 = rbinom(20, 1, p=.5),
 describeAll(X)
 
 describeAll(data.frame(x=factor(1:7)), digits=5)
+}
 }
 \seealso{
 \code{\link[base]{summary}} \code{\link[lazerhawk]{num_by}}

@@ -31,6 +31,8 @@ data.frame/tibble with the corresponding summary statistics
 }
 \description{
 Provide common numeric summary information.
+
+Deprecated and moved to tidyext package.
 }
 \details{
 The \code{num_by} function takes a numeric variable from a dataframe
@@ -55,6 +57,7 @@ The \code{num_by} function takes a numeric variable from a dataframe
   \code{na.omit} or \code{dplyr::drop_na} on the data frame first.
 }
 \examples{
+\dontrun{
 df1 <- data.frame(g1 = factor(sample(1:2, 50, replace = TRUE), labels=c('a','b')),
                   g2 = sample(1:4, 50, replace = TRUE),
                   a = rnorm(50),
@@ -71,6 +74,7 @@ num_by(df1, main_var = dplyr::vars(a,b), group_var = g1, digits=1)
 
 cat_by(df1, main_var = g1, group_var = g2, digits=1)
 cat_by(df1, main_var = dplyr::vars(g1,d), group_var = g2, perc_by_group=FALSE)
+}
 
 }
 \seealso{

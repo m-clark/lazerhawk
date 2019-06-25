@@ -28,6 +28,8 @@ A data frame suitable for the newdata argument for predict functions.
 \description{
 Straightforward way to quickly create data to make model
   predictions.
+
+  Deprecated and moved to tidyext package.
 }
 \details{
 Given data that was used in a model, create data that can be used
@@ -45,6 +47,7 @@ Given data that was used in a model, create data that can be used
   as columns in the \code{conditional_data} are treated as above.
 }
 \examples{
+\dontrun{
 library(lazerhawk)
 create_prediction_data(iris)
 create_prediction_data(iris, num = median,
@@ -56,4 +59,5 @@ create_prediction_data(iris, num = median,
 test_mod = lm(mpg  ~ wt + cyl, mtcars)
 nd = create_prediction_data(test_mod$model)
 predict(test_mod, newdata = nd)
+}
 }

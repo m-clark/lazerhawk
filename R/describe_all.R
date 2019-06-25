@@ -1,6 +1,7 @@
 #' @title describe_all Describe your data cleanly and effectively
 #'
 #' @description Describe data sets with multiple variable types effectively.
+#'   Deprecated and moved to tidyext package.
 #'
 #' @param data The dataset, of class data.frame.
 #' @param digits See \code{\link[base]{round}}. Default is 2, which for
@@ -42,6 +43,7 @@
 #'   \code{\link[lazerhawk]{num_summary}}
 #'
 #' @examples
+#' \dontrun{
 #' library(lazerhawk); library(dplyr)
 #' X = data.frame(f1 =gl(2, 1, 20, labels=c('A', 'B')), f2=gl(2, 2, 20, labels=c('X', 'Q')))
 #' X = X %>% mutate(bin1 = rbinom(20, 1, p=.5),
@@ -52,6 +54,7 @@
 #' describeAll(X)
 #'
 #' describeAll(data.frame(x=factor(1:7)), digits=5)
+#' }
 #' @export
 describe_all <- function(data,
                          digits=2,

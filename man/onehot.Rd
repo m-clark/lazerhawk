@@ -30,6 +30,8 @@ A data.frame with the encoded variables, or a sparse matrix of only
 }
 \description{
 Add indicators for all desired variables in a data set.
+
+Deprecated and moved to tidyext package.
 }
 \details{
 This function is a simple one-hot encoder, with a couple options
@@ -40,6 +42,7 @@ This function is a simple one-hot encoder, with a couple options
   keep the original variable(s) as desired.
 }
 \examples{
+\dontrun{
 library(lazerhawk)
 str(onehot(iris, keep.original = TRUE))
 str(onehot(iris, sparse = TRUE))
@@ -49,6 +52,7 @@ iris2 = iris
 iris2[sample(1:150, 25),] = NA
 str(onehot(iris2))
 str(onehot(iris2, nas = 'na.omit'))
+}
 }
 \seealso{
 \code{\link[stats]{model.matrix}}

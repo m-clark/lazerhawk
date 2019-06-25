@@ -1,6 +1,8 @@
 #' @title Get numerical summaries
 #' @description Essentially a slight tweak to the base R summary.
 #'
+#' Deprecated and moved to tidyext package.
+#'
 #' @param x A numeric or logical variable
 #' @param digits Argument to \code{round}. Default is 1.
 #' @param extra Add things like number distinct, number of zeros, and more as I
@@ -13,8 +15,10 @@
 #' @return A data.frame containing those values.
 #' @importFrom stats na.omit
 #' @examples
+#' \dontrun{
 #' num_summary(c(1:10, NA))
 #' num_summary(c('1','2','3'))
+#' }
 #' @export
 num_summary <- function(x, digits=1, extra=F) {
 

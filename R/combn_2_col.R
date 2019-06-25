@@ -1,6 +1,6 @@
 #' Combinations to columns
 #'
-#' @description Convert a character or factor of multiple labels.
+#' @description Convert a character or factor of multiple labels.  Deprecated and moved to tidyext package.
 #'
 #' @param data The data frame in question.
 #' @param var The quoted name for the variable in question. The variable can be
@@ -45,6 +45,7 @@
 #'
 #' @return A data frame with the new indicator columns, or a sparse matrix of only the indicator columns.
 #' @examples
+#' \dontrun{
 #' library(lazerhawk)
 #' d = data.frame(id = 1:4,
 #'                labs = c('A/B', 'B/C/D/E', 'A/E', 'D/E'))
@@ -56,7 +57,6 @@
 #' d$labs =  c('Tom, Dick & Harriet', "J'Sean", "OBG, Andreas", NA)
 #' combn_2_col(data=d, var='labs', sep=',', max_m=2, collapse='-')
 #'
-#' \dontrun{
 #' # requires at least tidytext
 #' tidy_dtm <- function(data, var, sep='-', max_m=3) {
 #'   init = stringr::str_split(data[[var]], pattern = sep) # creates a list of separated letters

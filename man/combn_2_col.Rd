@@ -4,8 +4,8 @@
 \alias{combn_2_col}
 \title{Combinations to columns}
 \usage{
-combn_2_col(data, var, sep = "[^[:alnum:]]+", max_m = 1, collapse = "_",
-  toInteger = FALSE, sparse = FALSE)
+combn_2_col(data, var, sep = "[^[:alnum:]]+", max_m = 1,
+  collapse = "_", toInteger = FALSE, sparse = FALSE)
 }
 \arguments{
 \item{data}{The data frame in question.}
@@ -28,7 +28,7 @@ combinations separated?}
 A data frame with the new indicator columns, or a sparse matrix of only the indicator columns.
 }
 \description{
-Convert a character or factor of multiple labels.
+Convert a character or factor of multiple labels.  Deprecated and moved to tidyext package.
 }
 \details{
 This comes up every once in a while.  Someone has for whatever
@@ -63,6 +63,7 @@ This comes up every once in a while.  Someone has for whatever
   so it wins.
 }
 \examples{
+\dontrun{
 library(lazerhawk)
 d = data.frame(id = 1:4,
                labs = c('A/B', 'B/C/D/E', 'A/E', 'D/E'))
@@ -74,7 +75,6 @@ combn_2_col(data=d, var='labs', max_m=1)
 d$labs =  c('Tom, Dick & Harriet', "J'Sean", "OBG, Andreas", NA)
 combn_2_col(data=d, var='labs', sep=',', max_m=2, collapse='-')
 
-\dontrun{
 # requires at least tidytext
 tidy_dtm <- function(data, var, sep='-', max_m=3) {
   init = stringr::str_split(data[[var]], pattern = sep) # creates a list of separated letters

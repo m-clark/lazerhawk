@@ -3,6 +3,8 @@
 #' @description Uses colortools package (and possibly scales) to easily create a
 #'   color palette based on a initial input color.
 #'
+#'   Deprecated and moved to visibly package.
+#'
 #' @param colorhex  Hexadecimal value of color or an R color name.
 #' @param name optional name of color
 #' @param toHCL Convert colors to hcl. Defaults to \code{FALSE}.
@@ -18,9 +20,10 @@
 #' @importFrom scales col2hcl alpha
 #' @importFrom graphics layout mtext par
 #' @examples
+#' \dontrun{
 #' create_palette(colorhex = '#ff5500', name='orange')
 #' create_palette(colorhex = '#ff5500', name='orange', alpha=.5)
-#'
+#' }
 #' @export
 create_palette <- function(colorhex, name=NULL, toHCL=FALSE, plot=FALSE, alpha=1) {
 

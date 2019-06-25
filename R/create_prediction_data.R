@@ -3,6 +3,8 @@
 #' @description Straightforward way to quickly create data to make model
 #'   predictions.
 #'
+#'   Deprecated and moved to tidyext package.
+#'
 #' @param model_data The original data. Ideally this would come from a model
 #'   object.
 #' @param conditional_data A data.frame constructed from something like
@@ -29,6 +31,7 @@
 #' @return A data frame suitable for the newdata argument for predict functions.
 #'
 #' @examples
+#' \dontrun{
 #' library(lazerhawk)
 #' create_prediction_data(iris)
 #' create_prediction_data(iris, num = median,
@@ -40,6 +43,7 @@
 #' test_mod = lm(mpg  ~ wt + cyl, mtcars)
 #' nd = create_prediction_data(test_mod$model)
 #' predict(test_mod, newdata = nd)
+#' }
 #' @export
 create_prediction_data <- function(model_data, conditional_data = NULL, num=mean, cat='most_common', ...) {
   .Deprecated('tidyext::create_prediction_data')

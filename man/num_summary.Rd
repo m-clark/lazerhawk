@@ -19,6 +19,8 @@ A data.frame containing those values.
 }
 \description{
 Essentially a slight tweak to the base R summary.
+
+Deprecated and moved to tidyext package.
 }
 \details{
 Takes a numeric variable and provides sample size, mean, standard
@@ -27,6 +29,8 @@ Takes a numeric variable and provides sample size, mean, standard
   zeros.
 }
 \examples{
+\dontrun{
 num_summary(c(1:10, NA))
 num_summary(c('1','2','3'))
+}
 }

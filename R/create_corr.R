@@ -28,8 +28,8 @@ create_corr = function(x, diagonal=NULL){
   }
 
   mat = matrix(NA, nc, nc)
-  mat[lower.tri(mat)] = x
-  mat[upper.tri(mat)] = t(mat)[upper.tri(t(mat))]
+  mat[lower.tri(mat)] = mat[upper.tri(mat)] = x
+
   if(is.null(diagonal)){
     diag(mat) = 1
   } else {

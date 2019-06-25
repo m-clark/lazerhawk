@@ -1,5 +1,5 @@
 #' Investigate missingness
-#'
+#' @description  Deprecated and moved to tidyext package.
 #' @param x a vector with multiple elements
 #'
 #' @details These functions return the number of NA, NaN, or blank values in a
@@ -11,12 +11,13 @@
 #' @return The number of non-elements so defined
 #'
 #' @examples
+#' \dontrun{
 #' library(lazerhawk)
 #' sum_blank(c('    ', '', 'c', 'd'))
 #' sum_NA(c(NA, '', 'c', NA))
 #' sum_NaN(c(1:3, NA, NaN))
 #' sum_NA(1:4)
-#'
+#'}
 #'
 #'
 #' @export

@@ -38,6 +38,5 @@ update_github_pkgs <- function() {
     devtools::install_github(repo = paste0(username, "/", repo))
   })
 
-  data_frame(pkg = names(res),
-             update = res)
+  tibble(pkg = names(res), update = res)
 }

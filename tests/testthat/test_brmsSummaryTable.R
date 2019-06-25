@@ -37,7 +37,11 @@ test_that('brms_SummaryTable can justify', {
 
 test_that('brms_SummaryTable can justify with hype stars', {
   # file.remove('brms_pander_output2') # if you need to reset
-  expect_known_output(brms_SummaryTable(fit1, astrology = TRUE, hype = TRUE, panderize = TRUE, justify = 'lrrrrrrr'),
+  expect_known_output(brms_SummaryTable(fit1,
+                                        astrology = TRUE,
+                                        hype = TRUE,
+                                        panderize = TRUE,
+                                        justify = 'lrrrrrrr'),
                       'brms_pander_output2',
                       print = TRUE)
 })

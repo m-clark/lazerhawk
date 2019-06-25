@@ -2,6 +2,8 @@
 #'
 #' @description Clean up plots from their defaults.
 #'
+#' Deprecated and moved to visibly package.
+#'
 #' @param vis A plotly, or ggvis
 #' @param MB For plotly, an option to dispaly the mode bar. Defaults to FALSE.
 #' @details From a gray background, to unnecessary gridlines, to by-default
@@ -17,6 +19,7 @@
 #'   theme_blank, which is like theme_void for ggplot.
 #'
 #' @examples
+#' \dontrun{
 #' require(lazerhawk)
 #' require(ggplot2)
 #' data(mtcars)
@@ -25,6 +28,7 @@
 #' require(plotly)
 #' mtcars %>% plot_ly(x=~wt, y=~mpg, mode='markers') %>% theme_plotly()
 #' mtcars %>% plot_ly(x=~wt, y=~mpg, mode='markers') %>% theme_blank()
+#' }
 
 
 

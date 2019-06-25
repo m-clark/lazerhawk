@@ -1,5 +1,8 @@
 #' One-hot encoding
 #' @description  Add indicators for all desired variables in a data set.
+#'
+#' Deprecated and moved to tidyext package.
+#'
 #' @param data A data frame
 #' @param var A character string/vector of names to be encoded. If NULL, the
 #'   default, all character and factor variables will be encoded.
@@ -26,6 +29,7 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' library(lazerhawk)
 #' str(onehot(iris, keep.original = TRUE))
 #' str(onehot(iris, sparse = TRUE))
@@ -35,6 +39,7 @@
 #' iris2[sample(1:150, 25),] = NA
 #' str(onehot(iris2))
 #' str(onehot(iris2, nas = 'na.omit'))
+#' }
 
 
 onehot <- function(data,

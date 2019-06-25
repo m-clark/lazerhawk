@@ -24,13 +24,16 @@ A list of colors
 \description{
 Uses colortools package (and possibly scales) to easily create a
   color palette based on a initial input color.
+
+  Deprecated and moved to visibly package.
 }
 \details{
 Will return complementary, analogous/adjacent, split complementary,
   triadic, square and tetradic color values relative to the initial color. Note that if you want sequential, qualitative, diverging etc., other packages like \href{https://cran.rstudio.com/web/packages/colorspace/}{RColorBrewer}, \href{https://cran.rstudio.com/web/packages/colorspace/}{colorspace}, and \href{https://cran.rstudio.com/web/packages/colortools/}{colortools} will do that for you.
 }
 \examples{
+\dontrun{
 create_palette(colorhex = '#ff5500', name='orange')
 create_palette(colorhex = '#ff5500', name='orange', alpha=.5)
-
+}
 }

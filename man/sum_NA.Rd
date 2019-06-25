@@ -19,7 +19,7 @@ sum_blank(x)
 The number of non-elements so defined
 }
 \description{
-Investigate missingness
+Deprecated and moved to tidyext package.
 }
 \details{
 These functions return the number of NA, NaN, or blank values in a
@@ -29,12 +29,13 @@ These functions return the number of NA, NaN, or blank values in a
   stringi package is required.
 }
 \examples{
+\dontrun{
 library(lazerhawk)
 sum_blank(c('    ', '', 'c', 'd'))
 sum_NA(c(NA, '', 'c', NA))
 sum_NaN(c(1:3, NA, NaN))
 sum_NA(1:4)
-
+}
 
 
 }

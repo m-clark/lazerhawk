@@ -14,7 +14,7 @@ test_that('combn_2_col returns expected number of columns', {
 })
 
 test_that('combn_2_col handles factors, NAs, other separators', {
-  init = data_frame(id = 1:5,
+  init = data.frame(id = 1:5,
                     labs = factor(c('AB', 'B/C/D/E', 'A/E', 'D/E', NA)))
   suppressWarnings(expect_s3_class(combn_2_col(data=d, var='labs', sep='/', max_m=3), 'data.frame'))
 })
