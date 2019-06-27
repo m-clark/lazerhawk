@@ -32,17 +32,17 @@ insertImgCenterAddin <- function() {
 #' @rdname addins
 #' @export
 insertSpanAddin <- function() {
-  rstudioapi::insertText("<span class=\"\"></span>")
-}
-
-#' @rdname addins
-#' @export
-insertSlideAddin <- function() {
-  rstudioapi::insertText("Title\n========================================================")
+  rstudioapi::insertText("<span class=\"\" style = \"\"></span>")
 }
 
 #' @rdname addins
 #' @export
 insertLaTeXAddin <- function() {
   rstudioapi::insertText("$\\LaTeX$")
+}
+
+#' @rdname addins
+#' @export
+insertRoxyLinkAddin <- function() {
+  rstudioapi::insertText("\\code{\\link[package]{function}}")
 }
