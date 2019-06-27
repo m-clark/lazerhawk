@@ -8,7 +8,12 @@ Description: Inserts span for a certain class.
 Binding: insertSpanAddin
 Interactive: false
 
-Name: Insert slide
-Description: Inserts a slide in Rstudio presentations.
-Binding: insertSlide
+Name: Insert Roxygen link
+Description: Inserts a link used in documentation
+Binding: insertRoxyLinkAddin
+Interactive: false
+
+Name: Insert LaTeX name
+Description: Inserts the LaTeX of LaTeX
+Binding: insertLaTeXAddin
 Interactive: false

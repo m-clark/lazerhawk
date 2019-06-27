@@ -4,7 +4,7 @@ r:
 cache: packages
 latex: false
 sudo: false
-# pandoc_version: 1.16
+
 repos:
   CRAN: https://cloud.r-project.org
   ropensci: http://packages.ropensci.org
