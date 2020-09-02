@@ -4,9 +4,17 @@
 \alias{brms_SummaryTable}
 \title{Summarize brms-fit objects}
 \usage{
-brms_SummaryTable(model, formatOptions = list(digits = 2, nsmall = 2),
-  round = 2, astrology = FALSE, hype = FALSE, panderize = FALSE,
-  justify = NULL, seed = 1234, ...)
+brms_SummaryTable(
+  model,
+  formatOptions = list(digits = 2, nsmall = 2),
+  round = 2,
+  astrology = FALSE,
+  hype = FALSE,
+  panderize = FALSE,
+  justify = NULL,
+  seed = 1234,
+  ...
+)
 }
 \arguments{
 \item{model}{A brmsfit object}

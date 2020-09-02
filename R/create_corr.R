@@ -27,14 +27,17 @@ create_corr = function(x, diagonal=NULL){
     nc = length(diagonal)
   }
 
-  mat = matrix(NA, nc, nc)
-  mat[lower.tri(mat)] = mat[upper.tri(mat)] = x
+  mat = matrix(0, nc, nc)
 
-  if(is.null(diagonal)){
+  mat[lower.tri(mat)] = x
+  mat = mat + t(mat)
+
+  if (is.null(diagonal)) {
     diag(mat) = 1
   } else {
     diag(mat) = diagonal
   }
+
   mat
 }
 

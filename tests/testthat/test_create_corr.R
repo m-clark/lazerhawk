@@ -1,6 +1,6 @@
 context('test create_corr')
 
-cormat = create_corr(runif(3))
+cormat = create_corr(runif(6))
 
 test_that('Error returned for non-numeric input', {
   expect_error(create_corr(factor(1:3)))
@@ -21,6 +21,5 @@ test_that('create_corr returns matrix output', {
 })
 
 test_that('create_corr returns symmetric matrix', {
-  expect_equal(lower_tri(cormat, valuesOnly = T),
-               upper_tri(cormat, valuesOnly = T))
+  expect_true(isSymmetric(cormat))
 })

@@ -7,8 +7,7 @@
 \usage{
 create_adjacency(data, n1, n2, value = NULL, diagonal = NULL)
 
-create_edges(adjmat, zeroEdges = FALSE, symmetric = FALSE,
-  diag = FALSE)
+create_edges(adjmat, zeroEdges = FALSE, symmetric = FALSE, diag = FALSE)
 }
 \arguments{
 \item{data}{A data frame containing the nodes.}

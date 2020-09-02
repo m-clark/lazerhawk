@@ -15,20 +15,19 @@ Status](https://travis-ci.org/m-clark/lazerhawk.svg?branch=master)](https://trav
 ## Package description
 
 This package has a few miscellaneous functions useful to me, and which
-might be useful to others. It will be added to over time, and likely
-will have functions from all over the place as far as utility is
-concerned. Nothing extraordinarily unique is here at present, more or
-less tweaks/variations of available R functions that do almost what I
+might be useful to others. Nothing extraordinarily unique is here, more
+or less tweaks/variations of available R functions that do almost what I
 want, but not quite. Also, I wanted to learn more about building
 packages, and this was my first foray into that world. The package
 itself is not on CRAN but would pass CRAN checks. Feel free to note
 issues if you use it.
 
-It is currently undergoing quite a bit of change and many functions are
-deprecated, as they have been moved to
+This tended to serve as a staging ground for functions that eventually
+move to their own package. Many have been moved to
 [tidyext](https://github.com/m-clark/tidyext) and
-[visibly](https://github.com/m-clark/visibly). This package will be more
-of a grab-bag of odds and ends that don’t seem to fit elsewhere.
+[visibly](https://github.com/m-clark/visibly), and others. This package
+will be more of a grab-bag of odds and ends that don’t seem to fit
+elsewhere.
 
 I was listening to
 [Lazerhawk](http://lazerhawk.bandcamp.com/album/redline) at one point
@@ -59,11 +58,6 @@ Create an adjacency matrix, or use one to create an edge list.
 A function to create a correlation matrix. Useful, for example, in
 setting up simulations.
 
-### extract\_nlme\_variances
-
-A very specific function for extracting heterogenous variances from nlme
-output.
-
 ### lower\_tri, upper\_tri
 
 Return a triangular matrix, with some options on what specifically is
@@ -90,8 +84,9 @@ For R Markdown files, inserts `<span class=''>`.
 
 ## Release Notes
 
-  - 0.2.4 Split off more tidy-oriented functions to tidyext package, add
-    update\_github\_pkgs
+  - 0.3.0 Remove deprecated functions, fixed bug for create\_corr
+  - 0.2.4 Split off more tidy-oriented functions to tidyext and visibly
+    packages, add update\_github\_pkgs
   - 0.2.3 Added some options and streamlined describe\_all functions
     (e.g. issue \#10)
   - 0.2.2 Add colorgorical, convert names to snake case
