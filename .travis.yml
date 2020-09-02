@@ -15,6 +15,5 @@ r_packages:
   - covr
 
 after_success:
-  - Rscript -e "library(covr); codecov(line_exclusions = list('R/brms_SummaryTable.R'=67:70,
-                               'R/addins.R'),
+  - Rscript -e "library(covr); codecov(line_exclusions = list('R/brms_SummaryTable.R'=67:70, 'R/addins.R'),
         function_exclusions = list('update_github_pkgs')))"

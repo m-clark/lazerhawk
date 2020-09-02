@@ -10,7 +10,7 @@ LazyData: TRUE
 URL: github.com/m-clark/lazerhawk
 Year: 2020
 Depends:
-    R (>= 3.4.0)
+    R (>= 3.6.0)
 Imports:
     assertthat,
     dplyr,
